@@ -1,8 +1,17 @@
-html,body{
-    background-color: red;
-    color: red;
+body{
+   /* background: linear-gradient(70deg,#FEA9EB, #1DEDE0);*/
+
+width: 100vw;
+height: 100vh;
+background: linear-gradient(180deg, rgba(29, 237, 224, 0.2) 0%, rgba(29, 237, 224, 0) 100%), linear-gradient(105.4deg, #FEA9EB 9.39%, rgba(254, 169, 235, 0) 88.19%);
+
 }
 
-.login{
-    color: rgb(43, 226, 43);
+.blue_bubble{
+position: relative;
+left: 12vh;
+background: #2063E3;
+color: red;
+
 }
+
