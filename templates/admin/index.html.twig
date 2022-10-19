@@ -9,9 +9,9 @@
 </style>
     {{ include('base/nav.html.twig') }}
  <div>
-    {% for path in paths %}
-      <a href="{{path}}">{{path}}</a>
-    {% endfor %}
+ 
+    <a href="{{ path('admin_user') }}">user</a>
+    <a href="{{ path('admin_recipe') }}">recipe</a>
 </div>
 
 {% endblock %}

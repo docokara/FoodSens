@@ -10,31 +10,38 @@
 </style>
     {{ include('base/nav.html.twig') }}
  <div>
-
-{% set createPath = "admin_" ~ name ~ "_create" %}
+{% set keys = data[0]|keys %}
+{% set controllerName = app.request.requesturi|slice(7) %}
+{% set controllerPath = "admin_" ~ app.request.requesturi|slice(7)  %}
 <table>
-  {% for element in data %}
+<thead>
+<tr>
+{% for key in keys %}
+  <th>{{ key }}</th>
+   {% endfor %}
+   </tr>
+   </thead>
+   <tbody>
+  {% for key,element in data %}
     <tr>
       {% for info in element %}
         {% if info is iterable %}
-            {% for el in info %}
         <td>
+            {% for el in info %}
               {{el}}
-        </td>
             {% endfor %}
+        </td>
         {% else %}
           <td>{{info}}</td>
         {% endif %}
     {% endfor %}
-
-    {% for path in paths %}
-    {% set name = path|slice(11) %}
-     <td> <a href="{{ path(path, {"id": element.id}) }}">{{name}}</a></td>
-      {% endfor %}
-    </tr>
+     <td> <a href="{{ path(controllerPath ~ '_edit', {"id": element.id}) }}">edit</a></td>
+      <td> <a href="{{ path(controllerPath ~ '_delete', {"id": element.id}) }}">delete</a></td>
   {% endfor %}
+    </tr>
+  </tbody>
   </table>
-  <a href="{{ path(createPath) }}">Create</a>
+  <a href="{{ path(controllerPath ~ '_create') }}">Create</a>
 </div>
 
 {% endblock %}

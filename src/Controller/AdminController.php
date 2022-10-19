@@ -33,7 +33,6 @@ class AdminController extends AbstractController
         }
         if(!$isAdmin) return $this->redirectToRoute('app_home');
         return $this->render('admin/index.html.twig', [
-          "paths" => ['user','recipe']
         ]);
     }
     /**
@@ -42,10 +41,7 @@ class AdminController extends AbstractController
     public function user(UserRepository $users): Response
     {
         return $this->render('admin/form/index.html.twig', [
-            'data' => $users->findAll(),
-            'paths' => ["admin_user_edit","admin_user_delete"],
-            'name' => "user"
-
+            'data' => $users->findAll()
         ]);
     }
      /**
@@ -66,8 +62,6 @@ class AdminController extends AbstractController
         return $this->renderForm('admin/form/edit.html.twig', [
             'data' => $user,
             'form' => $form,
-            'name' => 'user',
-            'type' => 'create'
         ]);
     }
      /**
@@ -87,9 +81,6 @@ class AdminController extends AbstractController
         return $this->renderForm('admin/form/edit.html.twig', [
             'data' => $user,
             'form' => $form,
-            'name' => 'user',
-            'type' => 'edit'
-
         ]);
     }
      /**
@@ -100,7 +91,6 @@ class AdminController extends AbstractController
         $users->remove($user,true);
         return $this->render('admin/form/index.html.twig', [
             'data' => $users->findAll(),
-            'paths' => ["admin_user_edit","admin_user_delete"]
         ]);
     }
         /**
@@ -111,8 +101,6 @@ class AdminController extends AbstractController
         dump($recipes->findAll());
         return $this->render('admin/form/index.html.twig', [
             'data' => $recipes->findAll(),
-            'paths' => ["admin_recipe_edit","admin_recipe_delete"],
-            'name' => "recipe"
         ]);
     }
      /**
@@ -136,8 +124,6 @@ class AdminController extends AbstractController
 
         return $this->renderForm('admin/form/edit.html.twig', [
             'form' => $form,
-            'name' => 'user',
-            'type' => 'create'
         ]);
     }
     /**
@@ -157,8 +143,6 @@ class AdminController extends AbstractController
         return $this->renderForm('admin/form/edit.html.twig', [
             'data' => $recipe,
             'form' => $form,
-            'name' => 'user',
-            'type' => 'edit'
         ]);
     }
      /**
@@ -169,7 +153,6 @@ class AdminController extends AbstractController
         $recipes->remove($recipe,true);
         return $this->render('admin/form/index.html.twig', [
             'data' => $recipes->findAll(),
-            'paths' => ["admin_recipe_edit","admin_recipe_delete"]
         ]);
     }
 }
