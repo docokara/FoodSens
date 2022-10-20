@@ -1,5 +1,15 @@
-<div>
-<a href="{{ path('app_home')}}">home</a>
-<a href="{{ path('admin')}}">admin</a>
-</div>
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+<html>
+<body>
+
+    <a class"Title" href="{{ path('app_home')}}">Food Sens.</a>
+    <a href="{{ path('admin')}}" style="top:95%; font-size:3vh; ">admin</a>
+
+
+</html>
+</body>
+{% endblock %}
 
