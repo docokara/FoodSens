@@ -1,13 +1,16 @@
 {% extends 'base.html.twig' %}
 
+ {% block stylesheets %}
+            <link href="/css/nav.css" rel="stylesheet" type="text/css"/>
+        {% endblock %}
 
 {% block body %}
 <html>
 <body>
-
-    <a class"Title" href="{{ path('app_home')}}">Food Sens.</a>
-    <a href="{{ path('admin')}}" style="top:95%; font-size:3vh; ">admin</a>
-
+    <div class="Title">
+    <a href="{{ path('app_home')}}">Food Sens.</a>
+    <a class="admin"href="{{ path('admin')}}">admin</a>
+    </div>
 
 </html>
 </body>

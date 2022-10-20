@@ -1,0 +1,24 @@
+.Title a{
+    position: absolute;
+    width: 15vh;
+    height: auto;
+    left: 30%;
+    top: 2vh;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 5vh;
+    line-height: 84%;
+    text-align: center;
+    background: linear-gradient(180deg, #0FB4B4 0%, #14F0F0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 7.59281e-16px 12.4px 24.8px rgba(4, 43, 43, 0.24);
+   }
+
+.Title .admin{
+    position: absolute;
+    top: 95%;
+    font-size: 3vh;
+}
