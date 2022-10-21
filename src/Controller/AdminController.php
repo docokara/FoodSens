@@ -20,6 +20,7 @@ use App\Repository\IngredientRepository;
      */
 class AdminController extends AbstractController
 {
+    
     /**
      * @Route("/", name="admin")
      */
@@ -30,13 +31,12 @@ class AdminController extends AbstractController
         $roles = $this->getUser()->getRoles();
         
         foreach($roles as $role){
-            dump($role == 'admin');
             if($role == 'admin') $isAdmin = true;
         }
         
-        if(!$isAdmin) return $this->redirectToRoute('app_home');
+      //  if(!$isAdmin) return $this->redirectToRoute('app_home');
         return $this->render('admin/index.html.twig', [
-            "entity" => ["users","recipe","ingredient","ingredientCategorie","fridge"]
+            "entity" => ["users","recipes","ingredients","ingredientCategories"]
         ]);
     }
 
@@ -51,54 +51,102 @@ class AdminController extends AbstractController
         ]); 
     }
      /**
-     * @Route("/create", name="admin_create")
+     * @Route("/create/{name}", name="admin_create")
      */
-    public function create(Request $request,UserRepository $users) : Response
+    public function create($name,Request $request,UserRepository $users,RecipeRepository $recipes,IngredientRepository $ingredients,IngredientCategorieRepository $ingredientCategories): Response
     {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+       
+        $form = null;
+        $element = null;
+        if($name == "users") {
+            $element = new User();
+            $form = $this->createForm(UserType::class, $element);
+        }
+        if($name == "recipe") {
+            $element = new Recipe();
+            $form = $this->createForm(RecipeType::class, $element);
+        }
+        if($name == "ingredients") {
+            $element = new Ingredient();
+            $form = $this->createForm(IngredientType::class, $element);
+        }
+        if($name == "ingredientCategories") {
+            $element = new IngredientCategorie();
+            $form = $this->createForm(IngredientCategorieType::class, $element);
+        }
         $form->handleRequest($request); 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $users->add($user, true);
+            ${$name}->add($element, true);
 
             return $this->redirectToRoute('admin', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/form/edit.html.twig', [
-            'data' => $user,
+            'data' => $element,
             'form' => $form,
         ]);
     }
      /**
      * @Route("/edit/{id}/{name}", name="admin_edit")
      */
-    public function edit($name,$id,Request $request,UserRepository $users,User $user,RecipeRepository $recipes,Recipe $recipe,IngredientRepository $ingredient,IngredientCategorieRepository $ingredientCat,FridgeRepository $fridge): Response
+    public function edit($name,$id,Request $request,UserRepository $users,User $user,RecipeRepository $recipes,Recipe $recipe,IngredientRepository $ingredients,Ingredient $ingredient,IngredientCategorieRepository $ingredientCategories,IngredientCategorie $ingredientCategorie): Response
     {
         $form = null;
-        if($name == "users") $el = $this->createForm(UserType::class, $user);
-        $form = $this->createForm(UserType::class, $user);
+        $element = null;
+        if($name == "users") {
+            $form = $this->createForm(UserType::class, $user);
+            $element = $user;
+        }
+        if($name == "recipe") {
+            $form = $this->createForm(RecipeType::class, $recipe);
+            $element = $recipe;
+        }
+        if($name == "ingredients") {
+            $form = $this->createForm(IngredientType::class, $ingredient);
+            $element = $ingredient;
+        }
+        if($name == "ingredientCategories") {
+            $form = $this->createForm(IngredientCategorieType::class, $ingredientCategorie);
+            $element = $ingredientCategorie;
+        }
         $form->handleRequest($request); 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $users->add($user, true);
+            ${$name}->add($element, true);
 
             return $this->redirectToRoute('admin', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/form/edit.html.twig', [
-            'data' => $user,
+            'data' => $element,
             'form' => $form,
         ]);
     }
      /**
-     * @Route("/delete/{id}", name="admin_delete")
+     * @Route("/delete/{id}/{name}", name="admin_delete")
      */
-    public function delete(UserRepository $users,User $user): Response
+    public function delete($name,$id,Request $request,UserRepository $users,User $user,RecipeRepository $recipes,Recipe $recipe,IngredientRepository $ingredients,Ingredient $ingredient,IngredientCategorieRepository $ingredientCategories,IngredientCategorie $ingredientCategorie): Response
     {
-        $users->remove($user,true);
+        $element=null;
+
+        if($name == "users") {
+            $element = $user;
+        }
+        if($name == "recipe") {
+            $element = $recipe;
+        }
+        if($name == "ingredients") {
+            $element = $ingredient;
+        }
+        if($name == "ingredientCategories") {
+            $element = $ingredientCategorie;
+        }
+
+        ${$name}->remove($element,true);
+
         return $this->render('admin/form/index.html.twig', [
-            'data' => $users->findAll(),
+            'data' => ${$name}->findAll()
         ]);
     }
 }
