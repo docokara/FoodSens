@@ -10,13 +10,10 @@
 </style>
     {{ include('base/nav.html.twig') }}
  <div>
-{% set keys = data[0]|keys %}
-{% set controllerName = app.request.requesturi|slice(7) %}
-{% set controllerPath = "admin_" ~ app.request.requesturi|slice(7)  %}
 <table>
 <thead>
 <tr>
-{% for key in keys %}
+{% for key in data[0]|keys %}
   <th>{{ key }}</th>
    {% endfor %}
    </tr>
@@ -35,13 +32,14 @@
           <td>{{info}}</td>
         {% endif %}
     {% endfor %}
-     <td> <a href="{{ path(controllerPath ~ '_edit', {"id": element.id}) }}">edit</a></td>
-      <td> <a href="{{ path(controllerPath ~ '_delete', {"id": element.id}) }}">delete</a></td>
+    {{dump(data)}}
+     <td> <a href="{{ path('admin_edit', {"id": element.id}) }}">edit</a></td>
+      <td> <a href="{{ path('admin_delete', {"id": element.id}) }}">delete</a></td> 
   {% endfor %}
     </tr>
   </tbody>
   </table>
-  <a href="{{ path(controllerPath ~ '_create') }}">Create</a>
+  <a href="{{ path('admin_create') }}">Create</a> 
 </div>
 
 {% endblock %}

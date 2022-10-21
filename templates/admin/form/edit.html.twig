@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ name ~ type }}{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
-    <h1>{{ name ~ " " ~ type }}</h1>
+    <h1></h1>
     {{ include('base/nav.html.twig') }}
-    {{ include('admin/form/_form.html.twig', {'button_label': name == "update" ? "update" : "create"}) }}
+    {{ include('admin/form/_form.html.twig', {'button_label': "edit"}) }}
 
     <a href="{{ path('admin') }}">back to list</a>
 

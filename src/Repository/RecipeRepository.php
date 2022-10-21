@@ -54,7 +54,7 @@ class RecipeRepository extends ServiceEntityRepository
         FROM App\Entity\Recipe r');
         return $query->getResult();
     }
-   public function findAll()
+   public function finAll()
    {
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery(
