@@ -67,7 +67,7 @@
                         </div>
                         {% if app.user %}
                         <div class="logout">
-                            <p>Vous êtes connecté en tant que {{ app.user.userIdentifier }}</p><div class="logout_btn"> <a href="{{ path('app_logout') }}">Se Déconnecter</a></div>
+                            <p>Vous êtes connecté en tant que : </p>{{ app.user.userIdentifier }} <a href="{{ path('app_logout') }}"><button class="login">Se Déconnecter</button></a>
                         </div>
                         {% else %}
                         <div class="intro">Vous n'êtes pas connecté</div>

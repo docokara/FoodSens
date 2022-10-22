@@ -9,7 +9,7 @@
     <title>{% block title %}Se Connecter{% endblock %}</title>
         {% block stylesheets %}
             <link href="/css/login.css" rel="stylesheet" type="text/css"/>
-            <link href="/css/auth2.css" rel="stylesheet" type="text/css"/>
+            <link href="/css/auth1.css" rel="stylesheet" type="text/css"/>
             <link href="/css/style3.css" rel="stylesheet" type="text/css"/>
         {% endblock %}   
 </head>
@@ -63,11 +63,14 @@
                         {% endif %}
                    
                         <h1 class="h1">Formulaire de Connexion</h1>
-                        <label for="inputEmail">Email</label>
-                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus> <br>
-                        <label for="inputPassword">Mot de Passe</label>
-                        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
+                        <div style=" margin-bottom:1vh">
+                            <label for="inputEmail" style="margin-right:2.9vw;">Email</label>
+                            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus> <br>
+                        </div>
+                        <div style=" margin-bottom:1vh">
+                            <label for="inputPassword">Mot de Passe</label>
+                            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                        </div>
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                                 {#
                                     Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
@@ -80,8 +83,8 @@
                                     </div>
                                 #}
 
-                        <button class="btn btn-lg btn-primary" >Se Connecter</button>
-                        <button class="login" type="submit">Se Connecter</button>
+                        <button class="login" >Se Connecter</button>
+                      
                     </form>
                     </div>
                     </div>
