@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RecipeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -16,11 +18,6 @@ class Recipe
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $ingredients = [];
 
     /**
      * @ORM\Column(type="json")
@@ -58,25 +55,23 @@ class Recipe
     private $toltalTime;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToMany(targetEntity=Ingredient::class, inversedBy="recipes")
      */
-    private $author;
+    private $ingredients;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="recipes")
+     */
+    private $Author;
+
+    public function __construct()
+    {
+        $this->ingredients = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getIngredients(): ?array
-    {
-        return $this->ingredients;
-    }
-
-    public function setIngredients(array $ingredients): self
-    {
-        $this->ingredients = $ingredients;
-
-        return $this;
     }
 
     public function getTags(): ?array
@@ -163,14 +158,39 @@ class Recipe
         return $this;
     }
 
-    public function getAuthor(): ?string
+
+    /**
+     * @return Collection<int, ingredient>
+     */
+    public function getIngredients(): Collection
     {
-        return $this->author;
+        return $this->ingredients;
     }
 
-    public function setAuthor(string $author): self
+    public function addIngredient(ingredient $ingredient): self
     {
-        $this->author = $author;
+        if (!$this->ingredients->contains($ingredient)) {
+            $this->ingredients[] = $ingredient;
+        }
+
+        return $this;
+    }
+
+    public function removeIngredient(ingredient $ingredient): self
+    {
+        $this->ingredients->removeElement($ingredient);
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->Author;
+    }
+
+    public function setAuthor(?User $Author): self
+    {
+        $this->Author = $Author;
 
         return $this;
     }

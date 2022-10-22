@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -47,6 +49,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     
     private $isVerified = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Recipe::class, mappedBy="Author")
+     */
+    private $recipes;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Fridge::class, mappedBy="owner", cascade={"persist", "remove"})
+     */
+    private $fridge;
+
+    public function __construct()
+    {
+        $this->recipes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -157,6 +174,58 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Recipe>
+     */
+    public function getRecipes(): Collection
+    {
+        return $this->recipes;
+    }
+
+    public function addRecipe(Recipe $recipe): self
+    {
+        if (!$this->recipes->contains($recipe)) {
+            $this->recipes[] = $recipe;
+            $recipe->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipe(Recipe $recipe): self
+    {
+        if ($this->recipes->removeElement($recipe)) {
+            // set the owning side to null (unless already changed)
+            if ($recipe->getAuthor() === $this) {
+                $recipe->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getFridge(): ?Fridge
+    {
+        return $this->fridge;
+    }
+
+    public function setFridge(?Fridge $fridge): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($fridge === null && $this->fridge !== null) {
+            $this->fridge->setOwner(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($fridge !== null && $fridge->getOwner() !== $this) {
+            $fridge->setOwner($this);
+        }
+
+        $this->fridge = $fridge;
+
         return $this;
     }
 }
