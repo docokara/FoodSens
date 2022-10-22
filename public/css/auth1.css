@@ -1,6 +1,6 @@
 
 .intro{
-    font-size: 3vh;
+    font-size: 2.5vh;
     padding: 3vh;
 }
 .intro2{
@@ -12,7 +12,14 @@
 }
 
 /* LOGIN BOX*/
+.profile{
+    position: relative;
+    font-size: 4.5vh;
+    text-align: center;
+    padding-top: 2vh;
+}
 .login_box{
+    text-align: center;
     display: flex;
     padding-left: 4vw;
     
@@ -22,12 +29,19 @@
     border-radius: 10px;
     padding: 0.5vh 0.5vw;
     margin-right: 2vw;
+    background-color: transparent;
+    font-family: 'Poppins';
     
 }
 .login a{
     text-decoration: none;
     color: black;
     font-size: 1.5vh;
+}
+
+.login:hover{
+    color: white;
+    background-color: black;
 }
 
 /*LOG OUT BOX */

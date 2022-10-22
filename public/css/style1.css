@@ -5,9 +5,7 @@
    src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
        
  }
-*{
-   /*border: 1px solid red;*/
-}
+
 
 body{
    /* background: linear-gradient(70deg,#FEA9EB, #1DEDE0);*/
@@ -201,7 +199,15 @@ width: 50vw;
 height: 84vh;
 left: 18vw;
 background:rgba(255, 255, 255, 0.5);
-
-
 }
 
+/*MAIN 4*/
+.main4{
+    position: absolute;
+    width: 22vw;
+    height: 84vh;
+    left: 68vw;
+        
+    
+    }
+    

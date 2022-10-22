@@ -8,8 +8,8 @@
     <meta charset="UTF-8">
     <title>{% block title %}Food Sens{% endblock %}</title>
         {% block stylesheets %}
-            <link href="/css/style.css" rel="stylesheet" type="text/css"/>
-            <link href="/css/auth.css" rel="stylesheet" type="text/css"/>
+            <link href="/css/style1.css" rel="stylesheet" type="text/css"/>
+            <link href="/css/auth1.css" rel="stylesheet" type="text/css"/>
 
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,6 +56,14 @@
                 </div>
             </div>
                     <div class="main2">
+                     
+                    </div>
+
+
+                    <div class="main4">
+                        <div class="profile">
+                            Mon Profil
+                        </div>
                         {% if app.user %}
                         <div class="logout">
                             <p>Vous êtes connecté en tant que {{ app.user.userIdentifier }}</p><div class="logout_btn"> <a href="{{ path('app_logout') }}">Se Déconnecter</a></div>
@@ -64,11 +72,13 @@
                         <div class="intro">Vous n'êtes pas connecté</div>
                         <div class="intro2">Authentifiez vous dès maintenant !</div>
                         <div class="login_box">
-                            <div class="login"><a href="{{ path('app_login') }}">Se Connecter</a></div>
-                            <div class="login"><a href="{{ path('app_register') }}">S'Inscrire</a></div>
+                            <a href="{{ path('app_login') }}"><button class="login">Se Connecter</button></a>
+                           <a href="{{ path('app_register') }}"> <button class="login">S'Inscrire</button></a>
                         </div>
                         {% endif %}
                     </div>
+
+                   
         </div>
 
 </body>
