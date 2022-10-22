@@ -9,8 +9,8 @@
     <title>{% block title %}Se Connecter{% endblock %}</title>
         {% block stylesheets %}
             <link href="/css/login.css" rel="stylesheet" type="text/css"/>
-            <link href="/css/auth.css" rel="stylesheet" type="text/css"/>
-            <link href="/css/style1.css" rel="stylesheet" type="text/css"/>
+            <link href="/css/auth2.css" rel="stylesheet" type="text/css"/>
+            <link href="/css/style3.css" rel="stylesheet" type="text/css"/>
         {% endblock %}   
 </head>
 </html>
@@ -27,30 +27,36 @@
 
         <div class="main3">
             <div class="main1">
+              <div class="main1">
               {{ include('base/nav.html.twig') }}
                 <div class="menu">
-                    <button> 
-                            <img class="logo"src="/img/frigo.png"alt="Icone de réfrigérateur">
-                            Mon Frigo  
-                    </button>
+                    <a href=""><div class="menu_1"> 
+                            <img class="img" src="/img/Chef_Monochromatic.png"alt="Icone de cuisto">
+                            <p> Mon Frigo </p> 
+                    </div></a>
                    
-                    <button> 
-                        <img class="logo"src="/img/favorites.png"alt="Icone de réfrigérateur">
-                        Mes Favoris
-                    </button>
+                    <a href=""><div class="menu_1"> 
+                            <img class="img" src="/img/Like_Monochromatic.png"alt="Icone de cuisto">
+                            <p> Mes Favoris</p> 
+                    </div></a>
 
-                    <button> 
-                        <img class="logo"src="/img/loupe (2).png"alt="Icone de réfrigérateur">
-                        Chercher une recette
-                    </button>
-                    <button> 
-                        <img class="logo"src="/img/journal.png"alt="Icone de réfrigérateur">
-                        Recap Journalier
-                    </button>
+                    <a href=""><div class="menu_1"> 
+                            <img class="img" src="/img/Search_engine _Monochromatic.png"alt="Icone de cuisto">
+                            <p> Chercher une recette</p> 
+                    </div></a>
+
+                    <a href=""><div class="menu_1"> 
+                            <img class="img" src="/img/Finance_analytics _Monochromatic.png"alt="Icone de cuisto">
+                            <p>Recap Journalier</p> 
+                    </div></a>
                 </div>
             </div>
                 <div class="main2"> 
-                    <div class="login_form">
+                    
+                </div>
+
+                 <div class="main4">
+                        <div class="login_form">
                     <form method="post">
                         {% if error %}
                             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -58,7 +64,7 @@
                    
                         <h1 class="h1">Formulaire de Connexion</h1>
                         <label for="inputEmail">Email</label>
-                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus> <br>
                         <label for="inputPassword">Mot de Passe</label>
                         <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
@@ -74,10 +80,11 @@
                                     </div>
                                 #}
 
-                        <button class="btn btn-lg btn-primary" type="submit">Se Connecter</button>
+                        <button class="btn btn-lg btn-primary" >Se Connecter</button>
+                        <button class="login" type="submit">Se Connecter</button>
                     </form>
                     </div>
-                </div>
+                    </div>
         </div>
 {% endblock %}
 

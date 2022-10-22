@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>{% block title %}Food Sens{% endblock %}</title>
         {% block stylesheets %}
-            <link href="/css/style1.css" rel="stylesheet" type="text/css"/>
+            <link href="/css/style3.css" rel="stylesheet" type="text/css"/>
             <link href="/css/auth1.css" rel="stylesheet" type="text/css"/>
 
             <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,24 +35,25 @@
             <div class="main1">
               {{ include('base/nav.html.twig') }}
                 <div class="menu">
-                    <button> 
-                            <img class="logo"src="/img/frigo.png"alt="Icone de réfrigérateur">
-                            Mon Frigo  
-                    </button>
+                    <a href=""><div class="menu_1"> 
+                            <img class="img" src="/img/Chef_Monochromatic.png"alt="Icone de cuisto">
+                            <p> Mon Frigo </p> 
+                    </div></a>
                    
-                    <button> 
-                        <img class="logo"src="/img/favorites.png"alt="Icone de réfrigérateur">
-                        Mes Favoris
-                    </button>
+                    <a href=""><div class="menu_1"> 
+                            <img class="img" src="/img/Like_Monochromatic.png"alt="Icone de cuisto">
+                            <p> Mes Favoris</p> 
+                    </div></a>
 
-                    <button> 
-                        <img class="logo"src="/img/loupe (2).png"alt="Icone de réfrigérateur">
-                        Chercher une recette
-                    </button>
-                    <button> 
-                        <img class="logo"src="/img/journal.png"alt="Icone de réfrigérateur">
-                        Recap Journalier
-                    </button>
+                    <a href=""><div class="menu_1"> 
+                            <img class="img" src="/img/Search_engine _Monochromatic.png"alt="Icone de cuisto">
+                            <p> Chercher une recette</p> 
+                    </div></a>
+
+                    <a href=""><div class="menu_1"> 
+                            <img class="img" src="/img/Finance_analytics _Monochromatic.png"alt="Icone de cuisto">
+                            <p>Recap Journalier</p> 
+                    </div></a>
                 </div>
             </div>
                     <div class="main2">

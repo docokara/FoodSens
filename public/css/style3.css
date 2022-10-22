@@ -162,35 +162,45 @@ border-radius: 12px 0px 0px 12px;
 .main1 button{
    margin-bottom: 3vh;
 }
-.menu{
-   position: absolute;
-   top: 20vh;left: 1.5vw;
+.menu a{
+    text-decoration: none;
+     color: black;
+}
+.menu a:hover{
+    text-decoration: none;
+     color: #F3D42F;
 }
 
-.menu .child{
-width: 14vw;
-height: 3vh;
-font-family: 'Poppins';
-font-size: 2vh;
-color: #BFBFBF;
-padding: 1vh;
+.menu_1 {
+   
+    height: 16vh;
+    margin-top: 1vh ;
+}
+.menu{
 
-margin-bottom: 3vh;
-
-border: 2px solid #BFBFBF;
-border-radius: 12px;
+    position: relative;
+    top: 10vh;
+    
+}
+.menu_1 p{
+    position: relative;
+        text-align: center;
+        font-size: 2vh;
+}
+.menu_1 .img{
+    position: relative;
+    width: 13vh;
+    height: 13vh;
+    left: 6vw;
+    margin-bottom: -20px;
 }
 
 .menu .logo{
-width: 31px;
-height: 31px;
-float: left;
+    width: 31px;
+    height: 31px;
+    float: left;
 }
 
-
-
-
- 
 
 /*MAIN 2*/
 .main2{
