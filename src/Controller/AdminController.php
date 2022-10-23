@@ -2,20 +2,29 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\UserRepository;
+use App\Form\UserType;
+
 use App\Entity\Recipe;
 use App\Repository\RecipeRepository;
-use App\Form\UserType;
 use App\Form\RecipeType;
+
+use App\Repository\FridgeRepository;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use App\Entity\User;
-use App\Repository\FridgeRepository;
 use App\Repository\IngredientCategorieRepository;
+use App\Entity\IngredientCategorie;
+use App\Form\IngredientCategorieType;
 use App\Repository\IngredientRepository;
-    /**
+use App\Entity\Ingredient;
+use App\Form\IngredientType;
+use Doctrine\ORM\EntityManagerInterface ;
+
+/**
      * @Route("/admin")
      */
 class AdminController extends AbstractController
@@ -43,8 +52,9 @@ class AdminController extends AbstractController
     /**
      * @Route("/getAll/{name}", name="admin_getAll")
      */
-    public function getAll($name,UserRepository $users,RecipeRepository $recipe,IngredientRepository $ingredient,IngredientCategorieRepository $ingredientCat,FridgeRepository $fridge): Response
+    public function getAll($name,UserRepository $users,RecipeRepository $recipes,IngredientRepository $ingredients,IngredientCategorieRepository $ingredientCategories): Response
     {
+        dump($recipes->findAll());
         return $this->render('admin/form/index.html.twig', [
             'data' => ${$name}->findAll(),
             'name' => $name
@@ -62,7 +72,7 @@ class AdminController extends AbstractController
             $element = new User();
             $form = $this->createForm(UserType::class, $element);
         }
-        if($name == "recipe") {
+        if($name == "recipes") {
             $element = new Recipe();
             $form = $this->createForm(RecipeType::class, $element);
         }
@@ -90,25 +100,25 @@ class AdminController extends AbstractController
      /**
      * @Route("/edit/{id}/{name}", name="admin_edit")
      */
-    public function edit($name,$id,Request $request,UserRepository $users,User $user,RecipeRepository $recipes,Recipe $recipe,IngredientRepository $ingredients,Ingredient $ingredient,IngredientCategorieRepository $ingredientCategories,IngredientCategorie $ingredientCategorie): Response
+    public function edit($name,Request $request,UserRepository $users,User $user = null,Recipe $recipe = null,RecipeRepository $recipes,IngredientRepository $ingredients,Ingredient $ingredient = null,IngredientCategorieRepository $ingredientCategories,IngredientCategorie $ingredientCategorie = null): Response
     {
         $form = null;
         $element = null;
         if($name == "users") {
-            $form = $this->createForm(UserType::class, $user);
             $element = $user;
+            $form = $this->createForm(UserType::class, $element);
         }
-        if($name == "recipe") {
-            $form = $this->createForm(RecipeType::class, $recipe);
+        if($name == "recipes") {
             $element = $recipe;
+            $form = $this->createForm(RecipeType::class, $element);
         }
         if($name == "ingredients") {
-            $form = $this->createForm(IngredientType::class, $ingredient);
             $element = $ingredient;
+            $form = $this->createForm(IngredientType::class, $element);
         }
         if($name == "ingredientCategories") {
-            $form = $this->createForm(IngredientCategorieType::class, $ingredientCategorie);
             $element = $ingredientCategorie;
+            $form = $this->createForm(IngredientCategorieType::class, $element);
         }
         $form->handleRequest($request); 
 
@@ -126,14 +136,14 @@ class AdminController extends AbstractController
      /**
      * @Route("/delete/{id}/{name}", name="admin_delete")
      */
-    public function delete($name,$id,Request $request,UserRepository $users,User $user,RecipeRepository $recipes,Recipe $recipe,IngredientRepository $ingredients,Ingredient $ingredient,IngredientCategorieRepository $ingredientCategories,IngredientCategorie $ingredientCategorie): Response
+    public function delete($name,Request $request,UserRepository $users,User $user = null,Recipe $recipe = null,RecipeRepository $recipes,IngredientRepository $ingredients,Ingredient $ingredient = null,IngredientCategorieRepository $ingredientCategories,IngredientCategorie $ingredientCategorie = null): Response
     {
         $element=null;
-
         if($name == "users") {
             $element = $user;
         }
-        if($name == "recipe") {
+        if($name == "recipes") {
+            dump("rr");
             $element = $recipe;
         }
         if($name == "ingredients") {
@@ -146,7 +156,8 @@ class AdminController extends AbstractController
         ${$name}->remove($element,true);
 
         return $this->render('admin/form/index.html.twig', [
-            'data' => ${$name}->findAll()
+            'data' => ${$name}->findAll(),
+            'name' => $name
         ]);
     }
 }

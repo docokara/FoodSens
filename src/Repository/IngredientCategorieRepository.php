@@ -38,7 +38,12 @@ class IngredientCategorieRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+    public function findAll()
+   {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('SELECT i.id,i.name FROM App\Entity\IngredientCategorie i');
+        return $query->getResult();
+   }
 //    /**
 //     * @return IngredientCategorie[] Returns an array of IngredientCategorie objects
 //     */
