@@ -13,15 +13,19 @@
 <table>
 <thead>
 <tr>
+{% if data is empty %}
+Vide !
+{% else %}
 {% for key in data[0]|keys %}
   <th>{{ key }}</th>
    {% endfor %}
    </tr>
    </thead>
    <tbody>
-  {% for key,element in data %}
+  {% for element in data %}
     <tr>
       {% for info in element %}
+      
         {% if info is iterable %}
         <td>
             {% for el in info %}
@@ -32,11 +36,11 @@
           <td>{{info}}</td>
         {% endif %}
     {% endfor %}
-    
      <td> <a href="{{ path('admin_edit', {"id": element.id,"name" :   name }) }}">edit</a></td>
       <td> <a href="{{ path('admin_delete', {"id": element.id,"name" : name}) }}">delete</a></td> 
   {% endfor %}
     </tr>
+    {% endif %}
   </tbody>
   </table>
   <a href="{{ path('admin_create',{"name" :name }) }}">Create</a> 
