@@ -1,15 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Hello AdminController{% endblock %}
+{% block stylesheets %}
+            <link href="/css/style3.css" rel="stylesheet" type="text/css"/>
+            <link href="/css/auth1.css" rel="stylesheet" type="text/css"/>
+
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+{% endblock %} 
 
 {% block body %}
 
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-    {{ include('base/nav.html.twig') }}
- <div>
+<span class="white_bubble1"></span> <span class="white_bubble1_blur"></span>
+        <span class="white_bubble2"></span> <span class="white_bubble2_blur"></span>
+        <span class="white_bubble3"></span> <span class="white_bubble3_blur"></span>
+        <span class="blue_bubble"></span> <span class="blue_bubble_blur"></span>
+        <span class="blue_bubble"></span> <span class="blue_bubble_blur"></span>
+        <span class="yellow_bubble"></span> <span class="yellow_bubble_blur"></span>
+
+
+<div class="main3">
+            <div class="main1">
+              {{ include('base/nav.html.twig') }}
+                <div class="menu">
+                    <a href=""><div class="menu_1"> 
+                            <img class="img" src="/img/Chef_Monochromatic.png"alt="Icone de cuisto">
+                            <p> Mon Frigo </p> 
+                    </div></a>
+                   
+                    <a href=""><div class="menu_1"> 
+                            <img class="img" src="/img/Like_Monochromatic.png"alt="Icone de cuisto">
+                            <p> Mes Favoris</p> 
+                    </div></a>
+
+                    <a href=""><div class="menu_1"> 
+                            <img class="img" src="/img/Search_engine _Monochromatic.png"alt="Icone de cuisto">
+                            <p> Chercher une recette</p> 
+                    </div></a>
+
+                    <a href=""><div class="menu_1"> 
+                            <img class="img" src="/img/Finance_analytics _Monochromatic.png"alt="Icone de cuisto">
+                            <p>Recap Journalier</p> 
+                    </div></a>
+                </div>
+            </div>
+                    <div class="main2">
+                    <div>
 <table>
 <thead>
 <tr>
@@ -45,5 +80,34 @@ Vide !
   </table>
   <a href="{{ path('admin_create',{"name" :name }) }}">Create</a> 
 </div>
+                     
+                    </div>
 
+
+                    <div class="main4">
+                        <div class="profile">
+                            Mon Profil
+                        {% if app.user %}
+                        <div class="logout">
+                            <div class="logout_p">
+                                <p>Vous êtes connecté en tant que : </p>  {{ app.user.userIdentifier }}  
+                            </div>
+                            <div class="profile_picture">
+                            <img src="/img/photo_profil.png" >  <!-- Créer une vriable en BDD ! -->
+                            </div>
+                            <a href="{{ path('app_logout') }}"><button class="login">Se Déconnecter</button></a>
+                        </div>
+                        {% else %}
+                        <div class="intro">Vous n'êtes pas connecté</div>
+                        <div class="intro2">Authentifiez vous dès maintenant !</div>
+                        <div class="login_box">
+                            <a href="{{ path('app_login') }}"><button class="login">Se Connecter</button></a>
+                           <a href="{{ path('app_register') }}"> <button class="login">S'Inscrire</button></a>
+                        </div>
+                        {% endif %}
+                        </div>                   
+                    </div>                  
+        </div>
+</body>
+</html>
 {% endblock %}
