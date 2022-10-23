@@ -10,7 +10,7 @@
         {% block stylesheets %}
             <link href="/css/login.css" rel="stylesheet" type="text/css"/>
             <link href="/css/auth.css" rel="stylesheet" type="text/css"/>
-            <link href="/css/style.css" rel="stylesheet" type="text/css"/>
+            <link href="/css/style1.css" rel="stylesheet" type="text/css"/>
         {% endblock %}   
 </head>
 </html>
@@ -50,6 +50,10 @@
                 </div>
             </div>
                 <div class="main2">
+                  
+                </div>
+
+                <div class="main4">
                         {% for flash_error in app.flashes('verify_email_error') %}
                             <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
                         {% endfor %}
@@ -62,6 +66,9 @@
                     <button type="submit" class="btn">S'Inscrire</button>
                 {{ form_end(registrationForm) }}
                 </div>
+
+
+
             </div>
         </div>
 {% endblock %}

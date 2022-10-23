@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+@font-face {
+   font-family: "Poppins";
+   src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+       
+ }
+
+
+body{
+   /* background: linear-gradient(70deg,#FEA9EB, #1DEDE0);*/
+
+width: 100vw;
+max-width: fit-content;
+height: 100vh;
+background: linear-gradient(180deg, rgba(29, 237, 224, 0.2) 0%, rgba(29, 237, 224, 0) 100%), linear-gradient(107.44deg, #171C7D 24.96%, #4650F9 53.14%, rgba(56, 67, 255, 0) 106.64%);
+font-family: 'Poppins';
+
+}
+
+
+/*BUBBLES */
+.blue_bubble{
+   position: absolute;
+   width: 18vh;
+   height: 18vh;
+   left: 88vw;
+   top: 2vh;
+   border-radius: 50%;
+   background: #2063E3;
+   }
+
+.blue_bubble_blur{     
+   position: absolute;
+   width: 18vh;
+   height: 18vh;
+   left: 88vw;
+   top: 2vh;
+   border-radius: 50%;
+   box-shadow: inset 11.1333px -11.1333px 11.1333px rgba(185, 161, 35, 0.194), inset -11.1333px 11.1333px 11.1333px rgba(255, 255, 255, 0.194);
+   backdrop-filter: blur(20.4853px);
+   opacity: 0.7;
+}
+.yellow_bubble{
+   position: absolute;
+   width: 18vh;
+   height: 18vh;
+   left: 50vw;
+   top: 80vh;
+   border-radius: 50%;
+   background: #F3D42F;
+}
+.yellow_bubble_blur{
+   position: absolute;
+   width: 18vh;
+   height: 18vh;
+   left: 50vw;
+   top: 80vh;
+   border-radius: 50%;
+   box-shadow: inset 11.1333px -11.1333px 11.1333px rgba(185, 161, 35, 0.194), inset -11.1333px 11.1333px 11.1333px rgba(255, 255, 255, 0.194);
+   backdrop-filter: blur(20.4853px);
+}
+.white_bubble1{
+position: absolute;
+width: 10vh;
+height: 10vh;
+left: 7vw;
+top: 3vh;
+border-radius: 50%;
+background: #FFFFFF;
+}
+.white_bubble1_blur{
+position: absolute;
+width: 10vh;
+height: 10vh;
+left: 7vw;
+top: 3vh;
+border-radius: 50%;
+box-shadow: inset 9.2px -9.2px 9.2px rgba(194, 194, 194, 0.153), inset -9.2px 9.2px 9.2px rgba(255, 255, 255, 0.153);
+backdrop-filter: blur(6.256px);
+}
+.white_bubble2{
+position: absolute;
+width: 3vh;
+height: 3vh;
+left: 12vw;
+top: 2vh;
+border-radius: 50%;
+background: #FFFFFF;
+}
+.white_bubble2_blur{
+position: absolute;
+width: 3vh;
+height: 3vh;
+left: 12vw;
+top: 2vh;
+border-radius: 50%;
+box-shadow: inset 3.26667px -3.26667px 3.26667px rgba(194, 194, 194, 0.189), inset -3.26667px 3.26667px 3.26667px rgba(255, 255, 255, 0.189);
+backdrop-filter: blur(5.55333px);
+}
+.white_bubble3{
+position: absolute;
+width: 3vh;
+height: 3vh;
+left: 2vw;
+top: 94vh;
+border-radius: 50%;
+background: #FFFFFF;
+}
+.white_bubble3_blur{
+position: absolute;
+width: 3vh;
+height: 3vh;
+left: 2vw;
+top: 94vh;
+border-radius: 50%;
+box-shadow: inset 3.26667px -3.26667px 3.26667px rgba(194, 194, 194, 0.189), inset -3.26667px 3.26667px 3.26667px rgba(255, 255, 255, 0.189);
+backdrop-filter: blur(5.55333px);
+}
+/*END BUBBLES */
+
+/*MAIN 3*/
+.main3{
+position: absolute;
+width: 90vw;
+height: 84vh;
+left: 5vw;
+right: 5vw;
+top: 7vh;
+background: rgba(255, 255, 255, 0.3);
+opacity: 0.95;
+box-shadow: inset 83px -83px 83px rgba(194, 194, 194, 0.2), inset -83px 83px 83px rgba(255, 255, 255, 0.2);
+backdrop-filter: blur(100px);
+border-radius: 12px;
+}
+
+/*MAIN 1*/
+.main1{
+position: absolute;
+width: 18vw;
+height: 84vh;
+background: #FFFFFF;
+border-radius: 12px 0px 0px 12px;
+}
+
+
+
+.menu a{
+    text-decoration: none;
+     color: black;
+}
+.menu a:hover{
+    text-decoration: none;
+     color: #F3D42F;
+}
+
+.menu_1 {
+   
+    height: 16vh;
+    margin-top: 1vh ;
+}
+.menu{
+
+    position: relative;
+    top: 10vh;
+    
+}
+.menu_1 p{
+    position: relative;
+        text-align: center;
+        font-size: 2vh;
+}
+.menu_1 .img{
+    position: relative;
+    width: 13vh;
+    height: 13vh;
+    left: 6vw;
+    margin-bottom: -20px;
+}
+
+.menu .logo{
+    width: 31px;
+    height: 31px;
+    float: left;
+}
+
+
+/*MAIN 2*/
+.main2{
+position: absolute;
+width: 50vw;
+height: 84vh;
+left: 18vw;
+background:rgba(255, 255, 255, 0.5);
+}
+
+/*MAIN 4*/
+.main4{
+    position: absolute;
+    width: 22vw;
+    height: 84vh;
+    left: 68vw;
+        
+    font-size: 1.5vh;
+    }
+    

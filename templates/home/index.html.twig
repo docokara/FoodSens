@@ -8,12 +8,10 @@
     <meta charset="UTF-8">
     <title>{% block title %}Food Sens{% endblock %}</title>
         {% block stylesheets %}
-            <link href="/css/style.css" rel="stylesheet" type="text/css"/>
-            <link href="/css/auth.css" rel="stylesheet" type="text/css"/>
+            <link href="/css/style3.css" rel="stylesheet" type="text/css"/>
+            <link href="/css/auth1.css" rel="stylesheet" type="text/css"/>
 
             <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300display=swap" rel="stylesheet">
         {% endblock %}   
 </head>
 </html>
@@ -35,40 +33,61 @@
             <div class="main1">
               {{ include('base/nav.html.twig') }}
                 <div class="menu">
-                    <button> 
-                            <img class="logo"src="/img/frigo.png"alt="Icone de réfrigérateur">
-                            Mon Frigo  
-                    </button>
+                    <a href=""><div class="menu_1"> 
+                            <img class="img" src="/img/Chef_Monochromatic.png"alt="Icone de cuisto">
+                            <p> Mon Frigo </p> 
+                    </div></a>
                    
-                    <button> 
-                        <img class="logo"src="/img/favorites.png"alt="Icone de réfrigérateur">
-                        Mes Favoris
-                    </button>
+                    <a href=""><div class="menu_1"> 
+                            <img class="img" src="/img/Like_Monochromatic.png"alt="Icone de cuisto">
+                            <p> Mes Favoris</p> 
+                    </div></a>
 
-                    <button> 
-                        <img class="logo"src="/img/loupe (2).png"alt="Icone de réfrigérateur">
-                        Chercher une recette
-                    </button>
-                    <button> 
-                        <img class="logo"src="/img/journal.png"alt="Icone de réfrigérateur">
-                        Recap Journalier
-                    </button>
+                    <a href=""><div class="menu_1"> 
+                            <img class="img" src="/img/Search_engine _Monochromatic.png"alt="Icone de cuisto">
+                            <p> Chercher une recette</p> 
+                    </div></a>
+
+                    <a href=""><div class="menu_1"> 
+                            <img class="img" src="/img/Finance_analytics _Monochromatic.png"alt="Icone de cuisto">
+                            <p>Recap Journalier</p> 
+                    </div></a>
                 </div>
             </div>
                     <div class="main2">
+                     
+                    </div>
+
+
+                    <div class="main4">
+                        <div class="profile">
+                            Mon Profil
                         {% if app.user %}
                         <div class="logout">
-                            <p>Vous êtes connecté en tant que {{ app.user.userIdentifier }}</p><div class="logout_btn"> <a href="{{ path('app_logout') }}">Se Déconnecter</a></div>
+                            <div class="logout_p">
+                                <p>Vous êtes connecté en tant que : </p>  {{ app.user.userIdentifier }}  
+                            </div>
+                            <div class="profile_picture">
+                            <img src="/img/photo_profil.png" >  <!-- Créer une vriable en BDD ! -->
+                            </div>
+                            <a href="{{ path('app_logout') }}"><button class="login">Se Déconnecter</button></a>
                         </div>
                         {% else %}
                         <div class="intro">Vous n'êtes pas connecté</div>
                         <div class="intro2">Authentifiez vous dès maintenant !</div>
                         <div class="login_box">
-                            <div class="login"><a href="{{ path('app_login') }}">Se Connecter</a></div>
-                            <div class="login"><a href="{{ path('app_register') }}">S'Inscrire</a></div>
+                            <a href="{{ path('app_login') }}"><button class="login">Se Connecter</button></a>
+                           <a href="{{ path('app_register') }}"> <button class="login">S'Inscrire</button></a>
                         </div>
                         {% endif %}
+
+
+
+                        </div>
+                        
                     </div>
+
+                   
         </div>
 
 </body>

@@ -5,9 +5,7 @@
    src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
        
  }
-*{
-   /*border: 1px solid red;*/
-}
+
 
 body{
    /* background: linear-gradient(70deg,#FEA9EB, #1DEDE0);*/
@@ -15,8 +13,9 @@ body{
 width: 100vw;
 max-width: fit-content;
 height: 100vh;
-background: linear-gradient(180deg, rgba(29, 237, 224, 0.2) 0%, rgba(29, 237, 224, 0) 100%), linear-gradient(105.4deg, #FEA9EB 9.39%, rgba(254, 169, 235, 0) 88.19%);
+background: linear-gradient(180deg, rgba(29, 237, 224, 0.2) 0%, rgba(29, 237, 224, 0) 100%), linear-gradient(107.44deg, #171C7D 24.96%, #4650F9 53.14%, rgba(56, 67, 255, 0) 106.64%);
 font-family: 'Poppins';
+
 }
 
 
@@ -200,7 +199,15 @@ width: 50vw;
 height: 84vh;
 left: 18vw;
 background:rgba(255, 255, 255, 0.5);
-
-
 }
 
+/*MAIN 4*/
+.main4{
+    position: absolute;
+    width: 22vw;
+    height: 84vh;
+    left: 68vw;
+        
+    
+    }
+    
