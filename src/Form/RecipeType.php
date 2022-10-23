@@ -29,7 +29,7 @@ class RecipeType extends AbstractType
             ->add('difficulty')
             ->add('preptime')
             ->add('toltalTime')
-            ->add('author',EntityType::class,[
+            ->add('Author',EntityType::class,[
                 'class' => User::class,
                 'choice_label' => 'pseudo'
             ] )
