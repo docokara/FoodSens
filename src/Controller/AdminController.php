@@ -54,7 +54,6 @@ class AdminController extends AbstractController
      */
     public function getAll($name,UserRepository $users,RecipeRepository $recipes,IngredientRepository $ingredients,IngredientCategorieRepository $ingredientCategories): Response
     {
-        dump($recipes->findAll());
         return $this->render('admin/form/index.html.twig', [
             'data' => ${$name}->findAll(),
             'name' => $name
