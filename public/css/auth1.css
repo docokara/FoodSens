@@ -17,6 +17,7 @@
     font-size: 4.5vh;
     text-align: center;
     padding-top: 2vh;
+    
 }
 .login_box{
     text-align: center;
@@ -27,15 +28,19 @@
     border: 2px solid black;
     border-radius: 10px;
     padding: 0.5vh 0.5vw;
-    margin-right: 2vw;
     background-color: transparent;
-    font-family: 'Poppins';
-    
+    font-family: 'Poppins';  
 }
 .login a{
     text-decoration: none;
     color: black;
     font-size: 1.5vh;
+}
+.login_box button{
+   margin-right: 2vw;
+   width: 7vw;
+   height: 4vh;
+   font-size: 1.5vh;
 }
 
 .login:hover{
@@ -45,23 +50,45 @@
 
 /*LOG OUT BOX */
 .logout{
-    padding: 4vh;
-    display: flex;
     font-size: 2vh;
+    top: -2vh;
+    width: 100%;
 }
+
+
 
 .logout a{
     text-decoration: none;
+    position: relative;
     color: black;
+   
+    height: 5vh;
+    float: right;
+    margin-right: 1vw;
 }
-.logout p{
-    
+.logout button{
+    width: 8vw;
 }
-.logout_btn{
-    font-size: 1.5vh;
-    border: 2px solid black;
-    border-radius: 10px;
-    height: 2vh;
-    padding: 0.5vh;
-    margin-top: 10px;margin-left: 1.5vw;
+.logout_a{
+   position: relative; top: 8vh;left: -5vh;
+}
+.logout_p{
+    position: relative;
+   width: 100%;
+   
+}
+
+.profile_picture{
+    position: relative;
+    top: -5vh;left: -2vh;
+    height:7vh;
+    width: 7vh;
+    border-radius: 50%;
+    border: 1px solid black;
+    display: inline-block; 
+  }
+.profile_picture img{
+    height:7vh;
+    width: 7vh;
+    border-radius: 50%;
 }

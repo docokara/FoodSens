@@ -64,10 +64,15 @@
                     <div class="main4">
                         <div class="profile">
                             Mon Profil
-                        </div>
                         {% if app.user %}
                         <div class="logout">
-                            <p>Vous êtes connecté en tant que : </p>{{ app.user.userIdentifier }} <a href="{{ path('app_logout') }}"><button class="login">Se Déconnecter</button></a>
+                            <div class="logout_p">
+                                <p>Vous êtes connecté en tant que : </p>  {{ app.user.userIdentifier }}  
+                            </div>
+                            <div class="profile_picture">
+                            <img src="/img/photo_profil.png" >  <!-- Créer une vriable en BDD ! -->
+                            </div>
+                            <a href="{{ path('app_logout') }}"><button class="login">Se Déconnecter</button></a>
                         </div>
                         {% else %}
                         <div class="intro">Vous n'êtes pas connecté</div>
@@ -77,6 +82,11 @@
                            <a href="{{ path('app_register') }}"> <button class="login">S'Inscrire</button></a>
                         </div>
                         {% endif %}
+
+
+
+                        </div>
+                        
                     </div>
 
                    
