@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+   <html>
+   <body>
+    <h1>{{recipe.name}}</h1>
+    <img src="{{ asset('uploads/recipe/' ~ recipe.image) }}" class="card-img-top" alt="recipeimage" style="width : 300px">
+    <h2>{{recipe.steps}}</h2>
+   </body>
+   </html>
+
+{% endblock %}  
