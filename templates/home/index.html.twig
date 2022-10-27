@@ -39,7 +39,7 @@
                             <p> Mon Frigo </p> 
                     </div></a>
                    
-                    <a href=""><div class="menu_1"> 
+                    <a href="{{ path('app_myFav', {"id" : app.user.id }) }}"><div class="menu_1"> 
                             <img class="img" src="/img/Like_Monochromatic.png"alt="Icone de cuisto">
                             <p> Mes Favoris</p> 
                     </div></a>
@@ -72,6 +72,8 @@
                      {% endfor %}
                      {% elseif name == 'showRecipe' %}
                      {{ include('home/showRecipe.html.twig') }}
+                     {% elseif name == 'myFav' %}
+                       {{ include('home/myFav.html.twig') }}
                      {% endif %}
                     </div>
 
