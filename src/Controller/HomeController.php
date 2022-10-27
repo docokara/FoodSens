@@ -77,4 +77,15 @@ class HomeController extends AbstractController
             'name' => 'showRecipe'
         ]); 
     }
+    /**
+     * @Route("/myFav/{id}", name="app_myFav")
+     */
+    public function myFav(Request $request,User $user) : Response
+    {
+        
+        return $this->render('home/index.html.twig', [
+            'recipes' => $user->getFavories(),
+            'name' => 'myFav'
+        ]); 
+    }
 }
