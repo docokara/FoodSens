@@ -74,9 +74,15 @@ class Recipe
      */
     private $name;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="favories")
+     */
+    private $fav;
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
+        $this->fav = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -225,6 +231,30 @@ class Recipe
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getFav(): Collection
+    {
+        return $this->fav;
+    }
+
+    public function addFav(User $fav): self
+    {
+        if (!$this->fav->contains($fav)) {
+            $this->fav[] = $fav;
+        }
+
+        return $this;
+    }
+
+    public function removeFav(User $fav): self
+    {
+        $this->fav->removeElement($fav);
 
         return $this;
     }
