@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\AppCustomAuthentificatorAuthenticator;
-use App\Security\EmailVerifier;
+use App\Service\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
-use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
 class RegistrationController extends AbstractController
 {
     private $emailVerifier;
@@ -44,23 +44,17 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
-            $email = (new Email())
-            ->from('bastion@granger.com')
-            ->to('admin@admin.com')
-            ->subject('Please Confirm your Email')
-            ->text("sending");
-            try {
-                dump("ok");
-                $mailer->send($email);
-            } catch (\Throwable $th) {
-             dump($th);
-            }
-      
-            // $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,$email);
-            
             $entityManager->persist($user);
             $entityManager->flush();
+            dump($user->getId());
+            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            (new TemplatedEmail())
+                ->from(new Address('foodsens37000@gmail.com', 'Foodsens'))
+                ->to($user->getEmail())
+                ->subject('Please Confirm your Email')
+                ->htmlTemplate('registration/confirmation_email.html.twig')
+        );
+            
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,

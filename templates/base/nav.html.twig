@@ -9,7 +9,9 @@
 <body>
     <div class="Title">
     <a href="{{ path('app_home')}}">Food Sens</a>
+    {% if app.user and  'ROLE_ADMIN' in app.user.roles %}
     <a class="admin"href="{{ path('admin')}}">admin</a>
+    {% endif %}
     </div>
 
 </html>

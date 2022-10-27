@@ -55,7 +55,15 @@
                 </div>
             </div>
                     <div class="main2">
-                     
+                     {% for recipe in recipes %}
+                       <h1>{{recipe.name}}</h1>
+                       <h2> {{recipe.people}} </h2>
+                       <h2> {{recipe.budget}} </h2>
+                       <h2> {{recipe.difficulty}} </h2>
+                       <h2> {{recipe.preptime}}</h2>
+                         <h2> {{recipe.toltalTime}}</h2>
+                   {{dump(recipe|keys)}}
+                     {% endfor %}
                     </div>
 
 

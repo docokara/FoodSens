@@ -7,14 +7,23 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type as FormType;
-
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('email')
-            ->add('roles', FormType\CollectionType::class)
+            ->add('roles', ChoiceType::class, [
+                'choices'  => [
+                    'Admin' => 'ROLE_ADMIN',
+                    'default' => 'ROLE_USER',
+                    'Modo' => 'ROLE_MODO',
+                    'Blocked' => 'ROLE_BLOCKED'
+                ],
+                'multiple' => true,
+                'expanded' => true,
+            ])
             ->add('password')
             ->add('pseudo')
             ->add('isVerified')
