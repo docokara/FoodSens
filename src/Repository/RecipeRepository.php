@@ -58,6 +58,7 @@ class RecipeRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery(
         'SELECT 
+        r.name,
         r.id,
         r.tags,
         r.steps,
