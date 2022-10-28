@@ -8,9 +8,11 @@
     <meta charset="UTF-8">
     <title>{% block title %}S'Inscrire{% endblock %}</title>
         {% block stylesheets %}
-            <link href="/css/login.css" rel="stylesheet" type="text/css"/>
-            <link href="/css/auth.css" rel="stylesheet" type="text/css"/>
-            <link href="/css/style1.css" rel="stylesheet" type="text/css"/>
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+            <link href="/css/style3.css" rel="stylesheet" type="text/css"/>
+            <link href="/css/auth1.css" rel="stylesheet" type="text/css"/>
+
+            <link rel="preconnect" href="https://fonts.googleapis.com">
         {% endblock %}   
 </head>
 </html>
@@ -28,27 +30,7 @@
         <div class="main3">
             <div class="main1">
               {{ include('base/nav.html.twig') }}
-                <div class="menu">  
-                    <button> 
-                            <img class="logo"src="/img/frigo.png"alt="Icone de réfrigérateur">
-                            Mon Frigo  
-                    </button>
-                   
-                    <button> 
-                        <img class="logo"src="/img/favorites.png"alt="Icone de réfrigérateur">
-                        Mes Favoris
-                    </button>
-
-                    <button> 
-                        <img class="logo"src="/img/loupe (2).png"alt="Icone de réfrigérateur">
-                        Chercher une recette
-                    </button>
-                    <button> 
-                        <img class="logo"src="/img/journal.png"alt="Icone de réfrigérateur">
-                        Recap Journalier
-                    </button>
-                </div>
-            </div>
+          
                 <div class="main2">
                   
                 </div>
@@ -62,6 +44,7 @@
                 {{ form_start(registrationForm) }}
                     {{ form_row(registrationForm.email) }}
                     {{ form_row(registrationForm.plainPassword, {label: 'Mot de Passe'}) }}
+                    {{ form_row(registrationForm.pseudo)}}
                     {{ form_row(registrationForm.agreeTerms) }}
                     <button type="submit" class="btn">S'Inscrire</button>
                 {{ form_end(registrationForm) }}

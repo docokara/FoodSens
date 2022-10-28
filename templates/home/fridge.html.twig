@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+   <html>
+   <body>
+   {% if form is defined %}
+   {{ form_start(form) }}
+	{{ form_widget(form) }}
+	<button class="btn">Save</button>
+        {{ form_end(form) }}
+        {% else %}
+		{% for ingredient in ingredients %}
+            <h1>{{ ingredient }}</h1>
+        {% endfor %}
+		<a href="{{ path('app_addIngredient', {"id" : app.user.id }) }}" >Ajouter un élement au frigo ! </a>
+		{% endif %}
+	</body>
+   </html>
+
+{% endblock %}  

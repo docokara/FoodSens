@@ -4,90 +4,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <html lang="fr-FR">
-    <meta charset="UTF-8">
-    <title>{% block title %}Se Connecter{% endblock %}</title>
-        {% block stylesheets %}
-            <link href="/css/login.css" rel="stylesheet" type="text/css"/>
-            <link href="/css/auth1.css" rel="stylesheet" type="text/css"/>
-            <link href="/css/style3.css" rel="stylesheet" type="text/css"/>
-        {% endblock %}   
+	<html lang="fr-FR">
+	<meta charset="UTF-8">
+	<title>{% block title %}Se Connecter{% endblock %}</title>
+		{% block stylesheets %}
+			<link href="/css/login.css" rel="stylesheet" type="text/css"/>
+			<link href="/css/auth1.css" rel="stylesheet" type="text/css"/>
+			<link href="/css/style3.css" rel="stylesheet" type="text/css"/>
+		{% endblock %}   
 </head>
 </html>
 {% endblock %}
 
 {% block body %}
 
-        <span class="white_bubble1"></span> <span class="white_bubble1_blur"></span>
-        <span class="white_bubble2"></span> <span class="white_bubble2_blur"></span>
-        <span class="white_bubble3"></span> <span class="white_bubble3_blur"></span>
-        <span class="blue_bubble"></span> <span class="blue_bubble_blur"></span>
-        <span class="blue_bubble"></span> <span class="blue_bubble_blur"></span>
-        <span class="yellow_bubble"></span> <span class="yellow_bubble_blur"></span>
+		<span class="white_bubble1"></span> <span class="white_bubble1_blur"></span>
+		<span class="white_bubble2"></span> <span class="white_bubble2_blur"></span>
+		<span class="white_bubble3"></span> <span class="white_bubble3_blur"></span>
+		<span class="blue_bubble"></span> <span class="blue_bubble_blur"></span>
+		<span class="blue_bubble"></span> <span class="blue_bubble_blur"></span>
+		<span class="yellow_bubble"></span> <span class="yellow_bubble_blur"></span>
 
-        <div class="main3">
-            <div class="main1">
-              <div class="main1">
-              {{ include('base/nav.html.twig') }}
-                <div class="menu">
-                    <a href=""><div class="menu_1"> 
-                            <img class="img" src="/img/Chef_Monochromatic.png"alt="Icone de cuisto">
-                            <p> Mon Frigo </p> 
-                    </div></a>
-                   
-                    <a href=""><div class="menu_1"> 
-                            <img class="img" src="/img/Like_Monochromatic.png"alt="Icone de cuisto">
-                            <p> Mes Favoris</p> 
-                    </div></a>
+		<div class="main3">
+			<div class="main1">
+			  <div class="main1">
+			  {{ include('base/nav.html.twig') }}
+				<div class="main2"> 
+					
+				</div>
 
-                    <a href=""><div class="menu_1"> 
-                            <img class="img" src="/img/Search_engine _Monochromatic.png"alt="Icone de cuisto">
-                            <p> Chercher une recette</p> 
-                    </div></a>
+				 <div class="main4">
+						<div class="login_form">
+					<form method="post">
+						{% if error %}
+							<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+						{% endif %}
+				   
+						<h1 class="h1">Formulaire de Connexion</h1>
+						<div style=" margin-bottom:1vh">
+							<label for="inputEmail" style="margin-right:2.9vw;">Email</label>
+							<input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus> <br>
+						</div>
+						<div style=" margin-bottom:1vh">
+							<label for="inputPassword">Mot de Passe</label>
+							<input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+						</div>
+						<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+								{#
+									Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+									See https://symfony.com/doc/current/security/remember_me.html
 
-                    <a href=""><div class="menu_1"> 
-                            <img class="img" src="/img/Finance_analytics _Monochromatic.png"alt="Icone de cuisto">
-                            <p>Recap Journalier</p> 
-                    </div></a>
-                </div>
-            </div>
-                <div class="main2"> 
-                    
-                </div>
+									<div class="checkbox mb-3">
+										<label>
+											<input type="checkbox" name="_remember_me"> Remember me
+										</label>
+									</div>
+								#}
 
-                 <div class="main4">
-                        <div class="login_form">
-                    <form method="post">
-                        {% if error %}
-                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                        {% endif %}
-                   
-                        <h1 class="h1">Formulaire de Connexion</h1>
-                        <div style=" margin-bottom:1vh">
-                            <label for="inputEmail" style="margin-right:2.9vw;">Email</label>
-                            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus> <br>
-                        </div>
-                        <div style=" margin-bottom:1vh">
-                            <label for="inputPassword">Mot de Passe</label>
-                            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-                        </div>
-                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                                {#
-                                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-                                    See https://symfony.com/doc/current/security/remember_me.html
-
-                                    <div class="checkbox mb-3">
-                                        <label>
-                                            <input type="checkbox" name="_remember_me"> Remember me
-                                        </label>
-                                    </div>
-                                #}
-
-                        <button class="login" >Se Connecter</button>
-                      
-                    </form>
-                    </div>
-                    </div>
-        </div>
+						<button class="login" >Se Connecter</button>
+					  
+					</form>
+					</div>
+					</div>
+		</div>
 {% endblock %}
 

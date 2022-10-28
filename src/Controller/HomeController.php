@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Fridge;
 use App\Entity\Recipe;
 use App\Entity\User;
+use App\Form\FridgeType;
+use App\Repository\FridgeRepository;
 use App\Repository\RecipeRepository;
 use App\Repository\UserRepository;
 use phpDocumentor\Reflection\Types\Boolean;
@@ -50,7 +53,6 @@ class HomeController extends AbstractController
         $favs = null;
         if (!$this->getUser()) return $this->redirectToRoute('app_home');
         $favs = $this->getUser()->getFavories();
-        dump($favs[0]);
         $isLiking = true;
         $fav = $recipe->getFav();
         foreach($fav as $id){
@@ -86,6 +88,42 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'recipes' => $user->getFavories(),
             'name' => 'myFav'
+        ]); 
+    }
+
+     /**
+     * @Route("/myFridge/{id}", name="app_myFridge")
+     */
+    public function myFridge(Request $request,User $user) : Response
+    {
+        if (!$this->getUser()) return $this->redirectToRoute('app_home');
+        $fridge = $this->getUser()->getFridge();
+        return $this->render('home/index.html.twig', [
+            'ingredients' => $fridge->getIngredients(),
+            'name' => 'myFridge'
+        ]); 
+    }
+
+      /**
+     * @Route("/addIngredient/{id}", name="app_addIngredient")
+     */
+    public function addIngredients($id,Request $request,FridgeRepository $fridges,UserRepository $users,UserInterface $user = null,Fridge $fridge = null) : Response
+    {
+        if (!$this->getUser()) return $this->redirectToRoute('app_home');
+        $user = $this->getUser();
+        $fridge = $user->getFridge();
+        $form = $this->createForm(FridgeType::class, $fridge);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setFridge($fridge);
+            $users->add($user,true);
+            return $this->redirectToRoute('app_myFridge', ['id' => $id], Response::HTTP_SEE_OTHER);
+        }
+        return $this->render('home/index.html.twig', [
+            'form' => $form->createView(),
+            'ingredients' => $fridge->getIngredients(),
+            'name' => 'myFridge'
         ]); 
     }
 }

@@ -33,29 +33,7 @@
         <div class="main3">
             <div class="main1">
               {{ include('base/nav.html.twig') }}
-                <div class="menu">
-                    <a href=""><div class="menu_1"> 
-                            <img class="img" src="/img/Chef_Monochromatic.png"alt="Icone de cuisto">
-                            <p> Mon Frigo </p> 
-                    </div></a>
-                   {% if app.user %}
-                    <a href="{{ path('app_myFav', {"id" : app.user.id }) }}"><div class="menu_1"> 
-                    {% endif %}
-                            <img class="img" src="/img/Like_Monochromatic.png"alt="Icone de cuisto">
-                            <p> Mes Favoris</p> 
-                    </div></a>  
-
-                    <a href=""><div class="menu_1"> 
-                            <img class="img" src="/img/Search_engine _Monochromatic.png"alt="Icone de cuisto">
-                            <p> Chercher une recette</p> 
-                    </div></a>
-
-                    <a href=""><div class="menu_1"> 
-                            <img class="img" src="/img/Finance_analytics _Monochromatic.png"alt="Icone de cuisto">
-                            <p>Recap Journalier</p> 
-                    </div></a>
-                </div>
-            </div>
+               
                     <div class="main2">
                     {% if name == 'allRecipe' %}
                      {% for recipe in recipes %}
@@ -75,7 +53,10 @@
                      {{ include('home/showRecipe.html.twig') }}
                      {% elseif name == 'myFav' %}
                        {{ include('home/myFav.html.twig') }}
+                     {% elseif name == 'myFridge' %}
+                       {{ include('home/fridge.html.twig') }}
                      {% endif %}
+                     
                     </div>
 
 
