@@ -63,24 +63,24 @@ class AdminController extends AbstractController
      /**
      * @Route("/{name}/{id}", name="admin_update")
      */
-    public function update($name,$id = null,Request $request,UserRepository $users,User $user = null,Recipe $recipe = null,RecipeRepository $recipes,IngredientRepository $ingredients,Ingredient $ingredient = null,IngredientCategorieRepository $ingredientCategories,IngredientCategorie $ingredientCategorie = null,FileUploader $fileUploader): Response
+    public function update($name,$id,Request $request,UserRepository $users,User $user = null,Recipe $recipe = null,RecipeRepository $recipes,IngredientRepository $ingredients,Ingredient $ingredient = null,IngredientCategorieRepository $ingredientCategories,IngredientCategorie $ingredientCategorie = null,FileUploader $fileUploader): Response
     {
         $form = null;
         $element = null;
         if($name == "users") {
-            $element = $id != null ? $user : new User;
+            $element = $id != "UNDEFINED" ? $user : new User();
             $form = $this->createForm(UserType::class, $element);
         }
         if($name == "recipes") {
-            $element = $id  != null ? $recipe : new Recipe();
+            $element = $id != "UNDEFINED" ? $recipe : new Recipe();
             $form = $this->createForm(RecipeType::class, $element);
         }
         if($name == "ingredients") {
-            $element = $id  != null ? $ingredient : new Ingredient();
+            $element = $id != "UNDEFINED" ? $ingredient : new Ingredient();
             $form = $this->createForm(IngredientType::class, $element);
         }
         if($name == "ingredientCategories") {
-            $element = $id  != null ? $ingredientCategorie : new IngredientCategorie();
+            $element = $id  != "UNDEFINED" ? $ingredientCategorie : new IngredientCategorie();
             $form = $this->createForm(IngredientCategorieType::class, $element);
         }
         $form->handleRequest($request); 
