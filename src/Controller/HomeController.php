@@ -129,16 +129,23 @@ class HomeController extends AbstractController
       /**
      * @Route("/recipe/delete/{id}", name="app_recipe_delete")
      */
-    public function deleteRecipe($id,Request $request,FridgeRepository $fridges,UserRepository $users,UserInterface $user = null,Fridge $fridge = null) : Response
-    {
-    }
-      /**
-     * @Route("/recipe/update/{id}", name="app_recipe_edit")
-     */
-    public function modifyRecipe($id = "undefined",Request $request,UserInterface $user = null,Recipe $recipe = null,RecipeRepository $recipes) : Response
+    public function deleteRecipe($id,Request $request,UserRepository $users,UserInterface $user = null,Recipe $recipe,RecipeRepository $recipes) : Response
     {
         if (!$this->getUser()) return $this->redirectToRoute('app_home');
-        $recipe = $id == "undefined" ? new Recipe() : $recipe;
+        $recipes->remove($recipe,true);
+
+        return $this->render('home/index.html.twig', [
+            'recipes' => $recipes->findAll(),
+            'name' => 'allRecipe'
+        ]);
+    }
+
+     /**
+     * @Route("/recipe/edit/{id}", name="app_recipe_edit")
+     */
+    public function editRecipe(Request $request,UserInterface $user = null,Recipe $recipe,RecipeRepository $recipes) : Response
+    {
+        if (!$this->getUser()) return $this->redirectToRoute('app_home');
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
@@ -148,7 +155,28 @@ class HomeController extends AbstractController
         }
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes->findAll(),
-            'name' => 'modifyRecipe'
+            'name' => 'modifyRecipe',
+            'form' => $form->createView()
+        ]); 
+    }
+      /**
+     * @Route("/recipe/create", name="app_recipe_create")
+     */
+    public function modifyRecipe(Request $request,UserInterface $user = null,Recipe $recipe = null,RecipeRepository $recipes) : Response
+    {
+        if (!$this->getUser()) return $this->redirectToRoute('app_home');
+        $recipe = new Recipe();
+        $form = $this->createForm(RecipeType::class, $recipe);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $recipes->add($recipe,true);
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->render('home/index.html.twig', [
+            'recipes' => $recipes->findAll(),
+            'name' => 'modifyRecipe',
+            'form' => $form->createView()
         ]); 
     }
 }
