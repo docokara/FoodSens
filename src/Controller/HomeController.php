@@ -6,6 +6,7 @@ use App\Entity\Fridge;
 use App\Entity\Recipe;
 use App\Entity\User;
 use App\Form\FridgeType;
+use App\Form\RecipeType;
 use App\Repository\FridgeRepository;
 use App\Repository\RecipeRepository;
 use App\Repository\UserRepository;
@@ -28,7 +29,6 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'recipes' => $recipes->findAll(),
-            'favs' => $favs,
             'name' => 'allRecipe'
         ]);
     }
@@ -124,6 +124,31 @@ class HomeController extends AbstractController
             'form' => $form->createView(),
             'ingredients' => $fridge->getIngredients(),
             'name' => 'myFridge'
+        ]); 
+    }
+      /**
+     * @Route("/recipe/delete/{id}", name="app_recipe_delete")
+     */
+    public function deleteRecipe($id,Request $request,FridgeRepository $fridges,UserRepository $users,UserInterface $user = null,Fridge $fridge = null) : Response
+    {
+    }
+      /**
+     * @Route("/recipe/update/{id}", name="app_recipe_edit")
+     */
+    public function modifyRecipe($id = "undefined",Request $request,UserInterface $user = null,Recipe $recipe = null,RecipeRepository $recipes) : Response
+    {
+        if (!$this->getUser()) return $this->redirectToRoute('app_home');
+        $recipe = $id == "undefined" ? new Recipe() : $recipe;
+        $form = $this->createForm(RecipeType::class, $recipe);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $recipes->add($recipe,true);
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
+        return $this->render('home/index.html.twig', [
+            'recipes' => $recipes->findAll(),
+            'name' => 'modifyRecipe'
         ]); 
     }
 }

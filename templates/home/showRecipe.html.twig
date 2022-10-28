@@ -8,6 +8,7 @@
     <h1>{{recipe.name}}</h1>
     <img src="{{ asset('uploads/recipe/' ~ recipe.image) }}" class="card-img-top" alt="recipeimage" style="width : 300px">
     <h2>{{recipe.steps}}</h2>
+    <a href="{{ path('app_recipe_delete', {"id" : recipe.id }) }}">Supprimer</a>
    </body>
    </html>
 
