@@ -6,10 +6,7 @@
    <html>
    <body>
    {% if form is defined %}
-   {{ form_start(form) }}
-	{{ form_widget(form) }}
-	<button class="btn">Save</button>
-        {{ form_end(form) }}
+{{ include('base/_form.html.twig', {'button_label': "save"}) }}
         {% else %}
 		{% for ingredient in ingredients %}
             <h1>{{ ingredient }}</h1>

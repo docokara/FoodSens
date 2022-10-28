@@ -132,7 +132,6 @@ class HomeController extends AbstractController
     public function deleteRecipe($id,Request $request,UserRepository $users,UserInterface $user = null,Recipe $recipe,RecipeRepository $recipes) : Response
     {
         $user = $this->getUser();
-        dump($user->getId());
         if (!$this->getUser()) return $this->redirectToRoute('app_home');
         if ($user != $recipe->getAuthor() or (!in_array("ROLE_ADMIN", $user->getRoles()))) return $this->redirectToRoute('app_home');
         

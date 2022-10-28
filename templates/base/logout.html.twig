@@ -1,0 +1,9 @@
+ <div class="logout">
+                            <div class="logout_p">
+                                <p>Vous êtes connecté en tant que : </p>  {{ app.user.userIdentifier }}  
+                            </div>
+                            <div class="profile_picture">
+                            <img src="/img/photo_profil.png" >  <!-- Créer une vriable en BDD ! -->
+                            </div>
+                            <a href="{{ path('app_logout') }}"><button class="login">Se Déconnecter</button></a>
+                        </div>

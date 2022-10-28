@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20221028085954 extends AbstractMigration
+final class Version20221028214832 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -43,14 +43,14 @@ final class Version20221028085954 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE fridge DROP FOREIGN KEY FK_F2E94D897E3C61F9');
         $this->addSql('ALTER TABLE fridge_ingredient DROP FOREIGN KEY FK_44D72B8514A48E59');
         $this->addSql('ALTER TABLE fridge_ingredient DROP FOREIGN KEY FK_44D72B85933FE08C');
-        $this->addSql('ALTER TABLE ingredient DROP FOREIGN KEY FK_6BAF7870C54C8C93');
-        $this->addSql('ALTER TABLE recipe DROP FOREIGN KEY FK_DA88B137F675F31B');
-        $this->addSql('ALTER TABLE recipe_ingredient DROP FOREIGN KEY FK_22D1FE1359D8A214');
         $this->addSql('ALTER TABLE recipe_ingredient DROP FOREIGN KEY FK_22D1FE13933FE08C');
+        $this->addSql('ALTER TABLE ingredient DROP FOREIGN KEY FK_6BAF7870C54C8C93');
+        $this->addSql('ALTER TABLE recipe_ingredient DROP FOREIGN KEY FK_22D1FE1359D8A214');
         $this->addSql('ALTER TABLE recipe_user DROP FOREIGN KEY FK_F2888C9659D8A214');
+        $this->addSql('ALTER TABLE fridge DROP FOREIGN KEY FK_F2E94D897E3C61F9');
+        $this->addSql('ALTER TABLE recipe DROP FOREIGN KEY FK_DA88B137F675F31B');
         $this->addSql('ALTER TABLE recipe_user DROP FOREIGN KEY FK_F2888C96A76ED395');
         $this->addSql('DROP TABLE fridge');
         $this->addSql('DROP TABLE fridge_ingredient');

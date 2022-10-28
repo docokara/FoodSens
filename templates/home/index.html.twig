@@ -60,6 +60,8 @@
                        {{ include('home/fridge.html.twig') }}
                      {% elseif name == 'modifyRecipe' %}
                        {{ include('home/create.html.twig') }}
+                       {% else %}
+
                      {% endif %}
                      
                     </div>
@@ -69,15 +71,7 @@
                         <div class="profile">
                             Mon Profil
                         {% if app.user %}
-                        <div class="logout">
-                            <div class="logout_p">
-                                <p>Vous êtes connecté en tant que : </p>  {{ app.user.userIdentifier }}  
-                            </div>
-                            <div class="profile_picture">
-                            <img src="/img/photo_profil.png" >  <!-- Créer une vriable en BDD ! -->
-                            </div>
-                            <a href="{{ path('app_logout') }}"><button class="login">Se Déconnecter</button></a>
-                        </div>
+                       {{ include('base/logout.html.twig')}}
                         {% else %}
                         <div class="intro">Vous n'êtes pas connecté</div>
                         <div class="intro2">Authentifiez vous dès maintenant !</div>

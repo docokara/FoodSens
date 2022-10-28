@@ -3,8 +3,7 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-    <h1></h1>
-    {{ include('admin/form/_form.html.twig', {'button_label': "edit"}) }}
+    {{ include('base/_form.html.twig', {'button_label': "edit"}) }}
 
     <a href="{{ path('admin') }}">back to list</a>
 
