@@ -133,12 +133,12 @@ class HomeController extends AbstractController
     {
     }
       /**
-     * @Route("/recipe/update/{id}", name="app_recipe_edit")
+     * @Route("/recipe/create", name="app_recipe_create")
      */
-    public function modifyRecipe($id = "undefined",Request $request,UserInterface $user = null,Recipe $recipe = null,RecipeRepository $recipes) : Response
+    public function modifyRecipe(Request $request,UserInterface $user = null,Recipe $recipe = null,RecipeRepository $recipes) : Response
     {
         if (!$this->getUser()) return $this->redirectToRoute('app_home');
-        $recipe = $id == "undefined" ? new Recipe() : $recipe;
+        $recipe = new Recipe();
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
 
@@ -148,7 +148,8 @@ class HomeController extends AbstractController
         }
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes->findAll(),
-            'name' => 'modifyRecipe'
+            'name' => 'modifyRecipe',
+            'form' => $form->createView()
         ]); 
     }
 }
