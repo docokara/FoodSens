@@ -51,17 +51,19 @@ class HomeController extends AbstractController
     public function fav(Request $request,UserRepository $users ,RecipeRepository $recipes,Recipe $recipe,UserInterface $user = null): Response
     { 
         $favs = null;
-        if (!$this->getUser()) return $this->redirectToRoute('app_home');
-        $favs = $this->getUser()->getFavories();
         $isLiking = true;
+
+        if (!$this->getUser()) return $this->redirectToRoute('app_home');
+        
+        $favs = $this->getUser()->getFavories();
         $fav = $recipe->getFav();
         foreach($fav as $id){
             if($id == $user){ 
             $isLiking = false;
             }
         }
-        $recipe->addFav($user); 
         if(!$isLiking) $recipe->removeFav($user);
+        else $recipe->addFav($user); 
         $recipes->add($recipe,true);
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes->findAll(),

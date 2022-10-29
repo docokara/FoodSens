@@ -87,7 +87,7 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-          if($name == "recipes"){ 
+          if($name == "recipes" | $name == "ingredients"){ 
             $file = $form->get('photo')->getData();
             if ($file) {
                 $FileName = $fileUploader->upload($file);
