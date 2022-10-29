@@ -24,6 +24,8 @@ use App\Entity\Ingredient;
 use App\Form\IngredientType;
 use Doctrine\ORM\EntityManagerInterface ;
 use App\Service\FileUploader;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
 /**
  * @Route("/admin"), IsGranted('USER_ADMIN')
  *
@@ -63,7 +65,7 @@ class AdminController extends AbstractController
      /**
      * @Route("/{name}/{id}", name="admin_update")
      */
-    public function update($name,$id,Request $request,UserRepository $users,User $user = null,Recipe $recipe = null,RecipeRepository $recipes,IngredientRepository $ingredients,Ingredient $ingredient = null,IngredientCategorieRepository $ingredientCategories,IngredientCategorie $ingredientCategorie = null,FileUploader $fileUploader): Response
+    public function update($name,$id,Request $request,UserRepository $users,User $user = null,Recipe $recipe = null,RecipeRepository $recipes,IngredientRepository $ingredients,Ingredient $ingredient = null,IngredientCategorieRepository $ingredientCategories,IngredientCategorie $ingredientCategorie = null,FileUploader $fileUploader,UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $form = null;
         $element = null;
@@ -86,7 +88,14 @@ class AdminController extends AbstractController
         $form->handleRequest($request); 
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            if($name == "users") {
+                $element->setPassword(
+                    $userPasswordHasher->hashPassword(
+                            $user,
+                            $form->get('password')->getData()
+                        )
+                    );
+            } 
           if($name == "recipes" | $name == "ingredients"){ 
             $file = $form->get('photo')->getData();
             if ($file) {

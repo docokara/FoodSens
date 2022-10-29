@@ -9,7 +9,7 @@
 {{ include('base/_form.html.twig', {'button_label': "save"}) }}
         {% else %}
 		{% for ingredient in ingredients %}
-        <img src="{{ asset('uploads/' ~ ingredient.image) }}" alt="recipeimage" style="width : 150px">
+        <img src="{{ asset('uploads/' ~ ingredient.image) }}" alt="recipeimage" style="width : 15  0px">
         {% endfor %}
 		<a href="{{ path('app_addIngredient', {"id" : app.user.id }) }}" >Ajouter un élement au frigo ! </a>
 		{% endif %}
