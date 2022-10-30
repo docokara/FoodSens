@@ -68,12 +68,14 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) { 
             if($onModify == "password"){
-                $user->setPassword(
+                if(erzerezr){
+                    $user->setPassword(
                     $userPasswordHasher->hashPassword(
                             $user,
                             $form->get('password')->getData()
                         )
                     );
+                }   
             }   
             $users->add($user, true);
             return $this->redirectToRoute('user', [], Response::HTTP_SEE_OTHER);
