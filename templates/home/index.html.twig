@@ -59,7 +59,7 @@
                      {% elseif name == 'myFridge' %}
                        {{ include('user/fridge.html.twig') }}
                      {% elseif name == 'modifyRecipe' %}
-                       {{ include('home/create.html.twig') }}
+                       {{ include('base/_form.html.twig', {'button_label': "create"}) }}
                        {% elseif name == 'userProfile' %}
                               <div class="head">
                         <h1> Modification de profil</h1>
