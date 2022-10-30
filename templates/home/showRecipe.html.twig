@@ -6,12 +6,11 @@
    <html>
    <body>
     <h1>{{recipe.name}}</h1>
-    <img src="{{ asset('uploads/recipe/' ~ recipe.image) }}" class="card-img-top" alt="recipeimage" style="width : 300px">
+    <img src="{{ asset('uploads/' ~ recipe.image) }}" class="card-img-top" alt="recipeimage" style="width : 300px">
     <h2>{{recipe.steps}}</h2>
      {% if app.user and ('ROLE_ADMIN' in app.user.roles or recipe.author.id == app.user.id)  %}
-
-    <a href="{{ path('app_recipe_delete', {"id" : recipe.id }) }}">Supprimer</a>
-    <a href="{{ path('app_recipe_edit', {"id" : recipe.id }) }}">Editer</a>
+    <a href="{{ path('user_recipe_delete', {"id" : recipe.id }) }}">Supprimer</a>
+    <a href="{{ path('user_recipe_edit', {"id" : recipe.id }) }}">Editer</a>
      {% endif %}
    </body>
    </html>

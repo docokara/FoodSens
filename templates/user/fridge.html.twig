@@ -11,7 +11,7 @@
 		{% for ingredient in ingredients %}
         <img src="{{ asset('uploads/' ~ ingredient.image) }}" alt="recipeimage" style="width : 15  0px">
         {% endfor %}
-		<a href="{{ path('app_addIngredient', {"id" : app.user.id }) }}" >Ajouter un élement au frigo ! </a>
+		<a href="{{ path('user_addIngredient', {"id" : app.user.id }) }}" >Ajouter un élement au frigo ! </a>
 		{% endif %}
 	</body>
    </html>

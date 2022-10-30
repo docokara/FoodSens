@@ -12,7 +12,7 @@
                      <h5 class="card-title">{{recipe.name}}</h5>
                     <p class="card-text">{{recipe.steps}}</p>
                         <a href="{{ path('app_showRecipe',{"id" : recipe.id })}}" class="btn btn-primary">Go</a>
-                          <a href="{{ path('app_like', {"id" : recipe.id }) }}">like</a>
+                          <a href="{{ path('user_like', {"id" : recipe.id }) }}">like</a>
                           {# <img src='https://img.icons8.com/ios/64/-synthetidiamond-also-referred-to-as-laboratory-grown-diamond./hearts--v1.png' alt='test'>
                          <img src='https://img.icons8.com/office/64/-synthetidiamond-also-referred-to-as-laboratory-grown-diamond./hearts.png' alt='test1'> #}
                       </div>

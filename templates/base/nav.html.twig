@@ -15,12 +15,12 @@
     </div>
  <div class="menu">
                  {% if app.user %}
-                    <a href="{{ path('app_myFridge', {"id" : app.user.id }) }}"><div class="menu_1"> 
+                    <a href="{{ path('user_fridge', {"id" : app.user.id }) }}"><div class="menu_1"> 
                             <img class="img" src="/img/Chef_Monochromatic.png"alt="Icone de cuisto">
                             <p> Mon Frigo </p> 
                     </div></a>
                  
-                    <a href="{{ path('app_myFav', {"id" : app.user.id }) }}"><div class="menu_1"> 
+                    <a href="{{ path('user_favories', {"id" : app.user.id }) }}"><div class="menu_1"> 
                    
                             <img class="img" src="/img/Like_Monochromatic.png"alt="Icone de cuisto">
                             <p> Mes Favoris</p> 

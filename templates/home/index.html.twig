@@ -38,15 +38,15 @@
                     <div class="main2">
                     
                     {% if name == 'allRecipe' %}
-                    <a href="{{ path('app_recipe_create') }}">Create</a>
+                    <a href="{{ path('user_recipe_create') }}">Create</a>
                      {% for recipe in recipes %}
                      <div class="card" style="width: 18rem;">
-                     <img src="{{ asset('uploads/recipe/' ~ recipe.image) }}" class="card-img-top" alt="recipeimage">
+                     <img src="{{ asset('uploads/' ~ recipe.image) }}" class="card-img-top" alt="recipeimage">
                     <div class="card-body">
                      <h5 class="card-title">{{recipe.name}}</h5>
                     <p class="card-text">{{recipe.steps}}</p>
                         <a href="{{ path('app_showRecipe',{"id" : recipe.id })}}" class="btn btn-primary">Go</a>
-                          <a href="{{ path('app_like', {"id" : recipe.id }) }}">like</a>
+                          <a href="{{ path('user_like', {"id" : recipe.id }) }}">like</a>
                           {# <img src='https://img.icons8.com/ios/64/-synthetidiamond-also-referred-to-as-laboratory-grown-diamond./hearts--v1.png' alt='test'>
                          <img src='https://img.icons8.com/office/64/-synthetidiamond-also-referred-to-as-laboratory-grown-diamond./hearts.png' alt='test1'> #}
                       </div>
@@ -55,18 +55,37 @@
                      {% elseif name == 'showRecipe' %}
                      {{ include('home/showRecipe.html.twig') }}
                      {% elseif name == 'myFav' %}
-                       {{ include('home/myFav.html.twig') }}
+                       {{ include('user/myFav.html.twig') }}
                      {% elseif name == 'myFridge' %}
-                       {{ include('home/fridge.html.twig') }}
+                       {{ include('user/fridge.html.twig') }}
                      {% elseif name == 'modifyRecipe' %}
                        {{ include('home/create.html.twig') }}
+                       {% elseif name == 'userProfile' %}
+                              <div class="head">
+                        <h1> Modification de profil</h1>
+                        Informations : 
+                        </div>   
+                        <div class="modification" style="font-size : 2vh;  padding :2vw">
+
+                    
+                            <h3> Pseudo :</h3> {{info.pseudo}} <a style="margin-left:1vw; color:blue" href="{{ path('user_profil_edit', {"id" : app.user.id , 'onModify' : "pseudo" }) }}">edit</a> 
+                            <h3>  Email  :</h3>  {{info.email}} <a style="margin-left:1vw;color:blue" href="{{ path('user_profil_edit', {"id" : app.user.id, "name" : 'email', 'onModify' : "email" }) }}">edit</a> 
+                            <h3>  Mot de passe :</h3> {{info.password}} <a style="margin-left:1vw;color:blue" href="{{ path('user_profil_edit', {"id" : app.user.id, 'onModify' : "password"  }) }}">edit</a>  
+                            <h3> Photo de profil :</h3> 
+                             <div class="avatar">
+                                            <img src="/img/photo_profil.png" >  <!-- Créer une vriable en BDD ! -->
+                            </div> <a style="margin-left:1vw; color:blue" href="">edit</a> 
+  
+                        </div>
+                        {% elseif name == 'userProfileEdition' %}
+                           <div class="head">
+                                <h1> Modification de profil</h1>
+                                        Informations : 
+                                </div>  
+                        {{ include('user/_form.html.twig', {'button_label': "enregistrer"}) }}
                        {% else %}
-
                      {% endif %}
-                     
                     </div>
-
-
                     <div class="main4">
                         <div class="profile">
                             Mon Profil
