@@ -9,9 +9,34 @@
 <body>
     <div class="Title">
     <a href="{{ path('app_home')}}">Food Sens</a>
+    {% if app.user and  'ROLE_ADMIN' in app.user.roles %}
     <a class="admin"href="{{ path('admin')}}">admin</a>
+    {% endif %}
     </div>
+ <div class="menu">
+                 {% if app.user %}
+                    <a href="{{ path('user_fridge', {"id" : app.user.id }) }}"><div class="menu_1"> 
+                            <img class="img" src="/img/Chef_Monochromatic.png"alt="Icone de cuisto">
+                            <p> Mon Frigo </p> 
+                    </div></a>
+                 
+                    <a href="{{ path('user_favories', {"id" : app.user.id }) }}"><div class="menu_1"> 
+                   
+                            <img class="img" src="/img/Like_Monochromatic.png"alt="Icone de cuisto">
+                            <p> Mes Favoris</p> 
+                    </div></a>  
+                {% endif %}
+                    <a href=""><div class="menu_1"> 
+                            <img class="img" src="/img/Search_engine _Monochromatic.png"alt="Icone de cuisto">
+                            <p> Chercher une recette</p> 
+                    </div></a>
 
+                    <a href=""><div class="menu_1"> 
+                            <img class="img" src="/img/Finance_analytics _Monochromatic.png"alt="Icone de cuisto">
+                            <p>Recap Journalier</p> 
+                    </div></a>
+                </div>
+            </div>
 </html>
 </body>
 {% endblock %}

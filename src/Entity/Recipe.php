@@ -25,9 +25,9 @@ class Recipe
     private $tags = [];
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $steps = [];
+    private $steps;
 
     /**
      * @ORM\Column(type="integer")
@@ -64,9 +64,25 @@ class Recipe
      */
     private $Author;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="favories")
+     */
+    private $fav;
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
+        $this->fav = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -79,19 +95,19 @@ class Recipe
         return $this->tags;
     }
 
-    public function setTags(array $tags): self
+    public function setTags($tags): self
     {
         $this->tags = $tags;
 
         return $this;
     }
 
-    public function getSteps(): ?array
+    public function getSteps(): ?string
     {
         return $this->steps;
     }
 
-    public function setSteps(array $steps): self
+    public function setSteps($steps): self
     {
         $this->steps = $steps;
 
@@ -191,6 +207,54 @@ class Recipe
     public function setAuthor(?User $Author): self
     {
         $this->Author = $Author;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getFav(): Collection
+    {
+        return $this->fav;
+    }
+
+    public function addFav(User $fav): self
+    {
+        if (!$this->fav->contains($fav)) {
+            $this->fav[] = $fav;
+        }
+
+        return $this;
+    }
+
+    public function removeFav(User $fav): self
+    {
+        $this->fav->removeElement($fav);
 
         return $this;
     }

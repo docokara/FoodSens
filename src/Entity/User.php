@@ -60,9 +60,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $fridge;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Recipe::class, mappedBy="fav")
+     */
+    private $favories;
+
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
+        $this->favories = new ArrayCollection();
+        $this->setFridge(new Fridge());
     }
 
     public function getId(): ?int
@@ -225,6 +232,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->fridge = $fridge;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Recipe>
+     */
+    public function getFavories(): Collection
+    {
+        return $this->favories;
+    }
+
+    public function addFavory(Recipe $favory): self
+    {
+        if (!$this->favories->contains($favory)) {
+            $this->favories[] = $favory;
+            $favory->addFav($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavory(Recipe $favory): self
+    {
+        if ($this->favories->removeElement($favory)) {
+            $favory->removeFav($this);
+        }
 
         return $this;
     }

@@ -23,10 +23,13 @@ use App\Repository\IngredientRepository;
 use App\Entity\Ingredient;
 use App\Form\IngredientType;
 use Doctrine\ORM\EntityManagerInterface ;
+use App\Service\FileUploader;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
-     * @Route("/admin")
-     */
+ * @Route("/admin"), IsGranted('USER_ADMIN')
+ *
+ */
 class AdminController extends AbstractController
 {
     
@@ -60,32 +63,47 @@ class AdminController extends AbstractController
         ]); 
     }
      /**
-     * @Route("/create/{name}", name="admin_create")
+     * @Route("/{name}/{id}", name="admin_update")
      */
-    public function create($name,Request $request,UserRepository $users,RecipeRepository $recipes,IngredientRepository $ingredients,IngredientCategorieRepository $ingredientCategories): Response
+    public function update($name,$id,Request $request,UserRepository $users,User $user = null,Recipe $recipe = null,RecipeRepository $recipes,IngredientRepository $ingredients,Ingredient $ingredient = null,IngredientCategorieRepository $ingredientCategories,IngredientCategorie $ingredientCategorie = null,FileUploader $fileUploader,UserPasswordHasherInterface $userPasswordHasher): Response
     {
-       
         $form = null;
         $element = null;
         if($name == "users") {
-            $element = new User();
+            $element = $id != "UNDEFINED" ? $user : new User();
             $form = $this->createForm(UserType::class, $element);
         }
         if($name == "recipes") {
-            $element = new Recipe();
+            $element = $id != "UNDEFINED" ? $recipe : new Recipe();
             $form = $this->createForm(RecipeType::class, $element);
         }
         if($name == "ingredients") {
-            $element = new Ingredient();
+            $element = $id != "UNDEFINED" ? $ingredient : new Ingredient();
             $form = $this->createForm(IngredientType::class, $element);
         }
         if($name == "ingredientCategories") {
-            $element = new IngredientCategorie();
+            $element = $id  != "UNDEFINED" ? $ingredientCategorie : new IngredientCategorie();
             $form = $this->createForm(IngredientCategorieType::class, $element);
         }
         $form->handleRequest($request); 
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if($name == "users") {
+                $element->setPassword(
+                    $userPasswordHasher->hashPassword(
+                            $user,
+                            $form->get('password')->getData()
+                        )
+                    );
+            } 
+          if($name == "recipes" | $name == "ingredients"){ 
+            $file = $form->get('photo')->getData();
+            if ($file) {
+                $FileName = $fileUploader->upload($file);
+                dump($FileName);
+                $element->setImage($FileName);
+            }
+        }
             ${$name}->add($element, true);
 
             return $this->redirectToRoute('admin', [], Response::HTTP_SEE_OTHER);
@@ -96,42 +114,7 @@ class AdminController extends AbstractController
             'form' => $form,
         ]);
     }
-     /**
-     * @Route("/edit/{id}/{name}", name="admin_edit")
-     */
-    public function edit($name,Request $request,UserRepository $users,User $user = null,Recipe $recipe = null,RecipeRepository $recipes,IngredientRepository $ingredients,Ingredient $ingredient = null,IngredientCategorieRepository $ingredientCategories,IngredientCategorie $ingredientCategorie = null): Response
-    {
-        $form = null;
-        $element = null;
-        if($name == "users") {
-            $element = $user;
-            $form = $this->createForm(UserType::class, $element);
-        }
-        if($name == "recipes") {
-            $element = $recipe;
-            $form = $this->createForm(RecipeType::class, $element);
-        }
-        if($name == "ingredients") {
-            $element = $ingredient;
-            $form = $this->createForm(IngredientType::class, $element);
-        }
-        if($name == "ingredientCategories") {
-            $element = $ingredientCategorie;
-            $form = $this->createForm(IngredientCategorieType::class, $element);
-        }
-        $form->handleRequest($request); 
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            ${$name}->add($element, true);
-
-            return $this->redirectToRoute('admin', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('admin/form/edit.html.twig', [
-            'data' => $element,
-            'form' => $form,
-        ]);
-    }
+     
      /**
      * @Route("/delete/{id}/{name}", name="admin_delete")
      */

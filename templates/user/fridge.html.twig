@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+   <html>
+   <body>
+   {% if form is defined %}
+{{ include('base/_form.html.twig', {'button_label': "save"}) }}
+        {% else %}
+		{% for ingredient in ingredients %}
+        <img src="{{ asset('uploads/' ~ ingredient.image) }}" alt="recipeimage" style="width : 15  0px">
+        {% endfor %}
+		<a href="{{ path('user_addIngredient', {"id" : app.user.id }) }}" >Ajouter un élement au frigo ! </a>
+		{% endif %}
+	</body>
+   </html>
+
+{% endblock %}  
