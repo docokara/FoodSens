@@ -15,7 +15,8 @@ use App\Form\FridgeType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Repository\FridgeRepository;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
@@ -39,7 +40,7 @@ class UserController extends AbstractController
     /**
      * @Route("/edit/{id}/{onModify}", name="user_profil_edit")
      */
-    public function editProfil(Request $request,UserRepository $users,User $user,$onModify,UserPasswordHasherInterface $userPasswordHasher): Response
+    public function editProfil(Request $request,UserRepository $users,User $user,$onModify,UserPasswordEncoderInterface $passwordEncoder): Response
     {
         
         if (!$this->getUser()) return $this->redirectToRoute('app_home');       
@@ -49,6 +50,7 @@ class UserController extends AbstractController
             $form -> remove('isVerified');
             $form -> remove('email');
             $form -> remove('password');
+            $form -> remove('photo');
         }
         if($onModify == "email"){
             $form = $this->createForm(UserType::class, $user);
@@ -56,6 +58,7 @@ class UserController extends AbstractController
             $form -> remove('isVerified');
             $form -> remove('pseudo');
             $form -> remove('password');
+            $form -> remove('photo');
         }
         if($onModify == "password"){
             $form = $this->createForm(UserType::class, $user);
@@ -63,21 +66,22 @@ class UserController extends AbstractController
             $form -> remove('isVerified');
             $form -> remove('email');
             $form -> remove('pseudo');
+            $form -> remove('photo');
+            
         }
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) { 
+           dump('form'); dump($form);
             if($onModify == "password"){
-                if(erzerezr){
-                    $user->setPassword(
-                    $userPasswordHasher->hashPassword(
-                            $user,
-                            $form->get('password')->getData()
-                        )
-                    );
-                }   
+                $newpwd = $form->get('password')->getData();
+                $newEncodedPassword = $passwordEncoder->encodePassword($user, $newpwd);
+                $oldPsw =$form->get('oldpassword')->getData();
+                if($oldPsw = $newEncodedPassword ){
+                    $user->setPassword($newEncodedPassword);
+                    $users->add($user, true);
+                }
             }   
-            $users->add($user, true);
             return $this->redirectToRoute('user', [], Response::HTTP_SEE_OTHER);
         }
 

@@ -27,7 +27,7 @@
                             {{ form_start(form) }}
                             <h3> Mot de passe : </h3> {{ form_widget(form) }}
                             {# {{form_errors(form)}} #}
-                            <input type='text' placeholder='old_password' id="old"></input>
+                            <input type='text' placeholder='old_password' id="oldpassword" required></input>
                             <button class="btn">Enregistrer</button>
                             {{ form_end(form) }}
              {% else %}
@@ -47,4 +47,5 @@
 
 
  {% endblock %}
+ 
 
