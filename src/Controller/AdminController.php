@@ -63,26 +63,26 @@ class AdminController extends AbstractController
         ]); 
     }
      /**
-     * @Route("/{name}/{id}", name="admin_update")
+     * @Route("/edit/{name}/{id}", name="admin_update")
      */
-    public function update($name,$id,Request $request,UserRepository $users,User $user = null,Recipe $recipe = null,RecipeRepository $recipes,IngredientRepository $ingredients,Ingredient $ingredient = null,IngredientCategorieRepository $ingredientCategories,IngredientCategorie $ingredientCategorie = null,FileUploader $fileUploader,UserPasswordHasherInterface $userPasswordHasher): Response
+    public function update($name,$id = 'undefined',Request $request,UserRepository $users,User $user = null,Recipe $recipe = null,RecipeRepository $recipes,IngredientRepository $ingredients,Ingredient $ingredient = null,IngredientCategorieRepository $ingredientCategories,IngredientCategorie $ingredientCategorie = null,FileUploader $fileUploader,UserPasswordHasherInterface $userPasswordHasher): Response
     {
         $form = null;
         $element = null;
         if($name == "users") {
-            $element = $id != "UNDEFINED" ? $user : new User();
+            $element = $id != 'undefined' ? $user : new User();
             $form = $this->createForm(UserType::class, $element);
         }
         if($name == "recipes") {
-            $element = $id != "UNDEFINED" ? $recipe : new Recipe();
+            $element = $id != 'undefined' ? $recipe : new Recipe();
             $form = $this->createForm(RecipeType::class, $element);
         }
         if($name == "ingredients") {
-            $element = $id != "UNDEFINED" ? $ingredient : new Ingredient();
+            $element = $id != 'undefined' ? $ingredient : new Ingredient();
             $form = $this->createForm(IngredientType::class, $element);
         }
         if($name == "ingredientCategories") {
-            $element = $id  != "UNDEFINED" ? $ingredientCategorie : new IngredientCategorie();
+            $element = $id  != 'undefined' ? $ingredientCategorie : new IngredientCategorie();
             $form = $this->createForm(IngredientCategorieType::class, $element);
         }
         $form->handleRequest($request); 

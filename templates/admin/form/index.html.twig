@@ -71,14 +71,14 @@ Vide !
           <td>{{info}}</td>
         {% endif %}
     {% endfor %}
-     <td> <a href="{{ path('admin_edit', {"id": element.id,"name" :   name }) }}">edit</a></td>
-      <td> <a href="{{ path('admin_delete', {"id": element.id,"name" : name}) }}">delete</a></td> 
+     <td> <a href="{{ path('admin_update', {"name" :   name ,"id": element.id }) }}">edit</a></td>
+      <td> <a href="{{ path('admin_delete', {"name" : name ,"id": element.id}) }}">delete</a></td> 
   {% endfor %}
     </tr>
     {% endif %}
   </tbody>
   </table>
-  <a href="{{ path('admin_create',{"name" :name }) }}">Create</a> 
+  <a href="{{ path('admin_update',{"name" : name , "id" : "undefined"}) }}">Create</a> 
 </div>
                      
                     </div>
