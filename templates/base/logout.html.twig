@@ -3,7 +3,11 @@
                                 <p>Vous êtes connecté en tant que : </p>  {{ app.user.userIdentifier }}  
                             </div>
                             <div class="profile_picture">
-                            <img src="/img/photo_profil.png" >  <!-- Créer une vriable en BDD ! -->
+                                        {% if app.user %}
+                                            <img src="{{ asset('uploads/' ~ app.user.image) }}" class="card-img-top" alt="infoImage" > 
+                                        {% else %}
+                                        <img src="uploads/'photo-profil-635f1f50152ea.png" class="card-img-top" alt="infoImage" > 
+                                        {% endif %}       
                             </div>
                             <a href="{{ path('user') }}"> <button class="login">Mon Profil</button></a>
                             <a href="{{ path('app_logout') }}"><button class="login">Se Déconnecter</button></a>

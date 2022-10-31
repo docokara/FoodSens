@@ -65,12 +65,46 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $favories;
 
+     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
+      /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $oldpassword;
+
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
         $this->favories = new ArrayCollection();
         $this->setFridge(new Fridge());
     }
+
+    public function getoldpassword(): ?string
+    {
+        return $this->oldpassword;
+    }
+
+    public function setoldpassword(?string $oldpassword): self
+    {
+        $this->oldpassword = $oldpassword;
+
+        return $this;
+    }
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
 
     public function getId(): ?int
     {

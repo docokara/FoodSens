@@ -15,7 +15,12 @@ use App\Form\FridgeType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Repository\FridgeRepository;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType; 
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use App\Service\FileUploader;
+
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
@@ -29,7 +34,7 @@ class UserController extends AbstractController
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
         if (!$this->getUser()) return $this->redirectToRoute('app_home');
-            dump($this->getUser());
+          
 
         return $this->render('home/index.html.twig', [
             'info' => $this->getUser(),
@@ -39,7 +44,7 @@ class UserController extends AbstractController
     /**
      * @Route("/edit/{id}/{onModify}", name="user_profil_edit")
      */
-    public function editProfil(Request $request,UserRepository $users,User $user,$onModify,UserPasswordHasherInterface $userPasswordHasher): Response
+    public function editProfil(Request $request,UserRepository $users,User $user,$onModify,UserPasswordHasherInterface $userPasswordHasher, FileUploader $fileUploader): Response
     {
         
         if (!$this->getUser()) return $this->redirectToRoute('app_home');       
@@ -49,6 +54,8 @@ class UserController extends AbstractController
             $form -> remove('isVerified');
             $form -> remove('email');
             $form -> remove('password');
+            $form -> remove('photo');
+            $form -> remove('oldpassword');
         }
         if($onModify == "email"){
             $form = $this->createForm(UserType::class, $user);
@@ -56,6 +63,8 @@ class UserController extends AbstractController
             $form -> remove('isVerified');
             $form -> remove('pseudo');
             $form -> remove('password');
+            $form -> remove('photo');
+            $form -> remove('oldpassword');
         }
         if($onModify == "password"){
             $form = $this->createForm(UserType::class, $user);
@@ -63,18 +72,48 @@ class UserController extends AbstractController
             $form -> remove('isVerified');
             $form -> remove('email');
             $form -> remove('pseudo');
+            $form -> remove('photo');
+            
+        }
+        if($onModify == "profilePicture"){
+            $form = $this->createForm(UserType::class, $user);
+            //$form->add('image', FileType::class); 
+            $form -> remove('roles');
+            $form -> remove('isVerified');
+            $form -> remove('email');
+            $form -> remove('pseudo');
+            $form -> remove('oldpassword');
+            $form -> remove('password');
         }
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) { 
+            
             if($onModify == "password"){
-                $user->setPassword(
-                    $userPasswordHasher->hashPassword(
-                            $user,
-                            $form->get('password')->getData()
-                        )
-                    );
-            }   
+                $newpwd = $form->get('password')->getData();
+                $newEncodedPassword = $userPasswordHasher->hashPassword($user, $newpwd);
+                
+                $oldPsw =$form->get('oldpassword')->getData();
+                $oldEncodePsw =$userPasswordHasher->hashPassword($user, $oldPsw);
+                $user->setPassword($newEncodedPassword);
+                if( $oldEncodePsw == $userPasswordHasher->hashPassword($user, $user->getPassword()) ){
+                   // $user->setPassword($newEncodedPassword);
+                    dump(' quentin');
+                }else{
+                        //return une error
+                }
+            }  
+            
+            
+            if($onModify == "profilePicture" ){ 
+                $file = $form->get('photo')->getData();
+                if ($file) {
+                    $FileName = $fileUploader->upload($file);
+                 
+                    $user->setImage($FileName);
+                }
+            }
+           
             $users->add($user, true);
             return $this->redirectToRoute('user', [], Response::HTTP_SEE_OTHER);
         }
