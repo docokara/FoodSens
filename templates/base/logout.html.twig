@@ -3,10 +3,10 @@
                                 <p>Vous êtes connecté en tant que : </p>  {{ app.user.userIdentifier }}  
                             </div>
                             <div class="profile_picture">
-                                        {% if app.user %}
+                                        {% if app.user.image %}
                                             <img src="{{ asset('uploads/' ~ app.user.image) }}" class="card-img-top" alt="infoImage" > 
                                         {% else %}
-                                        <img src="uploads/'photo-profil-635f1f50152ea.png" class="card-img-top" alt="infoImage" > 
+                                        <img src="{{ asset('img/photo_profil.png') }}" class="card-img-top" alt="basicimg" > 
                                         {% endif %}       
                             </div>
                             <a href="{{ path('user') }}"> <button class="login">Mon Profil</button></a>
