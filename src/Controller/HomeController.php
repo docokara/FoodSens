@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Commentaires;
 use App\Entity\Recipe;
+use App\Form\CommentairesType;
+use App\Repository\CommentairesRepository;
 use App\Repository\RecipeRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,19 +25,7 @@ class HomeController extends AbstractController
         if($this->getUser()) $favs = $this->getUser()->getFavories();
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes->findAll(),
-            'name' => 'allRecipe'
+            'page_name' => 'allRecipe'
         ]);
     }
-    
-     /**
-     * @Route("/showRecipe/{id}", name="app_showRecipe")
-     */
-    public function showRecipe(Request $request,Recipe $recipe) : Response
-    {
-        return $this->render('home/index.html.twig', [
-            'recipe' => $recipe,
-            'name' => 'showRecipe'
-        ]); 
-    }
-
 }

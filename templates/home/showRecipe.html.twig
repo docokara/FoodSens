@@ -12,6 +12,18 @@
     <a href="{{ path('user_recipe_delete', {"id" : recipe.id }) }}">Supprimer</a>
     <a href="{{ path('user_recipe_edit', {"id" : recipe.id }) }}">Editer</a>
      {% endif %}
+       {{ include('base/_form.html.twig', {'button_label': "envoyer !"}) }}
+     {% for commentaire in commentaires %}
+
+     <div style="border : 1px solid black">
+        <h1> {{commentaire.content}}</h1>
+         <h5>envoyé par : {{commentaire.owner.pseudo}}</h5>
+             <h5>le : {{commentaire.date|date("m/d/Y")}}</h5>
+               {% if commentaire in app.user.commentaires %}
+                  <a href="{{ path('recipe_delete_commentaire', {"id": commentaire.id}) }}">delete</a> 
+             {% endif %}
+      </div>
+     {% endfor %}
    </body>
    </html>
 

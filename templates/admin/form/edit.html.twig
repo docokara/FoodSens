@@ -1,10 +1,6 @@
-{% extends 'base.html.twig' %}
-
 {% block title %}{% endblock %}
 
 {% block body %}
     {{ include('base/_form.html.twig', {'button_label': "edit"}) }}
-
     <a href="{{ path('admin') }}">back to list</a>
-
 {% endblock %}  
