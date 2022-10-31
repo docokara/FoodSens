@@ -7,7 +7,7 @@
                             {{ form_start(form) }}
                             
                             <h3> Pseudo : </h3> {{ form_widget(form) }}
-                            {# {{form_errors(form)}} #}
+                             {{form_errors(form)}} 
                             <button class="btn">Enregistrer</button>
                             {{ form_end(form) }}       
             {% else %}
@@ -16,7 +16,7 @@
             {% if onModify == "email" %}
                             {{ form_start(form) }}
                             <h3> Email : </h3> {{ form_widget(form) }}
-                            {# {{form_errors(form)}} #}
+                             {{form_errors(form)}} 
                             <button class="btn">Enregistrer</button>
                             {{ form_end(form) }}
              {% else %}
@@ -26,21 +26,28 @@
             {% if onModify == "password"  %}
                             {{ form_start(form) }}
                             <h3> Mot de passe : </h3> {{ form_widget(form) }}
-                            {# {{form_errors(form)}} #}
-                            <input type='text' placeholder='old_password' id="oldpassword" required></input>
+                            {{form_errors(form)}} 
+                    
                             <button class="btn">Enregistrer</button>
                             {{ form_end(form) }}
              {% else %}
             <h3>  Mot de passe :</h3>  {{app.user.password}}  <a style="margin-left:1vw;color:blue" href="{{ path('user_profil_edit', {"id" : app.user.id, "onModify" : "password"}) }}">Modifier</a>   
             {% endif %}  
 
+            {% if onModify == "profilePicture"  %}
+                            {{ form_start(form) }}
+                            <h3> Mot de passe : </h3> {{ form_widget(form) }}
+                             {{form_errors(form)}} 
+                            <button class="btn">Enregistrer</button>
+                            {{ form_end(form) }}
+             {% else %}
+            <h3>  Photo de profil :</h3>  {{app.user.image}}  <a style="margin-left:1vw;color:blue" href="{{ path('user_profil_edit', {"id" : app.user.id, "onModify" : "profilePicture"}) }}">Modifier</a>   
+            {% endif %}  
+
+
             
             
-            <h3> Photo de profil :</h3> 
-            <div class="avatar">
-                <img src="/img/photo_profil.png" >  <!-- Créer une vriable en BDD ! -->
-            </div> <a style="margin-left:1vw; color:blue" href="">edit</a> 
-  
+            
 
 
 </div> 
