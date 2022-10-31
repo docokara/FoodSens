@@ -20,25 +20,41 @@ use Symfony\Component\HttpFoundation\Request;
 class RecipeController extends AbstractController
 {
   /**
-     * @Route("/{id}", name="recipe_show")
+     * @Route("/{id}/{editCom}", name="recipe_show")
      */
-    public function showRecipe($id,Request $request,Recipe $recipe = null,CommentairesRepository $commentaires) : Response
+    public function showRecipe($id,Request $request,Recipe $recipe = null,Commentaires $editCom = null,CommentairesRepository $commentaires) : Response
     {
-        if ($recipe == null || !$this->getUser()) return $this->redirectToRoute('app_home');
-        $commentaire = New Commentaires();
-        $form = $this->createForm(CommentairesType::class, $commentaire);
-        $form->handleRequest($request);
+        if ($recipe == null || !$this->getUser()) return $this->redirectToRoute('app_home');     
+        $form = null;
+        $commentaire = null;
 
+        if($editCom != null) { 
+            $form = $this->createForm(CommentairesType::class, $editCom);
+            $form->handleRequest($request);
+        }
+        else{
+            $commentaire = New Commentaires();
+            $form = $this->createForm(CommentairesType::class, $commentaire);
+            $form->handleRequest($request);
+        }
+        
         if ($form->isSubmitted() && $form->isValid()) {
-            $commentaire->setDate(new DateTime());  
-            $commentaire->setOwner($this->getUser());
-            $commentaire->setLocation($recipe);
-           $commentaires->add($commentaire, true);
-           return $this->redirectToRoute('recipe_show', ['id' => $id], Response::HTTP_SEE_OTHER);
+
+            if($editCom != null ){
+                $commentaires->add($editCom, true);
+            }
+            else{
+                $commentaire->setDate(new DateTime());  
+                $commentaire->setOwner($this->getUser());
+                $commentaire->setLocation($recipe);
+                $commentaires->add($commentaire, true);
+            }
+           return $this->redirectToRoute('recipe_show', ['id' => $id,'comid' => 'undefined'], Response::HTTP_SEE_OTHER);
         }
         return $this->render('home/index.html.twig', [
             'form' => $form->createView(),
             'recipe' => $recipe,
+            'editedComId' => $editCom ? $editCom->getId() : 'undefined',
             'commentaires' => $recipe->getCommentaires(),
             'page_name' => 'showRecipe'
         ]); 
