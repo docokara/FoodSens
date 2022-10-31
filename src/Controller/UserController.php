@@ -38,7 +38,7 @@ class UserController extends AbstractController
 
         return $this->render('home/index.html.twig', [
             'info' => $this->getUser(),
-            'name' => 'userProfile'
+            'page_name' => 'userProfile'
         ]);
     }
     /**
@@ -120,7 +120,7 @@ class UserController extends AbstractController
 
         return $this->renderForm('home/index.html.twig', [
             'data' => $user,
-            'name' => 'userProfileEdition',
+            'page_name' => 'userProfileEdition',
             'form' => $form,
             'onModify' => $onModify
         ]);
@@ -136,7 +136,7 @@ class UserController extends AbstractController
         
         return $this->render('home/index.html.twig', [
             'recipes' => $user->getFavories(),
-            'name' => 'myFav'
+            'page_name' => 'myFav'
         ]); 
     }
 
@@ -149,7 +149,7 @@ class UserController extends AbstractController
         $fridge = $this->getUser()->getFridge();
         return $this->render('home/index.html.twig', [
             'ingredients' => $fridge->getIngredients(),
-            'name' => 'myFridge'
+            'page_name' => 'myFridge'
         ]); 
     }
 
@@ -172,7 +172,7 @@ class UserController extends AbstractController
         return $this->render('home/index.html.twig', [
             'form' => $form->createView(),
             'ingredients' => $fridge->getIngredients(),
-            'name' => 'myFridge'
+            'page_name' => 'myFridge'
         ]); 
     }
       /**
@@ -182,13 +182,13 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
         if (!$this->getUser()) return $this->redirectToRoute('app_home');
-        if ($user != $recipe->getAuthor() or (!in_array("ROLE_ADMIN", $user->getRoles()))) return $this->redirectToRoute('app_home');
+        if ($user != $recipe->getAuthor() && (!in_array("ROLE_ADMIN", $user->getRoles()))) return $this->redirectToRoute('app_home');
         dump("delete");
         $recipes->remove($recipe,true);
 
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes->findAll(),
-            'name' => 'allRecipe'
+            'page_name' => 'allRecipe'
         ]);
     }
 
@@ -209,7 +209,7 @@ class UserController extends AbstractController
         }
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes->findAll(),
-            'name' => 'modifyRecipe',
+            'page_name' => 'modifyRecipe',
             'form' => $form->createView()
         ]); 
     }
@@ -229,7 +229,7 @@ class UserController extends AbstractController
         }
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes->findAll(),
-            'name' => 'modifyRecipe',
+            'page_name' => 'modifyRecipe',
             'form' => $form->createView()
         ]); 
     }
@@ -256,7 +256,7 @@ class UserController extends AbstractController
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes->findAll(),
             'favs' => $favs,
-            'name' => 'allRecipe'
+            'page_name' => 'allRecipe'
         ]);
     }
     

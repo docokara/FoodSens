@@ -37,7 +37,7 @@
                
                     <div class="main2">
                     
-                    {% if name == 'allRecipe' %}
+                    {% if page_name == 'allRecipe' %}
                     {% if app.user %}
                     <a href="{{ path('user_recipe_create') }}">Create</a>
                     {% endif %}
@@ -47,22 +47,28 @@
                     <div class="card-body">
                      <h5 class="card-title">{{recipe.name}}</h5>
                     <p class="card-text">{{recipe.steps}}</p>
-                        <a href="{{ path('app_showRecipe',{"id" : recipe.id })}}" class="btn btn-primary">Go</a>
+                        <a href="{{ path('recipe_show',{"id" : recipe.id})}}" class="btn btn-primary">Go</a>
                           <a href="{{ path('user_like', {"id" : recipe.id }) }}">like</a>
                           {# <img src='https://img.icons8.com/ios/64/-synthetidiamond-also-referred-to-as-laboratory-grown-diamond./hearts--v1.png' alt='test'>
                          <img src='https://img.icons8.com/office/64/-synthetidiamond-also-referred-to-as-laboratory-grown-diamond./hearts.png' alt='test1'> #}
                       </div>
                         </div>
                      {% endfor %}
-                     {% elseif name == 'showRecipe' %}
+                     {% elseif page_name == 'showRecipe' %}
                      {{ include('home/showRecipe.html.twig') }}
-                     {% elseif name == 'myFav' %}
+                     {% elseif page_name == 'myFav' %}
                        {{ include('user/myFav.html.twig') }}
-                     {% elseif name == 'myFridge' %}
+                     {% elseif page_name == 'myFridge' %}
                        {{ include('user/fridge.html.twig') }}
-                     {% elseif name == 'modifyRecipe' %}
+                     {% elseif page_name == 'modifyRecipe' %}
                        {{ include('base/_form.html.twig', {'button_label': "create"}) }}
-                       {% elseif name == 'userProfile' %}
+                      {% elseif page_name == 'admin_page'%}
+                      {{ include('admin/index.html.twig') }}
+                      {% elseif page_name  == 'admin_page_getAll' %}
+                       {{ include('admin/form/index.html.twig') }}
+                      {% elseif page_name == 'admin_page_upate' %}
+                      {{ include('admin/form/edit.html.twig') }}
+                       {% elseif page_name == 'userProfile' %}
                               <div class="head">
                         <h1> Modification de profil</h1>
                         Informations : 
@@ -80,7 +86,7 @@
                               </div>
                       
                         </div>
-                        {% elseif name == 'userProfileEdition' %}
+                        {% elseif page_name == 'userProfileEdition' %}
                            <div class="head">
                                 <h1> Modification de profil</h1>
                                         Informations : 

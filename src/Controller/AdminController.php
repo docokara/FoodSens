@@ -47,8 +47,9 @@ class AdminController extends AbstractController
         }
         
       //  if(!$isAdmin) return $this->redirectToRoute('app_home');
-        return $this->render('admin/index.html.twig', [
-            "entity" => ["users","recipes","ingredients","ingredientCategories"]
+        return $this->render('home/index.html.twig', [
+            "entity" => ["users","recipes","ingredients","ingredientCategories"],
+            "page_name" => "admin_page"
         ]);
     }
 
@@ -57,9 +58,10 @@ class AdminController extends AbstractController
      */
     public function getAll($name,UserRepository $users,RecipeRepository $recipes,IngredientRepository $ingredients,IngredientCategorieRepository $ingredientCategories): Response
     {
-        return $this->render('admin/form/index.html.twig', [
+        return $this->render('home/index.html.twig', [
             'data' => ${$name}->findAll(),
-            'name' => $name
+            'name' => $name,
+            "page_name" => "admin_page_getAll"
         ]); 
     }
      /**
@@ -106,12 +108,14 @@ class AdminController extends AbstractController
         }
             ${$name}->add($element, true);
 
-            return $this->redirectToRoute('admin', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_getAll', ['name' => $name], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('admin/form/edit.html.twig', [
+        return $this->renderForm('home/index.html.twig', [
             'data' => $element,
+            'name' => $name,
             'form' => $form,
+            'page_name' => 'admin_page_upate'
         ]);
     }
      
@@ -137,9 +141,10 @@ class AdminController extends AbstractController
 
         ${$name}->remove($element,true);
 
-        return $this->render('admin/form/index.html.twig', [
+        return $this->render('home/index.html.twig', [
             'data' => ${$name}->findAll(),
-            'name' => $name
+            'name' => $name,
+            'page_name' => 'admin_page_getAll'
         ]);
     }
 }

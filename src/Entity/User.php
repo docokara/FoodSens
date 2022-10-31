@@ -75,11 +75,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $oldpassword;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaires::class, mappedBy="owner")
+     */
+    private $commentaires;
+
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
         $this->favories = new ArrayCollection();
         $this->setFridge(new Fridge());
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getoldpassword(): ?string
@@ -292,6 +298,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->favories->removeElement($favory)) {
             $favory->removeFav($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaires>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaires $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaires $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getOwner() === $this) {
+                $commentaire->setOwner(null);
+            }
         }
 
         return $this;
