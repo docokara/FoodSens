@@ -19,10 +19,11 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="app_home")
      */
-    public function index(RecipeRepository $recipes,UserInterface $user = null): Response
+    public function index(RecipeRepository $recipes): Response
     { 
         $favs = null;
-        if($this->getUser()) $favs = $this->getUser()->getFavories();
+        if($this->getUser()){ $favs = $this->getUser()->getFavories();
+        }
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes->findAll(),
             'page_name' => 'allRecipe'

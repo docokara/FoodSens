@@ -195,7 +195,7 @@ class UserController extends AbstractController
      /**
      * @Route("/recipe/edit/{id}", name="user_recipe_edit")
      */
-    public function editRecipe(Request $request,UserInterface $user = null,Recipe $recipe,RecipeRepository $recipes) : Response
+    public function editRecipe(Request $request,UserInterface $user = null,Recipe $recipe,RecipeRepository $recipes,FileUploader $fileUploader) : Response
     {
         $user = $this->getUser();
         if (!$this->getUser()) return $this->redirectToRoute('app_home');
@@ -204,6 +204,12 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('photo')->getData();
+            if ($file) {
+                $FileName = $fileUploader->upload($file);
+                dump($FileName);
+                $recipe->setImage($FileName);
+            }
             $recipes->add($recipe,true);
             return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
@@ -216,7 +222,7 @@ class UserController extends AbstractController
       /**
      * @Route("/recipe/create", name="user_recipe_create")
      */
-    public function modifyRecipe(Request $request,UserInterface $user = null,Recipe $recipe = null,RecipeRepository $recipes) : Response
+    public function modifyRecipe(Request $request,UserInterface $user = null,Recipe $recipe = null,RecipeRepository $recipes,FileUploader $fileUploader) : Response
     {
         if (!$this->getUser()) return $this->redirectToRoute('app_home');
         $recipe = new Recipe();
@@ -224,6 +230,12 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form->get('photo')->getData();
+            if ($file) {
+                $FileName = $fileUploader->upload($file);
+                dump($FileName);
+                $recipe->setImage($FileName);
+            }
             $recipes->add($recipe,true);
             return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }

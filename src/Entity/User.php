@@ -80,6 +80,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $commentaires;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $connected;
+
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
@@ -329,6 +334,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $commentaire->setOwner(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isConnected(): ?bool
+    {
+        return $this->connected;
+    }
+
+    public function setConnected(bool $connected): self
+    {
+        $this->connected = $connected;
 
         return $this;
     }
