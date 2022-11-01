@@ -191,9 +191,10 @@ width: 50vw;
 height: 84vh;
 left: 18vw;
 background:rgba(255, 255, 255, 0.5);
+overflow:auto
 }
 
-.main2 .Acceuil{
+.main2 .Accueil{
     font-size: 5vh;
     text-align: center;
     margin-top: 1vh;
@@ -242,6 +243,8 @@ background:rgba(255, 255, 255, 0.5);
     height: 50vh;
    }
 
+
+
 /*MAIN 4*/
 .main4{
     position: absolute;
@@ -251,4 +254,3 @@ background:rgba(255, 255, 255, 0.5);
         
     font-size: 1.5vh;
     }
-    

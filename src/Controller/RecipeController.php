@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 class RecipeController extends AbstractController
 {
   /**
-     * @Route("/{id}/{editCom}", name="recipe_show")
+     * @Route("/{id}/{editCom}", name="showRecipe")
      */
     public function showRecipe($id,Request $request,Recipe $recipe = null,Commentaires $editCom = null,CommentairesRepository $commentaires) : Response
     {

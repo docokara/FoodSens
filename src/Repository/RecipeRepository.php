@@ -53,6 +53,9 @@ class RecipeRepository extends ServiceEntityRepository
         FROM App\Entity\Recipe r');
         return $query->getResult();
     }
+
+
+
    public function findAll()
    {
         $entityManager = $this->getEntityManager();
@@ -71,4 +74,35 @@ class RecipeRepository extends ServiceEntityRepository
         FROM App\Entity\Recipe r');
         return $query->getResult();
    }
+
+   public function findByBudgetInterval( $budgetMin, $budgetMax)
+   {
+    return $this -> createQueryBuilder('r')
+    ->andWhere('p.budget >= :budgetMin and p.budget <= : budgetMax')
+    ->setParameters(['budgetMin' => $budgetMin, 'budgetMax' => $budgetMax])
+    ;
+   }
+    
+  /* public function findByFirstLetters()
+   {
+        $value =null;
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+        'SELECT 
+        r.name,
+        r.id,
+        r.tags,
+        r.steps,
+        r.people,
+        r.budget,
+        r.difficulty,
+        r.preptime,
+        r.toltalTime,
+        r.image
+        FROM App\Entity\Recipe r
+        WHERE r.name LIKE '$value '%''
+        ORDER BY r.name ASC'
+        );
+        return $query->getResult();
+   }*/
 }
