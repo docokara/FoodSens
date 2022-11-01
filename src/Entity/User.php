@@ -91,6 +91,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->favories = new ArrayCollection();
         $this->setFridge(new Fridge());
         $this->commentaires = new ArrayCollection();
+        $this->connected = false;
     }
 
     public function getoldpassword(): ?string
