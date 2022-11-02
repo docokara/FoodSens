@@ -8,6 +8,7 @@
     <h1>{{recipe.name}}</h1>
     <img src="{{ asset('uploads/' ~ recipe.image) }}" class="card-img-top" alt="recipeimage" style="width : 300px">
     <h2>{{recipe.steps}}</h2>
+
      {% if app.user and ('ROLE_ADMIN' in app.user.roles or recipe.author.id == app.user.id)  %}
     <a href="{{ path('user_recipe_delete', {"id" : recipe.id }) }}">Supprimer</a>
     <a href="{{ path('user_recipe_edit', {"id" : recipe.id }) }}">Editer</a>
@@ -16,17 +17,17 @@
        {{ include('base/_form.html.twig', {'button_label': "envoyer !"}) }}
        {% endif %}
      {% for commentaire in commentaires %}
-    <div style="border : 1px solid black">
-   {% if editedComId and editedComId == commentaire.id %}
-         {{ include('base/_form.html.twig', {'button_label': "editer !"}) }}        
-    {% else %}
-        <h1> {{commentaire.content}}</h1>
-         <h5>envoyé par : <a href="{{path('get_user_profil', {"id": commentaire.owner.id }) }}">{{commentaire.owner.pseudo}}</a></h5>
-             <h5>le : {{commentaire.date|date("m/d/Y")}}</h5>
-               {% if commentaire in app.user.commentaires or "ROLE_ADMIN" in app.user.roles %}
+       <div style="border : 1px solid black">
+         {% if editedComId and editedComId == commentaire.id %}
+            {{ include('base/_form.html.twig', {'button_label': "editer !"}) }}        
+          {% else %}
+            <h1> {{commentaire.content}}</h1>
+               <h5>envoyé par : <a href="{{path('get_user_profil', {"id": commentaire.owner.id }) }}">{{commentaire.owner.pseudo}}</a></h5>
+                  <h5>le : {{commentaire.date|date("m/d/Y")}}</h5>
+                     {% if commentaire in app.user.commentaires or "ROLE_ADMIN" in app.user.roles %}
                   <a href="{{path('recipe_delete_commentaire', {"id": commentaire.id }) }}">delete</a> 
                   <a href="{{path('show_recipe', {"id" : recipe.id,"editCom" : commentaire.id}) }}"> edit</a>
-               {% endif %}
+                      {% endif %}
 
    {% endif %}
       </div>

@@ -199,7 +199,7 @@ class UserController extends AbstractController
     {
         $user = $this->getUser();
         if (!$this->getUser()) return $this->redirectToRoute('app_home');
-        if ($user != $recipe->getAuthor() or (!in_array("ROLE_ADMIN", $user->getRoles()))) return $this->redirectToRoute('app_home');
+        if ($user != $recipe->getAuthor() && (!in_array("ROLE_ADMIN", $user->getRoles()))) return $this->redirectToRoute('app_home');
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->remove("Author");
         $form->handleRequest($request);
