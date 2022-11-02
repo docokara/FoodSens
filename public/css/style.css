@@ -191,7 +191,9 @@ width: 50vw;
 height: 84vh;
 left: 18vw;
 background:rgba(255, 255, 255, 0.5);
-overflow:auto
+overflow:auto;
+max-width: 100%;
+overflow-x: hidden;
 }
 
 .main2 .Accueil{

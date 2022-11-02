@@ -39,22 +39,31 @@ class HomeController extends AbstractController
       //  if($this->getUser()){ $favs = $this->getUser()->getFavories();
       //   }
 
-        if (!$this->getUser()) return $this->redirectToRoute('app_home');   
+      /*  if (!$this->getUser()) return $this->redirectToRoute('app_home');   
         
         $form_recipe = $this->createForm(RecipeType::class, $recipe);
         $form_recipe->remove("photo");
-        $form_recipe->remove("steps");
+        $form_recipe->remove("steps")
+        ->remove('people')
+        ->remove('budget')
+        ->remove('tags')
+        ->remove('preptime')
+        ->remove('toltalTime')
+        ->remove('Author')
+        ->remove('difficulty');
         $form_recipe->handleRequest($request);
 
 
         if ($form_recipe->isSubmitted() && $form_recipe->isValid()) { 
             return $this->redirectToRoute('recipe', [], Response::HTTP_SEE_OTHER);
-        }
+        }   */
 
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes->findAll(),
             'page_name' => 'searchRecipe',
-            'form_recipe' => $form_recipe->createView()
+           // 'form_recipe' => $form_recipe->createView()
         ]);
     } 
+
+
 }
