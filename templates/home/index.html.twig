@@ -55,11 +55,17 @@
                     <a href="{{ path('user_recipe_create') }}">Créer une recette</a>
                        {# {{ include('recipe/form.html.twig') }} #}
                     <div class="search">
+
+                 
+                    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+                    <script src="/js/fos_js_routes.js"></script>
                         <script>
-                          var recipeName = document.getElementById('recipeName'); 
+                          var recipeName = document.getElementById('recipeName');    
+                          Routing.generate('path('findByName')', { $recipeName: recipeName });
                         </script>
+                        
                         <input type="text" placeholder="Rechercher une recette..." id="recipeName">
-                        <button> <a href="{{ path('searchByName',{"name" : recipeName} ) }}"> Rechercher </a></button>
+                          <button> <a href="{#{{ path('findByName' ) }}#}"> Rechercher </a></button>  
                     </div>
                     {% endif %}
                         {% if recipes|length > 0 %}

@@ -77,7 +77,7 @@ class RecipeRepository extends ServiceEntityRepository
 
 
 
-   public function findByName($name){
+ /*  public function findByName($name){
         $recipes = $this ->getDoctrine()
         ->getRepository('AppBundle:Recipes')
         ->find($name);
@@ -86,7 +86,18 @@ class RecipeRepository extends ServiceEntityRepository
             throw $this -> createNotFoundException('Aucune recette ne correspond à votre recherche');
         }
         return new Response($recipes ->getName());
-}
+} */
+
+public function findByName($name){
+    $recipes = $this ->getDoctrine()
+    ->getRepository('AppBundle:Recipes')
+    ->find($name);
+
+    if(!$recipes){
+        throw $this -> createNotFoundException('Aucune recette ne correspond à votre recherche');
+    }
+    return new Response($recipes ->getName());
+    }
 
 
 

@@ -25,7 +25,7 @@
                             <img class="img" src="/img/Like_Monochromatic.png"alt="Icone de like">
                             <p> Mes Favoris</p> 
                     </div></a>  
-                {% endif %}
+                
                        <a href="{{ path('searchRecipe', {"id" : app.user.id }) }}">
                                 <div class="menu_1"> 
                                         <img class="img" src="/img/Search_engine _Monochromatic.png"alt="Icone de recherche">
@@ -39,7 +39,7 @@
                                          <p>Recap Journalier</p> 
                                 </div>
                         </a>
-
+                {% endif %}
         </div>
  </div>
 </html>
