@@ -24,8 +24,8 @@
          <h5>envoyé par : {{commentaire.owner.pseudo}}</h5>
              <h5>le : {{commentaire.date|date("m/d/Y")}}</h5>
                {% if commentaire in app.user.commentaires or "ROLE_ADMIN" in app.user.roles %}
-                  <a href="{{ path('recipe_delete_commentaire', {"id": commentaire.id, "editCom" : 'undefined'}) }}">delete</a> 
-                  <a href="{{path('recipe_show',{"id" : recipe.id,"editCom" : commentaire.id})}}"> edit</a>
+                  <a href="{{path('recipe_delete_commentaire', {"id": commentaire.id }) }}">delete</a> 
+                  <a href="{{path('show_recipe', {"id" : recipe.id,"editCom" : commentaire.id}) }}"> edit</a>
                {% endif %}
 
    {% endif %}

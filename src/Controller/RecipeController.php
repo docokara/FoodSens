@@ -19,11 +19,12 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class RecipeController extends AbstractController
 {
-  /**
-     * @Route("/{id}/{editCom}", name="showRecipe")
+    /**
+     * @Route("/{id}/{editCom}", name="show_recipe")
      */
     public function showRecipe($id,Request $request,Recipe $recipe = null,Commentaires $editCom = null,CommentairesRepository $commentaires) : Response
     {
+        dump($recipe);
         if ($recipe == null || !$this->getUser()) return $this->redirectToRoute('app_home');     
         $form = null;
         $commentaire = null;
@@ -41,6 +42,7 @@ class RecipeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             if($editCom != null ){
+                dump('yes');
                 $commentaires->add($editCom, true);
             }
             else{
@@ -49,7 +51,7 @@ class RecipeController extends AbstractController
                 $commentaire->setLocation($recipe);
                 $commentaires->add($commentaire, true);
             }
-           return $this->redirectToRoute('recipe_show', ['id' => $id,'comid' => 'undefined'], Response::HTTP_SEE_OTHER);
+           return $this->redirectToRoute('show_recipe', ['id' => $id,'editCom' => 'undefined'], Response::HTTP_SEE_OTHER);
         }
         return $this->render('home/index.html.twig', [
             'form' => $form->createView(),
@@ -60,13 +62,13 @@ class RecipeController extends AbstractController
         ]); 
     }
     /**
-     * @Route("/deleteCommentaire/{id}", name="recipe_delete_commentaire")
+     * @Route("/delete/commentaire/{id}", name="recipe_delete_commentaire")
      */
-    public function index(Commentaires $commentaire,CommentairesRepository $commentaires,UserRepository $users,RecipeRepository $recipes): Response
+    public function index($id,Commentaires $commentaire,CommentairesRepository $commentaires,UserRepository $users,RecipeRepository $recipes): Response
     {
-        $user =$this->getUser();
-        dump(in_array("ROLE_ADMIN", $user->getRoles()));
-        if(  $commentaire == null || !$user || ($user != $commentaire->getOwner() && !in_array("ROLE_ADMIN", $user->getRoles())))  return $this->redirectToRoute('app_home');
+        $user = $this->getUser();
+        if(!$commentaire || !$user) return $this->redirectToRoute('app_home'); 
+        if($user != $commentaire->getOwner() && !in_array("ROLE_ADMIN", $user->getRoles())) return $this->redirectToRoute('show_recipe', ['id' => $commentaire->getLocation()->getId(), "editCom" => 'undefined'], Response::HTTP_SEE_OTHER);
         $userOwner = $commentaire->getOwner();
         $recipe = $commentaire->getLocation();
 
@@ -77,6 +79,6 @@ class RecipeController extends AbstractController
         $users->add($userOwner,true);
         $recipes->add($recipe,true);
         
-        return $this->redirectToRoute('recipe_show', ['id' => $recipe->getId()], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('show_recipe', ['id' => $recipe->getId(),'editCom' => 'undefined'], Response::HTTP_SEE_OTHER);
     }
 }

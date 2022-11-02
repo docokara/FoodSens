@@ -74,6 +74,7 @@ class AdminController extends AbstractController
         if($name == "users") {
             $element = $id != 'undefined' ? $user : new User();
             $form = $this->createForm(UserType::class, $element);
+            $form->remove('oldpassword');
         }
         if($name == "recipes") {
             $element = $id != 'undefined' ? $recipe : new Recipe();

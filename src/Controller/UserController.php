@@ -33,7 +33,7 @@ class UserController extends AbstractController
      */
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
-        if (!$this->getUser()) return $this->redirectToRoute('app_home');
+        if (!$this->getUser()) return $this->redirectToRoute('searchRecipe');
           
 
         return $this->render('home/index.html.twig', [
@@ -195,12 +195,13 @@ class UserController extends AbstractController
      /**
      * @Route("/recipe/edit/{id}", name="user_recipe_edit")
      */
-    public function editRecipe(Request $request,UserInterface $user = null,Recipe $recipe,RecipeRepository $recipes,FileUploader $fileUploader) : Response
+    public function editRecipe($id,Request $request,UserInterface $user = null,Recipe $recipe,RecipeRepository $recipes,FileUploader $fileUploader) : Response
     {
         $user = $this->getUser();
         if (!$this->getUser()) return $this->redirectToRoute('app_home');
         if ($user != $recipe->getAuthor() or (!in_array("ROLE_ADMIN", $user->getRoles()))) return $this->redirectToRoute('app_home');
         $form = $this->createForm(RecipeType::class, $recipe);
+        $form->remove("Author");
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -210,8 +211,9 @@ class UserController extends AbstractController
                 dump($FileName);
                 $recipe->setImage($FileName);
             }
+    
             $recipes->add($recipe,true);
-            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('show_recipe', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes->findAll(),
@@ -222,11 +224,12 @@ class UserController extends AbstractController
       /**
      * @Route("/recipe/create", name="user_recipe_create")
      */
-    public function modifyRecipe(Request $request,UserInterface $user = null,Recipe $recipe = null,RecipeRepository $recipes,FileUploader $fileUploader) : Response
+    public function createRecipe(Request $request,UserInterface $user = null,Recipe $recipe = null,RecipeRepository $recipes,FileUploader $fileUploader) : Response
     {
         if (!$this->getUser()) return $this->redirectToRoute('app_home');
         $recipe = new Recipe();
         $form = $this->createForm(RecipeType::class, $recipe);
+        $form->remove("Author");
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -236,8 +239,9 @@ class UserController extends AbstractController
                 dump($FileName);
                 $recipe->setImage($FileName);
             }
+            $recipe->setAuthor($this->getUser());
             $recipes->add($recipe,true);
-            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('searchRecipe', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes->findAll(),
