@@ -71,6 +71,8 @@
                       </div>
                         </div>
                      {% endfor %}
+                     {% elseif page_name == 'get_user_profil' %}
+                     {{ include('user/getUserProfil.html.twig') }}
                      {% elseif page_name == 'showRecipe' %}
                      {{ include('home/showRecipe.html.twig') }}
                      {% elseif page_name == 'myFav' %}
@@ -87,8 +89,7 @@
                       {{ include('admin/form/edit.html.twig') }}
                        {% elseif page_name == 'userProfile' %}
                               <div class="head">
-                        <h1> Modification de profil</h1>
-                        Informations : 
+                        <h1>Informations : </h1>
                         </div>   
                         <div class="modification" style="font-size : 2vh;  padding :2vw">
 

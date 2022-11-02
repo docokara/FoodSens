@@ -5,7 +5,17 @@
 {% block body %}
    <html>
    <body>
-      {% for recipe in recipes %}
+ <div class="modification" style="font-size : 2vh;  padding :2vw">            
+    <h3> Pseudo :</h3> {{user.pseudo}} 
+    <h3>  Email  :</h3>  {{user.email}}
+    <h3>  Mot de passe :</h3> {{user.password}}
+    <h3> Photo de profil :</h3> 
+    <div class="avatar">
+    <img src="{{ asset('uploads/' ~ user.image) }}" class="card-img-top" alt="infoImage" style="width : 300px">  
+ </div>
+ <div>
+    Recettes Favories
+  {% for recipe in userFavories %}
                      <div class="card" style="width: 18rem;">
                      <img src="{{ asset('uploads/' ~ recipe.image) }}" class="card-img-top" alt="recipeimage">
                     <div class="card-body">
@@ -18,6 +28,7 @@
                       </div>
                         </div>
                      {% endfor %}
+                     <div>
    </body>
    </html>
 

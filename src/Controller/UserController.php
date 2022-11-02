@@ -272,7 +272,7 @@ class UserController extends AbstractController
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes->findAll(),
             'favs' => $favs,
-            'page_name' => 'allRecipe'
+            'page_name' => 'searchRecipe'
         ]);
     }
     
