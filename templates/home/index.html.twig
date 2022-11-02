@@ -53,7 +53,7 @@
                     {% if page_name == 'searchRecipe' %}
                     {% if app.user %}
                     <a href="{{ path('user_recipe_create') }}">Créer une recette</a>
-
+                       {{ include('recipe/form.html.twig') }}
                     <div class="search">
                         <input type="text" placeholder="Rechercher une recette..." id="recipeName">
                     </div>

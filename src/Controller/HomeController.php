@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Commentaires;
 use App\Entity\Recipe;
+use App\Form\RecipeType;
 use App\Form\CommentairesType;
 use App\Repository\CommentairesRepository;
 use App\Repository\RecipeRepository;
@@ -30,16 +31,30 @@ class HomeController extends AbstractController
 
     
       /**
-     * @Route("/searchRecipe", name="searchRecipe")
+     * @Route("/searchRecipe/{id}", name="searchRecipe")
      */
-    public function searchRecipe(RecipeRepository $recipes,UserInterface $user = null) : Response
+    public function searchRecipe(Request $request,RecipeRepository $recipes,Recipe $recipe,UserInterface $user = null) : Response
     {
       //  $favs = null;
       //  if($this->getUser()){ $favs = $this->getUser()->getFavories();
       //   }
+
+        if (!$this->getUser()) return $this->redirectToRoute('app_home');   
+        
+        $form_recipe = $this->createForm(RecipeType::class, $recipe);
+        $form_recipe->remove("photo");
+        $form_recipe->remove("steps");
+        $form_recipe->handleRequest($request);
+
+
+        if ($form_recipe->isSubmitted() && $form_recipe->isValid()) { 
+            return $this->redirectToRoute('recipe', [], Response::HTTP_SEE_OTHER);
+        }
+
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes->findAll(),
-            'page_name' => 'searchRecipe'
+            'page_name' => 'searchRecipe',
+            'form_recipe' => $form_recipe->createView()
         ]);
     } 
 }
