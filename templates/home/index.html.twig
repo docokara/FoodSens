@@ -53,9 +53,9 @@
                     {% if page_name == 'searchRecipe' %}
                     {% if app.user %}
                     <a href="{{ path('user_recipe_create') }}">Créer une recette</a>
-                       {# {{ include('recipe/form.html.twig') }} #}
+                        {{ include('recipe/form.html.twig') }} 
 
-                    <div class="search">
+                    {# <div class="search">
                       <input type="text" placeholder="Rechercher une recette..." id="recipeName"> 
                       <button> <a href="{{ path('findRecipe' , {"name" : 'undefined' }) }}"> Rechercher </a></button>  
                     </div>
@@ -67,8 +67,9 @@
                           
                           var recipeName = document.getElementById('recipeName');    
                           Routing.generate('path('findByName')', { recipeName : recipeName });
-                    </script>
-
+                          
+                    </script> #}
+                                       
                     {% endif %}
                         {% if recipes|length > 0 %}
                               {% for recipe in recipes %}
@@ -89,8 +90,20 @@
                         {% endif %}
 
 
-                        {% if page_name == 'findRecipeByName' %}
-                          ezrzerzere
+                        {% if page_name == 'findRecipe' %}
+
+                        coucou !!!
+                          {% for recipe in recipes %}
+                              <div class="card" style="width: 18rem;">
+                                <img src="{{ asset('uploads/' ~ recipe.image) }}" class="card-img-top" alt="recipeimage">
+                                  <div class="card-body">
+                                    <h5 class="card-title">{{recipe.name}}</h5>
+                                    <p class="card-text">{{recipe.steps}}</p>
+                                    <a href="{{ path('showRecipe',{"id" : recipe.id,"editCom" : 'undefined'})}}" class="btn btn-primary">Go</a>
+                                    <a href="{{ path('user_like', {"id" : recipe.id }) }}">like</a>
+                                  </div>
+                              </div>
+                              {% endfor %}
                         {% endif %}
 
                      {% elseif page_name == 'showRecipe' %}
