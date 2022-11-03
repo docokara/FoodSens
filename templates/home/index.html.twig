@@ -54,19 +54,21 @@
                     {% if app.user %}
                     <a href="{{ path('user_recipe_create') }}">Créer une recette</a>
                        {# {{ include('recipe/form.html.twig') }} #}
-                    <div class="search">
 
-                 
-                    <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
-                    <script src="/js/fos_js_routes.js"></script>
-                        <script>
-                          var recipeName = document.getElementById('recipeName');    
-                          Routing.generate('path('findByName')', { $recipeName: recipeName });
-                        </script>
-                        
-                        <input type="text" placeholder="Rechercher une recette..." id="recipeName">
-                          <button> <a href="{#{{ path('findByName' ) }}#}"> Rechercher </a></button>  
+                    <div class="search">
+                      <input type="text" placeholder="Rechercher une recette..." id="recipeName"> 
+                      <button> <a href="{{ path('findRecipe' , {"name" : 'undefined' }) }}"> Rechercher </a></button>  
                     </div>
+
+                    <script>
+                          <script src="/js/fos_js_routes.js"></script>
+                          <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+                        
+                          
+                          var recipeName = document.getElementById('recipeName');    
+                          Routing.generate('path('findByName')', { recipeName : recipeName });
+                    </script>
+
                     {% endif %}
                         {% if recipes|length > 0 %}
                               {% for recipe in recipes %}
@@ -84,6 +86,11 @@
                               {% endfor %}
                         {% else %}
                         <p> Désolé, vous n'avez pas de recettes enregistrées...</p>
+                        {% endif %}
+
+
+                        {% if page_name == 'findRecipeByName' %}
+                          ezrzerzere
                         {% endif %}
 
                      {% elseif page_name == 'showRecipe' %}

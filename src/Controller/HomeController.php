@@ -68,4 +68,19 @@ class HomeController extends AbstractController
     } 
 
 
+    /**
+     * @Route("/findRecipe", name="findRecipe")
+     */
+    #[Route(path: '/findRecipe/{name}', name: 'findRecipe')]
+    public function findRecipeByName(Request $request,RecipeRepository $recipes,Recipe $recipe) : Response
+    {   
+
+      
+        return $this->render('home/index.html.twig', [
+            'recipes' => $recipes->findByName($name),
+            'page_name' => 'findRecipeByName',
+        ]);
+    } 
+
+
 }
