@@ -41,8 +41,8 @@
                     <div class="Accueil"> Accueil </div>
                                   <div class="tab">
                                       <a href="{{ path('app_home') }}" class="tab_1"> Notre Projet</a>
-                                      <a href="{{ path('app_home2') }}" class="tab_1"> Notre Equipe</a>
-                                      <a href="{{ path('app_home3') }}" class="tab_1"> Nous Contacter</a>
+                                      <a href="{{ path('NotreEquipe') }}" class="tab_1"> Notre Equipe</a>
+                                      <a href="{{ path('NousContacter') }}" class="tab_1"> Nous Contacter</a>
                                   </div> 
                                       <div class="main2_body">
                                           <p> Food Sens est une application web visant à aider ses utilisateurs au quotidien dans l'élaboration de leur régime alimentaire. En Vous proposant des recettes riches et variées adaptées aux ingrédients dont vous disposez en temps réel.
@@ -50,35 +50,7 @@
                                           <img src="img/Team Work_Monochromatic.png">
                                       </div> 
                     {% endif %}
-                    {% if page_name == 'home2' %}
-                    <div class="Accueil"> Accueil </div>
-                                  <div class="tab">
-                                      <a href="{{ path('app_home') }}" class="tab_1"> Notre Projet</a>
-                                      <a href="{{ path('app_home2') }}" class="tab_1"> Notre Equipe</a>
-                                      <a href="{{ path('app_home3') }}" class="tab_1"> Nous Contacter</a>
-                                  </div>
-                                      <div class="main2_body">
-                                          <p>Notre équipe est composée de trois étudiants en troisième année de Licence Informatique à la Faculté des Sciences et Techniques de TOURS.
-                                          Nous profitons de l'opportunité d'un projet de groupe mit en place en cours de Developpement Web, pour réaliser une idée de projet personnel qui nous tient particulièrement à cœur. </p>
-                                          <img src="img/Team success _Monochromatic.png">
-                                      </div> 
-                    {% endif %}
-                    {% if page_name == 'home3' %}
-                    <div class="Accueil"> Accueil </div>
-                                  <div class="tab">
-                                      <a href="{{ path('app_home') }}" class="tab_1"> Notre Projet</a>
-                                      <a href="{{ path('app_home2') }}" class="tab_1"> Notre Equipe</a>
-                                      <a href="{{ path('app_home3') }}" class="tab_1"> Nous Contacter</a>
-                                  </div>
-                                      <div class="main2_body">
-                                          <p> Vous rencontrez un problème ? Ou souhaitez tout simplement nous contacter ?<br>
-                                          Nous serions heureux d'intéragir avec vous !</p>
-                                          <img src="img/Customer service_Monochromatic.png">
-                                      </div> 
-                                      <div class='contact'>
-                                        <a href="mailto:foodsens37000@gmail.com?subject=Food Sens 👨‍🍳"><button class="login">Nous Contacter</button></a>
-                                      </div> 
-                    {% endif %}
+                    
                     
                     {% if page_name == 'searchRecipe' %}
                     {% if app.user %}
@@ -136,21 +108,25 @@
                               {% endfor %}
                         {% endif %}
 
-                     {% elseif page_name == 'showRecipe' %}
-                     {{ include('home/showRecipe.html.twig') }}
-                     {% elseif page_name == 'myFav' %}
-                       {{ include('user/myFav.html.twig') }}
-                     {% elseif page_name == 'myFridge' %}
-                       {{ include('user/fridge.html.twig') }}
-                     {% elseif page_name == 'modifyRecipe' %}
-                       {{ include('base/_form.html.twig', {'button_label': "create"}) }}
-                      {% elseif page_name == 'admin_page'%}
-                      {{ include('admin/index.html.twig') }}
-                      {% elseif page_name  == 'admin_page_getAll' %}
-                       {{ include('admin/form/index.html.twig') }}
-                      {% elseif page_name == 'admin_page_upate' %}
-                      {{ include('admin/form/edit.html.twig') }}
-                       {% elseif page_name == 'userProfile' %}
+                    {% elseif page_name == 'NotreEquipe' %}
+                    {{ include('home/NotreEquipe.html.twig') }} 
+                    {% elseif page_name == 'NousContacter' %}
+                    {{ include('home/NousContacter.html.twig') }}
+                    {% elseif page_name == 'showRecipe' %}
+                    {{ include('home/showRecipe.html.twig') }}
+                    {% elseif page_name == 'myFav' %}
+                    {{ include('user/myFav.html.twig') }}
+                    {% elseif page_name == 'myFridge' %}
+                    {{ include('user/fridge.html.twig') }}
+                    {% elseif page_name == 'modifyRecipe' %}
+                    {{ include('base/_form.html.twig', {'button_label': "create"}) }}
+                    {% elseif page_name == 'admin_page'%}
+                    {{ include('admin/index.html.twig') }}
+                    {% elseif page_name  == 'admin_page_getAll' %}
+                    {{ include('admin/form/index.html.twig') }}
+                    {% elseif page_name == 'admin_page_upate' %}
+                    {{ include('admin/form/edit.html.twig') }}
+                    {% elseif page_name == 'userProfile' %}
                               <div class="head">
                         <h1> Modification de profil</h1>
                         Informations : 

@@ -32,7 +32,7 @@ class HomeController extends AbstractController
         ]);
     }
      /**
-     * @Route("/app_home2", name="app_home2")
+     * @Route("/NotreEquipe", name="NotreEquipe")
      */
     public function index2(RecipeRepository $recipes): Response
     { 
@@ -40,11 +40,11 @@ class HomeController extends AbstractController
        
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes->findAll(),
-            'page_name' => 'home2'
+            'page_name' => 'NotreEquipe'
         ]);
     }
      /**
-     * @Route("/app_home3", name="app_home3")
+     * @Route("/NousContacter", name="NousContacter")
      */
     public function index3(RecipeRepository $recipes): Response
     { 
@@ -52,7 +52,7 @@ class HomeController extends AbstractController
        
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes->findAll(),
-            'page_name' => 'home3'
+            'page_name' => 'NousContacter'
         ]);
     }
 
