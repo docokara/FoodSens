@@ -234,18 +234,24 @@ overflow-x: hidden;
 .main2_body{
  display: flex;
  margin-top: 4vh;
+
 }
 .main2_body p{
-    margin-top: 10vh;
+    margin-top: 10vh;    
     margin-left: 1vw;
     font-size: 2vh;
-   }
-   .main2_body img{
+}
+
+.main2_body img{
     width: 50vh;
     height: 50vh;
-   }
+}
 
-
+.main2 .contact{
+    position: relative;
+    left: 8vw;
+    top: -25vh;
+}
 
 /*MAIN 4*/
 .main4{

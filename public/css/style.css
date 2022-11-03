@@ -234,17 +234,16 @@ overflow-x: hidden;
 .main2_body{
  display: flex;
  margin-top: 4vh;
+ margin-left: 1vw;
+ font-size: 2vh;
 }
 .main2_body p{
-    margin-top: 10vh;
-    margin-left: 1vw;
-    font-size: 2vh;
-   }
-   .main2_body img{
+    margin-top: 10vh;    
+}
+.main2_body img{
     width: 50vh;
     height: 50vh;
-   }
-
+}
 
 
 /*MAIN 4*/

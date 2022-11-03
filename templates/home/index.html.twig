@@ -9,7 +9,7 @@
     <title>{% block title %}Food Sens{% endblock %}</title>
         {% block stylesheets %}
          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-            <link href="/css/style.css" rel="stylesheet" type="text/css"/>
+            <link href="/css/style2.css" rel="stylesheet" type="text/css"/>
             <link href="/css/auth1.css" rel="stylesheet" type="text/css"/>
 
             <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,19 +36,49 @@
               {{ include('base/nav.html.twig') }}
                
                     <div class="main2">
-                    {% if page_name == 'home' %}
-                     <div class="Accueil"> Accueil </div>
-                                    <div class="tab">
-                                      <a href="" class="tab_1"> Notre Projet</a>
-                                      <a href="" class="tab_1"> Notre Equipe</a>
-                                      <a href="" class="tab_1"> Nous Contacter</a>
-                                  </div>
+                    
+                    {% if page_name == 'home' %} 
+                    <div class="Accueil"> Accueil </div>
+                                  <div class="tab">
+                                      <a href="{{ path('app_home') }}" class="tab_1"> Notre Projet</a>
+                                      <a href="{{ path('app_home2') }}" class="tab_1"> Notre Equipe</a>
+                                      <a href="{{ path('app_home3') }}" class="tab_1"> Nous Contacter</a>
+                                  </div> 
                                       <div class="main2_body">
                                           <p> Food Sens est une application web visant à aider ses utilisateurs au quotidien dans l'élaboration de leur régime alimentaire. En Vous proposant des recettes riches et variées adaptées aux ingrédients dont vous disposez en temps réel.
                                           Nous voulons mettre la cuisine à la portée de tous et vous donner les outils afin de mieux la comprendre et suivre vos apports nutritionnels. </p>
                                           <img src="img/Team Work_Monochromatic.png">
                                       </div> 
-                                  {% endif %}
+                    {% endif %}
+                    {% if page_name == 'home2' %}
+                    <div class="Accueil"> Accueil </div>
+                                  <div class="tab">
+                                      <a href="{{ path('app_home') }}" class="tab_1"> Notre Projet</a>
+                                      <a href="{{ path('app_home2') }}" class="tab_1"> Notre Equipe</a>
+                                      <a href="{{ path('app_home3') }}" class="tab_1"> Nous Contacter</a>
+                                  </div>
+                                      <div class="main2_body">
+                                          <p>Notre équipe est composée de trois étudiants en troisième année de Licence Informatique à la Faculté des Sciences et Techniques de TOURS.
+                                          Nous profitons de l'opportunité d'un projet de groupe mit en place en cours de Developpement Web, pour réaliser une idée de projet personnel qui nous tient particulièrement à cœur. </p>
+                                          <img src="img/Team success _Monochromatic.png">
+                                      </div> 
+                    {% endif %}
+                    {% if page_name == 'home3' %}
+                    <div class="Accueil"> Accueil </div>
+                                  <div class="tab">
+                                      <a href="{{ path('app_home') }}" class="tab_1"> Notre Projet</a>
+                                      <a href="{{ path('app_home2') }}" class="tab_1"> Notre Equipe</a>
+                                      <a href="{{ path('app_home3') }}" class="tab_1"> Nous Contacter</a>
+                                  </div>
+                                      <div class="main2_body">
+                                          <p> Vous rencontrez un problème ? Ou souhaitez tout simplement nous contacter ?<br>
+                                          Nous serions heureux d'intéragir avec vous !</p>
+                                          <img src="img/Customer service_Monochromatic.png">
+                                      </div> 
+                                      <div class='contact'>
+                                        <a href="mailto:foodsens37000@gmail.com?subject=Food Sens 👨‍🍳"><button class="login">Nous Contacter</button></a>
+                                      </div> 
+                    {% endif %}
                     
                     {% if page_name == 'searchRecipe' %}
                     {% if app.user %}

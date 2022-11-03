@@ -31,6 +31,30 @@ class HomeController extends AbstractController
             'page_name' => 'home'
         ]);
     }
+     /**
+     * @Route("/app_home2", name="app_home2")
+     */
+    public function index2(RecipeRepository $recipes): Response
+    { 
+       
+       
+        return $this->render('home/index.html.twig', [
+            'recipes' => $recipes->findAll(),
+            'page_name' => 'home2'
+        ]);
+    }
+     /**
+     * @Route("/app_home3", name="app_home3")
+     */
+    public function index3(RecipeRepository $recipes): Response
+    { 
+       
+       
+        return $this->render('home/index.html.twig', [
+            'recipes' => $recipes->findAll(),
+            'page_name' => 'home3'
+        ]);
+    }
 
     
       /**
