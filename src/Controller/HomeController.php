@@ -23,9 +23,7 @@ class HomeController extends AbstractController
      * @Route("/", name="app_home")
      */
     public function index(RecipeRepository $recipes): Response
-    { 
-       
-       
+    {       
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes->findAll(),
             'page_name' => 'home'
@@ -35,9 +33,7 @@ class HomeController extends AbstractController
      * @Route("/NotreEquipe", name="NotreEquipe")
      */
     public function index2(RecipeRepository $recipes): Response
-    { 
-       
-       
+    {       
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes->findAll(),
             'page_name' => 'NotreEquipe'
@@ -48,8 +44,6 @@ class HomeController extends AbstractController
      */
     public function index3(RecipeRepository $recipes): Response
     { 
-       
-       
         return $this->render('home/index.html.twig', [
             'recipes' => $recipes->findAll(),
             'page_name' => 'NousContacter'

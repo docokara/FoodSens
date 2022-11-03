@@ -50,6 +50,7 @@
                                           <img src="img/Team Work_Monochromatic.png">
                                       </div> 
                     {% endif %}
+                   
                     
                     
                     {% if page_name == 'searchRecipe' %}
@@ -81,9 +82,7 @@
                                     <h5 class="card-title">{{recipe.name}}</h5>
                                     <p class="card-text">{{recipe.steps}}</p>
                                     <a href="{{ path('showRecipe',{"id" : recipe.id,"editCom" : 'undefined'})}}" class="btn btn-primary">Go</a>
-                                    <a href="{{ path('user_like', {"id" : recipe.id }) }}">like</a>
-                                    {# <img src='https://img.icons8.com/ios/64/-synthetidiamond-also-referred-to-as-laboratory-grown-diamond./hearts--v1.png' alt='test'>
-                                    <img src='https://img.icons8.com/office/64/-synthetidiamond-also-referred-to-as-laboratory-grown-diamond./hearts.png' alt='test1'> #}
+                                    <a href="{{ path('user_like', {"id" : recipe.id }) }}">like</a>                                  
                                   </div>
                               </div>
                               {% endfor %}
@@ -108,6 +107,7 @@
                               {% endfor %}
                         {% endif %}
 
+                   
                     {% elseif page_name == 'NotreEquipe' %}
                     {{ include('home/NotreEquipe.html.twig') }} 
                     {% elseif page_name == 'NousContacter' %}
@@ -126,6 +126,7 @@
                     {{ include('admin/form/index.html.twig') }}
                     {% elseif page_name == 'admin_page_upate' %}
                     {{ include('admin/form/edit.html.twig') }}
+                     
                     {% elseif page_name == 'userProfile' %}
                               <div class="head">
                         <h1> Modification de profil</h1>
