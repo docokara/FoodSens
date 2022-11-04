@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-   <link href="/css/recipe.css" rel="stylesheet" type="text/css"/>           
+   <link href="/css/recipe1.css" rel="stylesheet" type="text/css"/>           
 {% endblock %}   
 
 {% block body %}
@@ -10,7 +10,7 @@
    
     <h1>{{recipe.name}}</h1>
     
-    <span class="recipe">
+    <div class="recipe">
       <img src="{{ asset('uploads/' ~ recipe.image) }}" class="card-img-top" alt="recipeimage" style="width : 300px">
 
       <p>
@@ -22,14 +22,16 @@
       <a class='admin' href="{{ path('user_recipe_edit', {"id" : recipe.id }) }}">Editer</a>
      {% endif %}
      {% if editedComId == 'undefined' %}
-       {{ include('base/_form.html.twig', {'button_label': "envoyer !"}) }}
+     <div class="base_form">
+       {{ include('base/_form.html.twig', {'button_label': "envoyer"}) }}
+      </div>
        {% endif %}
      {% for commentaire in commentaires %}
-    <div style="border : 1px solid black">
+    <div class"com" style="border : 1px solid black; width:70%;  display: block; margin-left: auto; margin-right: auto; padding-left: 1vw">
    {% if editedComId and editedComId == commentaire.id %}
-         {{ include('base/_form.html.twig', {'button_label': "editer !"}) }}        
+         {{ include('base/_form.html.twig', {'button_label': "editer"}) }}        
     {% else %}
-        <h1> {{commentaire.content}}</h1>
+        <p> {{commentaire.content}}</p>
          <h5>envoyé par : {{commentaire.owner.pseudo}}</h5>
              <h5>le : {{commentaire.date|date("m/d/Y")}}</h5>
                {% if commentaire in app.user.commentaires or "ROLE_ADMIN" in app.user.roles %}
@@ -41,7 +43,7 @@
       </div>
      {% endfor %}
      
-   </span>
+   </div>
 </body>
 </html>
 

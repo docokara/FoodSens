@@ -1,4 +1,4 @@
- h1{
+h1{
     text-align: center;
 }
 .recipe img{
@@ -7,11 +7,9 @@
     margin-right: auto;
 }
 
-.recipe p{
-    padding-left:2vw;
-}
+
 .recipe li{
-    padding-left:2vw;
+
     padding-top: 2VH;
 }
 
@@ -19,5 +17,9 @@
     color: blue;
 }
 .recipe .admin{
-    padding-left: 2vw;
+    padding-left: 3vw;
+}
+
+.recipe{
+    padding: 2vw;
 }
