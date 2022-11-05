@@ -191,8 +191,7 @@ width: 50vw;
 height: 84vh;
 left: 18vw;
 background:rgba(255, 255, 255, 0.5);
-overflow:auto;
-max-width: 100%;
+
 overflow-x: hidden;
 }
 
@@ -277,5 +276,9 @@ overflow-x: hidden;
     }
     
     .reveal-2{
-       transition-delay: 0.5s;
+       transition-delay: 0.35s;
     }
+
+    .reveal-3{
+        transition-delay: 0.5s;
+     }

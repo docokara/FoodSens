@@ -14,3 +14,4 @@ export default async function getRecipe() {
     const recipes= await searchRecipes(query)
    return recipes
 }
+
