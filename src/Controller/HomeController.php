@@ -25,7 +25,6 @@ class HomeController extends AbstractController
     public function index(RecipeRepository $recipes): Response
     {       
         return $this->render('home/index.html.twig', [
-            'recipes' => $recipes->findAll(),
             'page_name' => 'home'
         ]);
     }
@@ -109,13 +108,20 @@ class HomeController extends AbstractController
     {   
 
 
-        
+    public function searchRecipe(RecipeRepository $recipes) : Response
+    {
+
+     /**
+     * @Route("/user/profil/{id}", name="get_user_profil")
+     */
+    public function getUserProfil(User $user) : Response
+    {
+        if(!$user) return $this->redirectToRoute('app_home');
         return $this->render('home/index.html.twig', [
-            'recipes' => $recipes->findByName($name),
-            'page_name' => 'findRecipeByName',
-            
+            'user' => $user,
+            'userMessage' => $user->getCommentaires(),
+            'userFavories' => $user->getFavories(),
+            'page_name' => 'get_user_profil'
         ]);
     } 
-
-
 }
