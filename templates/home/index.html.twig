@@ -10,7 +10,7 @@
         {% block stylesheets %}
          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
             <link href="/css/style4.css" rel="stylesheet" type="text/css"/>
-            <link href="/css/auth1.css" rel="stylesheet" type="text/css"/>
+            <link href="/css/auth.css" rel="stylesheet" type="text/css"/>
 
             <link rel="preconnect" href="https://fonts.googleapis.com">
         {% endblock %}   
@@ -36,27 +36,43 @@
               {{ include('base/nav.html.twig') }}
                
                     <div class="main2">
-                    {% if page_name == 'home' %}
-                     <div class="Accueil"> Accueil </div>
-                                    <div class="tab">
-                                      <a href="" class="tab_1"> Notre Projet</a>
-                                      <a href="" class="tab_1"> Notre Equipe</a>
-                                      <a href="" class="tab_1"> Nous Contacter</a>
-                                  </div>
-                                      <div class="main2_body">
-                                          <p> Food Sens est une application web visant à aider ses utilisateurs au quotidien dans l'élaboration de leur régime alimentaire. En Vous proposant des recettes riches et variées adaptées aux ingrédients dont vous disposez en temps réel.
+                    
+                    {% if page_name == 'home' %} 
+                    <div class="Accueil"> Accueil </div>
+                                  <div class="tab">
+                                      <a href="{{ path('app_home') }}" class="tab_1"> Notre Projet</a>
+                                      <a href="{{ path('NotreEquipe') }}" class="tab_1"> Notre Equipe</a>
+                                      <a href="{{ path('NousContacter') }}" class="tab_1"> Nous Contacter</a>
+                                  </div> 
+                                      <div class="main2_body ">
+                                          <p class="reveal-1"> Food Sens est une application web visant à aider ses utilisateurs au quotidien dans l'élaboration de leur régime alimentaire. En Vous proposant des recettes riches et variées adaptées aux ingrédients dont vous disposez en temps réel.
                                           Nous voulons mettre la cuisine à la portée de tous et vous donner les outils afin de mieux la comprendre et suivre vos apports nutritionnels. </p>
-                                          <img src="img/Team Work_Monochromatic.png">
+                                          <img class="reveal-2" src="img/Team Work_Monochromatic.png">
                                       </div> 
-                                  {% endif %}
+                    {% endif %}
+                   
+                    
                     
                     {% if page_name == 'searchRecipe' %}
                     {% if app.user %}
                     <a href="{{ path('user_recipe_create') }}">Créer une recette</a>
+                        {{ include('recipe/form.html.twig') }} 
 
-                    <div class="search">
-                        <input type="text" placeholder="Rechercher une recette..." id="recipeName">
+                    {# <div class="search">
+                      <input type="text" placeholder="Rechercher une recette..." id="recipeName"> 
+                      <button> <a href="{{ path('findRecipe' , {"name" : 'undefined' }) }}"> Rechercher </a></button>  
                     </div>
+
+                    <script>
+                          <script src="/js/fos_js_routes.js"></script>
+                          <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+                        
+                          
+                          var recipeName = document.getElementById('recipeName');    
+                          Routing.generate('path('findByName')', { recipeName : recipeName });
+                          
+                    </script> #}
+                                       
                     {% endif %}
                      {% for recipe in recipes %}
                      <div class="card" style="width: 18rem;">
@@ -91,7 +107,7 @@
                               <div class="head">
                         <h1>Informations : </h1>
                         </div>   
-                        <div class="modification" style="font-size : 2vh;  padding :2vw">
+                        <div class="modification  reveal-1" style="font-size : 2vh;  padding :2vw">
 
                     
                             <h3> Pseudo :</h3> {{info.pseudo}} <a style="margin-left:1vw; color:blue" href="{{ path('user_profil_edit', {"id" : app.user.id , 'onModify' : "pseudo" }) }}">edit</a> 
@@ -113,6 +129,7 @@
                        {% else %}
                      {% endif %}
                     </div>
+                    
                     <div class="main4">
                         <div class="profile">
                             Mon Profil
@@ -129,11 +146,33 @@
                         </div>                   
                     </div>                  
         </div>
+
+
+
+
+<script >//script pour l'anim de texte (je n'ai pas réussi à l'include, ou à rediriger vers /public/js/animText.js .. ça doit être le twig ou jsp)
+const ratio=0
+const options = {
+    root: null,
+    rootMargin: '0px',
+    threshold: ratio
+ }
+const handleIntersect = function(entries, observer){
+    entries.forEach(function (entry) {
+        if(entry.intersectionRatio > ratio){
+          entry.target.classList.add('reveal-visible')
+          observer.unobserve(entry.target) 
+        }
+        
+    }) 
+}
+
+const observer = new IntersectionObserver(handleIntersect, options);
+document.querySelectorAll('[class*="reveal-"]').forEach(function (r){
+    observer.observe(r)
+})</script> 
+         
+
 </body>
 </html>
 {% endblock %}
-
-{% block javascripts %}
-            
-{% endblock %}
-

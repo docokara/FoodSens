@@ -1,38 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block stylesheets %}
+   <link href="/css/recipe1.css" rel="stylesheet" type="text/css"/>           
+{% endblock %}   
 
 {% block body %}
-   <html>
-   <body>
+<html>
+<body>
+   
     <h1>{{recipe.name}}</h1>
-    <img src="{{ asset('uploads/' ~ recipe.image) }}" class="card-img-top" alt="recipeimage" style="width : 300px">
-    <h2>{{recipe.steps}}</h2>
+    
+    <div class="recipe">
+      <img src="{{ asset('uploads/' ~ recipe.image) }}" class="card-img-top" alt="recipeimage" style="width : 300px">
+
+      <p>
+         <li>{{recipe.steps}}</li>
+      </p>
 
      {% if app.user and ('ROLE_ADMIN' in app.user.roles or recipe.author.id == app.user.id)  %}
-    <a href="{{ path('user_recipe_delete', {"id" : recipe.id }) }}">Supprimer</a>
-    <a href="{{ path('user_recipe_edit', {"id" : recipe.id }) }}">Editer</a>
+      <a class='admin' href="{{ path('user_recipe_delete', {"id" : recipe.id }) }}">Supprimer</a>
+      <a class='admin' href="{{ path('user_recipe_edit', {"id" : recipe.id }) }}">Editer</a>
      {% endif %}
      {% if editedComId == 'undefined' %}
-       {{ include('base/_form.html.twig', {'button_label': "envoyer !"}) }}
+     <div class="base_form">
+       {{ include('base/_form.html.twig', {'button_label': "envoyer"}) }}
+      </div>
        {% endif %}
      {% for commentaire in commentaires %}
-       <div style="border : 1px solid black">
-         {% if editedComId and editedComId == commentaire.id %}
-            {{ include('base/_form.html.twig', {'button_label': "editer !"}) }}        
-          {% else %}
-            <h1> {{commentaire.content}}</h1>
-               <h5>envoyé par : <a href="{{path('get_user_profil', {"id": commentaire.owner.id }) }}">{{commentaire.owner.pseudo}}</a></h5>
-                  <h5>le : {{commentaire.date|date("m/d/Y")}}</h5>
-                     {% if commentaire in app.user.commentaires or "ROLE_ADMIN" in app.user.roles %}
-                  <a href="{{path('recipe_delete_commentaire', {"id": commentaire.id }) }}">delete</a> 
-                  <a href="{{path('show_recipe', {"id" : recipe.id,"editCom" : commentaire.id}) }}"> edit</a>
-                      {% endif %}
+    <div class"com" style="border : 1px solid black; width:70%;  display: block; margin-left: auto; margin-right: auto; padding-left: 1vw">
+   {% if editedComId and editedComId == commentaire.id %}
+         {{ include('base/_form.html.twig', {'button_label': "editer"}) }}        
+    {% else %}
+        <p> {{commentaire.content}}</p>
+         <h5>envoyé par : {{commentaire.owner.pseudo}}</h5>
+             <h5>le : {{commentaire.date|date("m/d/Y")}}</h5>
+               {% if commentaire in app.user.commentaires or "ROLE_ADMIN" in app.user.roles %}
+                  <a href="{{ path('recipe_delete_commentaire', {"id": commentaire.id, "editCom" : 'undefined'}) }}">Supprimer</a> 
+                  <a href="{{path('showRecipe',{"id" : recipe.id,"editCom" : commentaire.id})}}"> Modifier</a>
+               {% endif %}
 
    {% endif %}
       </div>
      {% endfor %}
-   </body>
-   </html>
+     
+   </div>
+</body>
+</html>
 
 {% endblock %}  

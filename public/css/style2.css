@@ -191,13 +191,67 @@ width: 50vw;
 height: 84vh;
 left: 18vw;
 background:rgba(255, 255, 255, 0.5);
+overflow:auto;
+max-width: 100%;
+overflow-x: hidden;
 }
 
-.main2 .Acceuil{
-    font-size: 4vh;
+.main2 .Accueil{
+    font-size: 5vh;
     text-align: center;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
 }
     
+.main2 .tab{
+    font-size: 2vh;
+    display: flex;
+    position: relative;
+    left: 24%;
+    line-height: 4vh;
+  
+}
+.main2 a{
+    text-decoration: none;
+    color: black;
+}
+
+.tab_1{
+    height: 4vh;
+    padding: 0vh 1vw; 
+    
+}
+.tab_1:hover{
+    border-radius: 10px;
+   background-color: #F3D42F;  
+}
+.clicked{
+    border-radius: 10px;
+   background-color: #F3D42F; 
+   text-decoration: underline;
+}
+
+.main2_body{
+ display: flex;
+ margin-top: 4vh;
+
+}
+.main2_body p{
+    margin-top: 10vh;    
+    margin-left: 1vw;
+    font-size: 2vh;
+}
+
+.main2_body img{
+    width: 50vh;
+    height: 50vh;
+}
+
+.main2 .contact{
+    position: relative;
+    left: 8vw;
+    top: -25vh;
+}
 
 /*MAIN 4*/
 .main4{
@@ -208,4 +262,20 @@ background:rgba(255, 255, 255, 0.5);
         
     font-size: 1.5vh;
     }
+
+
+/* Anim de texte  */
+    [class*="reveal-"]{
+        opacity: 0;
+        transform: translateY(30px);
+    }
     
+    .reveal-visible{
+        opacity: 1;
+        transform: translateY(0);
+        transition: 1s cubic-bezier(.5, 0, 0, 1);
+    }
+    
+    .reveal-2{
+       transition-delay: 0.5s;
+    }

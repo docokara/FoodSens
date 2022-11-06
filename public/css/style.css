@@ -1,9 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap%27');
 
 @font-face {
    font-family: "Poppins";
-   src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
-       
+   src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap%27');
  }
 
 
@@ -142,55 +141,48 @@ height: 84vh;
 background: #FFFFFF;
 border-radius: 12px 0px 0px 12px;
 }
-.main1 button{
-   color: #BFBFBF;
-   background-color: transparent;
-   border-color: #BFBFBF;
-   border-radius: 12px;
-   font-family: 'Poppins';   
-   cursor: pointer;
-   font-size: 2vh;
-   border-style: solid; 
-   width: 15vw;   
+
+
+
+.menu a{
+    text-decoration: none;
+     color: black;
+}
+.menu a:hover{
+    text-decoration: none;
+     color: #F3D42F;
 }
 
-.main1 button:hover{
-  background-color: #bfbfbf;
-  color: white;
-  border-color: #BFBFBF;
-}
-.main1 button{
-   margin-bottom: 3vh;
+.menu_1 {
+   
+    height: 16vh;
+    margin-top: 1vh ;
 }
 .menu{
-   position: absolute;
-   top: 20vh;left: 1.5vw;
+
+    position: relative;
+    top: 10vh;
+    
 }
-
-.menu .child{
-width: 14vw;
-height: 3vh;
-font-family: 'Poppins';
-font-size: 2vh;
-color: #BFBFBF;
-padding: 1vh;
-
-margin-bottom: 3vh;
-
-border: 2px solid #BFBFBF;
-border-radius: 12px;
+.menu_1 p{
+    position: relative;
+        text-align: center;
+        font-size: 2vh;
+}
+.menu_1 .img{
+    position: relative;
+    width: 13vh;
+    height: 13vh;
+    left: 6vw;
+    margin-bottom: -20px;
 }
 
 .menu .logo{
-width: 31px;
-height: 31px;
-float: left;
+    width: 31px;
+    height: 31px;
+    float: left;
 }
 
-
-
-
- 
 
 /*MAIN 2*/
 .main2{
@@ -199,7 +191,60 @@ width: 50vw;
 height: 84vh;
 left: 18vw;
 background:rgba(255, 255, 255, 0.5);
+overflow:auto;
+max-width: 100%;
+overflow-x: hidden;
 }
+
+.main2 .Accueil{
+    font-size: 5vh;
+    text-align: center;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+    
+.main2 .tab{
+    font-size: 2vh;
+    display: flex;
+    position: relative;
+    left: 24%;
+    line-height: 4vh;
+  
+}
+.main2 a{
+    text-decoration: none;
+    color: black;
+}
+
+.tab_1{
+    height: 4vh;
+    padding: 0vh 1vw; 
+    
+}
+.tab_1:hover{
+    border-radius: 10px;
+   background-color: #F3D42F;  
+}
+.clicked{
+    border-radius: 10px;
+   background-color: #F3D42F; 
+   text-decoration: underline;
+}
+
+.main2_body{
+ display: flex;
+ margin-top: 4vh;
+ margin-left: 1vw;
+ font-size: 2vh;
+}
+.main2_body p{
+    margin-top: 10vh;    
+}
+.main2_body img{
+    width: 50vh;
+    height: 50vh;
+}
+
 
 /*MAIN 4*/
 .main4{
@@ -208,6 +253,5 @@ background:rgba(255, 255, 255, 0.5);
     height: 84vh;
     left: 68vw;
         
-    
+    font-size: 1.5vh;
     }
-    

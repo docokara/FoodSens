@@ -98,7 +98,7 @@ class UserController extends AbstractController
                 $user->setPassword($newEncodedPassword);
                 if( $oldEncodePsw == $userPasswordHasher->hashPassword($user, $user->getPassword()) ){
                    // $user->setPassword($newEncodedPassword);
-                    dump(' quentin');
+                 
                 }else{
                         //return une error
                 }

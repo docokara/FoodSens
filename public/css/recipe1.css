@@ -1,0 +1,25 @@
+h1{
+    text-align: center;
+}
+.recipe img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.recipe li{
+
+    padding-top: 2VH;
+}
+
+.recipe a:hover{
+    color: blue;
+}
+.recipe .admin{
+    padding-left: 3vw;
+}
+
+.recipe{
+    padding: 2vw;
+}
