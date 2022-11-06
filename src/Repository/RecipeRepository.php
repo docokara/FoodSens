@@ -74,47 +74,11 @@ class RecipeRepository extends ServiceEntityRepository
         FROM App\Entity\Recipe r');
         return $query->getResult();
    }
-
-
-
- /*  public function findByName($name){
-        $recipes = $this ->getDoctrine()
-        ->getRepository('AppBundle:Recipes')
-        ->find($name);
-
-        if(!$recipes){
-            throw $this -> createNotFoundException('Aucune recette ne correspond à votre recherche');
-        }
-        return new Response($recipes ->getName());
-} */
-
-public function findByName($name){
-    $recipes = $this ->getDoctrine()
-    ->getRepository('AppBundle:Recipes')
-    ->find($name);
-
-    if(!$recipes){
-        throw $this -> createNotFoundException('Aucune recette ne correspond à votre recherche');
-    }
-    return new Response($recipes ->getName());
-    }
-
-
-
-   public function findByBudgetInterval( $budgetMin, $budgetMax)
-   {
-    return $this -> createQueryBuilder('r')
-    ->andWhere('p.budget >= :budgetMin and p.budget <= : budgetMax')
-    ->setParameters(['budgetMin' => $budgetMin, 'budgetMax' => $budgetMax])
-    ;
-   }
-    
-  /* public function findByFirstLetters()
-   {
-        $value =null;
-        $entityManager = $this->getEntityManager();
-        $query = $entityManager->createQuery(
-        'SELECT 
+   public function findAllWithParam($param)
+   { 
+       $entityManager = $this->getEntityManager();
+       $query = $entityManager->createQuery(
+        "SELECT      
         r.name,
         r.id,
         r.tags,
@@ -124,11 +88,8 @@ public function findByName($name){
         r.difficulty,
         r.preptime,
         r.toltalTime,
-        r.image
-        FROM App\Entity\Recipe r
-        WHERE r.name LIKE '$value '%''
-        ORDER BY r.name ASC'
-        );
+        r.image FROM App\Entity\Recipe r WHERE r.name LIKE :sname");
+        $query->setParameter('sname', '%'.$param.'%');
         return $query->getResult();
-   }*/
+   }
 }

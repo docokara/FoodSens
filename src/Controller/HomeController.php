@@ -56,10 +56,10 @@ class HomeController extends AbstractController
      */
     public function searchRecipe(Request $request,RecipeRepository $recipes) : Response
     {
-   
-
+            $startingName = $request->request->get('search');
+            $res = $recipes->findAllWithParam($startingName);
             return $this->render('home/index.html.twig', [
-                'recipes' => $recipes->findAll(),
+                'recipes' => $res,
                 'page_name' => 'searchRecipe'
             ]);
           
