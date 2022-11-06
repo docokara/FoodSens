@@ -14,5 +14,4 @@ return [
     Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle::class => ['all' => true],
     SymfonyCasts\Bundle\VerifyEmail\SymfonyCastsVerifyEmailBundle::class => ['all' => true],
     Symfony\Bundle\MercureBundle\MercureBundle::class => ['all' => true],
-    FOS\JsRoutingBundle\FOSJsRoutingBundle::class => ['all' => true],
 ];

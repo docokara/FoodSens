@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Commentaires;
 use App\Entity\Recipe;
+use App\Entity\User;
 use App\Form\RecipeType;
 use App\Form\CommentairesType;
 use App\Repository\CommentairesRepository;
@@ -51,65 +52,18 @@ class HomeController extends AbstractController
 
     
       /**
-     * @Route("/searchRecipe/{id}", name="searchRecipe")
+     * @Route("/searchRecipe", name="searchRecipe")
      */
-    public function searchRecipe(Request $request,RecipeRepository $recipes,Recipe $recipe,UserInterface $user = null) : Response
+    public function searchRecipe(Request $request,RecipeRepository $recipes) : Response
     {
-      //  $favs = null;
-      //  if($this->getUser()){ $favs = $this->getUser()->getFavories();
-      //   }
-       
-        if (!$this->getUser()) return $this->redirectToRoute('app_home');   
-        $form_recipe = $this->createForm(RecipeType::class, $recipe);
-        $form_recipe->remove("photo");
-        $form_recipe->remove("steps")
-        ->remove('people')
-        ->remove('budget')
-        ->remove('tags')
-        ->remove('preptime')
-        ->remove('toltalTime')
-        ->remove('Author')
-        ->remove('difficulty');
-        $form_recipe->handleRequest($request); 
-         
-        if ($form_recipe->isSubmitted() && $form_recipe->isValid()) { 
-            
-            $name = $form_recipe->get('name')->getData();
-            dump($name);
-    
-           // return $this->redirectToRoute('recipe', [], Response::HTTP_SEE_OTHER);
-           return $this->render('home/index.html.twig', [
-         
-            'page_name' => 'findRecipe',
-            
-        ]);
-        } else{
+   
 
             return $this->render('home/index.html.twig', [
                 'recipes' => $recipes->findAll(),
-                'page_name' => 'searchRecipe',
-                'form_recipe' => $form_recipe->createView(),
+                'page_name' => 'searchRecipe'
             ]);
-        }  
+          
     } 
-
-
-
-
-
-
-
-    
- //#[Route(path: '/findRecipe/{name}', name: 'findRecipe')]
-    /**
-     * @Route("/findRecipe", name="findRecipe")
-     */
-    public function findRecipeByName(Request $request,RecipeRepository $recipes) : Response
-    {   
-
-
-    public function searchRecipe(RecipeRepository $recipes) : Response
-    {
 
      /**
      * @Route("/user/profil/{id}", name="get_user_profil")

@@ -36,7 +36,7 @@
              <h5>le : {{commentaire.date|date("m/d/Y")}}</h5>
                {% if commentaire in app.user.commentaires or "ROLE_ADMIN" in app.user.roles %}
                   <a href="{{ path('recipe_delete_commentaire', {"id": commentaire.id, "editCom" : 'undefined'}) }}">Supprimer</a> 
-                  <a href="{{path('showRecipe',{"id" : recipe.id,"editCom" : commentaire.id})}}"> Modifier</a>
+                  <a href="{{path('show_recipe',{"id" : recipe.id,"editCom" : commentaire.id})}}"> Modifier</a>
                {% endif %}
 
    {% endif %}
