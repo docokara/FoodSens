@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Commentaires;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Form\UserType;
@@ -21,7 +22,9 @@ use App\Entity\IngredientCategorie;
 use App\Form\IngredientCategorieType;
 use App\Repository\IngredientRepository;
 use App\Entity\Ingredient;
+use App\Form\CommentairesType;
 use App\Form\IngredientType;
+use App\Repository\CommentairesRepository;
 use Doctrine\ORM\EntityManagerInterface ;
 use App\Service\FileUploader;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -38,17 +41,8 @@ class AdminController extends AbstractController
      */
     public function index(): Response
     {
-        $isAdmin = false;
-        if (!$this->getUser()) return $this->redirectToRoute('app_home');
-        $roles = $this->getUser()->getRoles();
-        
-        foreach($roles as $role){
-            if($role == 'admin') $isAdmin = true;
-        }
-        
-      //  if(!$isAdmin) return $this->redirectToRoute('app_home');
-        return $this->render('home/index.html.twig', [
-            "entity" => ["users","recipes","ingredients","ingredientCategories"],
+        return $this->render('index.html.twig', [
+            "entity" => ["users","recipes","ingredients","ingredientCategories","commentaires"],
             "page_name" => "admin_page"
         ]);
     }
@@ -56,9 +50,9 @@ class AdminController extends AbstractController
     /**
      * @Route("/getAll/{name}", name="admin_getAll")
      */
-    public function getAll($name,UserRepository $users,RecipeRepository $recipes,IngredientRepository $ingredients,IngredientCategorieRepository $ingredientCategories): Response
+    public function getAll($name,UserRepository $users,RecipeRepository $recipes,IngredientRepository $ingredients,IngredientCategorieRepository $ingredientCategories,CommentairesRepository $commentaires): Response
     {
-        return $this->render('home/index.html.twig', [
+        return $this->render('index.html.twig', [
             'data' => ${$name}->findAll(),
             'name' => $name,
             "page_name" => "admin_page_getAll"
@@ -67,7 +61,7 @@ class AdminController extends AbstractController
      /**
      * @Route("/edit/{name}/{id}", name="admin_update")
      */
-    public function update($name,$id = 'undefined',Request $request,UserRepository $users,User $user = null,Recipe $recipe = null,RecipeRepository $recipes,IngredientRepository $ingredients,Ingredient $ingredient = null,IngredientCategorieRepository $ingredientCategories,IngredientCategorie $ingredientCategorie = null,FileUploader $fileUploader,UserPasswordHasherInterface $userPasswordHasher): Response
+    public function update($name,$id = 'undefined',Request $request,UserRepository $users,User $user = null,Recipe $recipe = null,RecipeRepository $recipes,IngredientRepository $ingredients,Ingredient $ingredient = null,IngredientCategorieRepository $ingredientCategories,IngredientCategorie $ingredientCategorie = null,FileUploader $fileUploader,UserPasswordHasherInterface $userPasswordHasher,CommentairesRepository $commentaires,Commentaires $commentaire = null): Response
     {
         $form = null;
         $element = null;
@@ -75,6 +69,10 @@ class AdminController extends AbstractController
             $element = $id != 'undefined' ? $user : new User();
             $form = $this->createForm(UserType::class, $element);
             $form->remove('oldpassword');
+        }
+        if($name == "commentaires") {
+            $element = $id != 'undefined' ? $commentaire : new Commentaires();
+            $form = $this->createForm(CommentairesType::class, $element);
         }
         if($name == "recipes") {
             $element = $id != 'undefined' ? $recipe : new Recipe();
@@ -112,7 +110,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('admin_getAll', ['name' => $name], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('home/index.html.twig', [
+        return $this->renderForm('index.html.twig', [
             'data' => $element,
             'name' => $name,
             'form' => $form,
@@ -123,14 +121,19 @@ class AdminController extends AbstractController
      /**
      * @Route("/delete/{id}/{name}", name="admin_delete")
      */
-    public function delete($name,Request $request,UserRepository $users,User $user = null,Recipe $recipe = null,RecipeRepository $recipes,IngredientRepository $ingredients,Ingredient $ingredient = null,IngredientCategorieRepository $ingredientCategories,IngredientCategorie $ingredientCategorie = null): Response
+    public function delete(CommentairesRepository $commentaires,Commentaires $commentaire = null,$name,Request $request,UserRepository $users,User $user = null,Recipe $recipe = null,RecipeRepository $recipes,IngredientRepository $ingredients,Ingredient $ingredient = null,IngredientCategorieRepository $ingredientCategories,IngredientCategorie $ingredientCategorie = null): Response
     {
         $element=null;
         if($name == "users") {
+            foreach($user->getRecipes() as $recipe){
+                $recipes->remove($recipe,true);
+            }
+            foreach($user->getCommentaires() as $commentaire){
+                $commentaires->remove($commentaire,true);
+            }
             $element = $user;
         }
         if($name == "recipes") {
-            dump("rr");
             $element = $recipe;
         }
         if($name == "ingredients") {
@@ -142,7 +145,7 @@ class AdminController extends AbstractController
 
         ${$name}->remove($element,true);
 
-        return $this->render('home/index.html.twig', [
+        return $this->render('index.html.twig', [
             'data' => ${$name}->findAll(),
             'name' => $name,
             'page_name' => 'admin_page_getAll'

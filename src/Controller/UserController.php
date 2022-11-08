@@ -36,7 +36,7 @@ class UserController extends AbstractController
         if (!$this->getUser()) return $this->redirectToRoute('searchRecipe');
           
 
-        return $this->render('home/index.html.twig', [
+        return $this->render('index.html.twig', [
             'info' => $this->getUser(),
             'page_name' => 'userProfile'
         ]);
@@ -118,7 +118,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('user', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('home/index.html.twig', [
+        return $this->renderForm('index.html.twig', [
             'data' => $user,
             'page_name' => 'userProfileEdition',
             'form' => $form,
@@ -134,7 +134,7 @@ class UserController extends AbstractController
     public function myFav(Request $request,User $user) : Response
     {
         
-        return $this->render('home/index.html.twig', [
+        return $this->render('index.html.twig', [
             'recipes' => $user->getFavories(),
             'page_name' => 'myFav'
         ]); 
@@ -147,7 +147,7 @@ class UserController extends AbstractController
     {
         if (!$this->getUser()) return $this->redirectToRoute('app_home');
         $fridge = $this->getUser()->getFridge();
-        return $this->render('home/index.html.twig', [
+        return $this->render('index.html.twig', [
             'ingredients' => $fridge->getIngredients(),
             'page_name' => 'myFridge'
         ]); 
@@ -169,7 +169,7 @@ class UserController extends AbstractController
             $users->add($user,true);
             return $this->redirectToRoute('user_fridge', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
-        return $this->render('home/index.html.twig', [
+        return $this->render('index.html.twig', [
             'form' => $form->createView(),
             'ingredients' => $fridge->getIngredients(),
             'page_name' => 'myFridge'
@@ -183,10 +183,9 @@ class UserController extends AbstractController
         $user = $this->getUser();
         if (!$this->getUser()) return $this->redirectToRoute('app_home');
         if ($user != $recipe->getAuthor() && (!in_array("ROLE_ADMIN", $user->getRoles()))) return $this->redirectToRoute('app_home');
-        dump("delete");
         $recipes->remove($recipe,true);
 
-        return $this->render('home/index.html.twig', [
+        return $this->render('index.html.twig', [
             'recipes' => $recipes->findAll(),
             'page_name' => 'allRecipe'
         ]);
@@ -215,7 +214,7 @@ class UserController extends AbstractController
             $recipes->add($recipe,true);
             return $this->redirectToRoute('show_recipe', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
-        return $this->render('home/index.html.twig', [
+        return $this->render('index.html.twig', [
             'recipes' => $recipes->findAll(),
             'page_name' => 'modifyRecipe',
             'form' => $form->createView()
@@ -243,7 +242,7 @@ class UserController extends AbstractController
             $recipes->add($recipe,true);
             return $this->redirectToRoute('searchRecipe', [], Response::HTTP_SEE_OTHER);
         }
-        return $this->render('home/index.html.twig', [
+        return $this->render('index.html.twig', [
             'recipes' => $recipes->findAll(),
             'page_name' => 'modifyRecipe',
             'form' => $form->createView()
@@ -269,7 +268,7 @@ class UserController extends AbstractController
         if(!$isLiking) $recipe->removeFav($user);
         else $recipe->addFav($user); 
         $recipes->add($recipe,true);
-        return $this->render('home/index.html.twig', [
+        return $this->render('index.html.twig', [
             'recipes' => $recipes->findAll(),
             'favs' => $favs,
             'page_name' => 'searchRecipe'

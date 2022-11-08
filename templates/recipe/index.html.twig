@@ -1,20 +1,27 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello RecipeController!{% endblock %}
-
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/FoodSens/src/Controller/RecipeController.php'|file_link(0) }}">src/Controller/RecipeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/FoodSens/templates/recipe/index.html.twig'|file_link(0) }}">templates/recipe/index.html.twig</a></code></li>
-    </ul>
-</div>
-{% endblock %}
+ {% if app.user %}
+                    <a href="{{ path('user_recipe_create') }}">Créer une recette</a>
+                         
+                            <form class="pull-right hidden" role="search" id="nav-search-form" method="post" action="{{ path('searchRecipe') }}">
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Search" name ="search">
+                      <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default">Entrer</button>
+                      </span>
+                    </div>
+                  </form>
+                    {% endif %}
+                     {% for recipe in recipes %}
+                     <div class="card" style="width: 18rem;">
+                     <img src="{{ asset('uploads/' ~ recipe.image) }}" class="card-img-top" alt="recipeimage">
+                    <div class="card-body">
+                     <h5 class="card-title">{{recipe.name}}</h5>
+                       <p class="card-text">{{recipe.steps}}</p>
+                        <a href="{{ path('show_recipe',{"id" : recipe.id})}}" class="btn btn-primary">Go</a>
+                          {% if app.user %}
+                          <a href="{{ path('user_like', {"id" : recipe.id }) }}">like</a>
+                          {% endif %}
+                          {# <img src='https://img.icons8.com/ios/64/-synthetidiamond-also-referred-to-as-laboratory-grown-diamond./hearts--v1.png' alt='test'>
+                         <img src='https://img.icons8.com/office/64/-synthetidiamond-also-referred-to-as-laboratory-grown-diamond./hearts.png' alt='test1'> #}
+                      </div>
+                        </div>
+                     {% endfor %}

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\RecipeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -338,8 +339,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function removeCommentaire(Commentaires $commentaire): self
-    {
-        if ($this->commentaires->removeElement($commentaire)) {
+    {   
+        if ($this->commentaires->removeElement($commentaire) ) {
             if ($commentaire->getOwner() === $this) {
                 $commentaire->setOwner(null);
             }

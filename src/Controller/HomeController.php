@@ -25,7 +25,7 @@ class HomeController extends AbstractController
      */
     public function index(RecipeRepository $recipes): Response
     {       
-        return $this->render('home/index.html.twig', [
+        return $this->render('index.html.twig', [
             'page_name' => 'home'
         ]);
     }
@@ -34,7 +34,7 @@ class HomeController extends AbstractController
      */
     public function index2(RecipeRepository $recipes): Response
     {       
-        return $this->render('home/index.html.twig', [
+        return $this->render('index.html.twig', [
             'recipes' => $recipes->findAll(),
             'page_name' => 'NotreEquipe'
         ]);
@@ -44,7 +44,7 @@ class HomeController extends AbstractController
      */
     public function index3(RecipeRepository $recipes): Response
     { 
-        return $this->render('home/index.html.twig', [
+        return $this->render('index.html.twig', [
             'recipes' => $recipes->findAll(),
             'page_name' => 'NousContacter'
         ]);
@@ -58,7 +58,7 @@ class HomeController extends AbstractController
     {
             $startingName = $request->request->get('search');
             $res = $recipes->findAllWithParam($startingName);
-            return $this->render('home/index.html.twig', [
+            return $this->render('index.html.twig', [
                 'recipes' => $res,
                 'page_name' => 'searchRecipe'
             ]);
@@ -71,7 +71,7 @@ class HomeController extends AbstractController
     public function getUserProfil(User $user) : Response
     {
         if(!$user) return $this->redirectToRoute('app_home');
-        return $this->render('home/index.html.twig', [
+        return $this->render('index.html.twig', [
             'user' => $user,
             'userMessage' => $user->getCommentaires(),
             'userFavories' => $user->getFavories(),

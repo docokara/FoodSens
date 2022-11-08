@@ -20,12 +20,12 @@
          <li>Difficulty : {{recipe.difficulty}}</li>
          <li>Preptime : {{recipe.preptime}}</li>
          <li>TotalTime : {{recipe.toltaltime}}</li>
-         <li>Create by : {{recipe.Author != null ? recipeAuthor : 'deleted user' }}</li>
+         <li>Create by : {{recipe.Author != null ? recipeAuthor.pseudo : 'deleted user' }}</li>
       </p>
 
      {% if app.user and ('ROLE_ADMIN' in app.user.roles or (recipe.author != null and recipe.author.id == app.user.id))  %}
       <a class='admin' href="{{ path('user_recipe_delete', {"id" : recipe.id }) }}">Supprimer</a>
-      <a class='admin' href="{{ path('user_recipe_edit', {"id" : recipe.id }) }}">Editer</a>
+      <a class='admin' href="{{ path('user_recipe_edit', {"id" : recipe.id}) }}">Editer</a>
      {% endif %}
      {% if editedComId == 'undefined' %}
      <div class="base_form">
@@ -41,7 +41,7 @@
          <h5>envoyé par : {{commentaire.owner != null ? commentaire.owner.pseudo : 'deleted user'}}</h5>
              <h5>le : {{commentaire.date|date("m/d/Y")}}</h5>
                {% if commentaire in app.user.commentaires or "ROLE_ADMIN" in app.user.roles %}
-                  <a href="{{ path('recipe_delete_commentaire', {"id": commentaire.id, "editCom" : 'undefined'}) }}">Supprimer</a> 
+                  <a href="{{ path('recipe_delete_commentaire', {"id": commentaire.id}) }}">Supprimer</a> 
                   <a href="{{path('show_recipe',{"id" : recipe.id,"editCom" : commentaire.id})}}"> Modifier</a>
                {% endif %}
 

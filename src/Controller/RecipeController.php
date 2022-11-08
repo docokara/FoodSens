@@ -22,9 +22,8 @@ class RecipeController extends AbstractController
     /**
      * @Route("/{id}/{editCom}", name="show_recipe")
      */
-    public function showRecipe($id,Request $request,Recipe $recipe = null,Commentaires $editCom = null,CommentairesRepository $commentaires) : Response
+    public function showRecipe($id,$editCom,Request $request,Recipe $recipe = null,Commentaires $editedCom = null,CommentairesRepository $commentaires) : Response
     {
-        dump($recipe);
         if ($recipe == null || !$this->getUser()) return $this->redirectToRoute('app_home');     
         $form = null;
         $commentaire = null;
@@ -42,7 +41,6 @@ class RecipeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             if($editCom != null ){
-                dump('yes');
                 $commentaires->add($editCom, true);
             }
             else{
@@ -51,12 +49,12 @@ class RecipeController extends AbstractController
                 $commentaire->setLocation($recipe);
                 $commentaires->add($commentaire, true);
             }
-           return $this->redirectToRoute('show_recipe', ['id' => $id,'editCom' => 'undefined'], Response::HTTP_SEE_OTHER);
+           return $this->redirectToRoute('show_recipe', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
-        return $this->render('home/index.html.twig', [
+        return $this->render('index.html.twig', [
             'form' => $form->createView(),
             'recipe' => $recipe,
-            'editedComId' => $editCom ? $editCom->getId() : 'undefined',
+            'editedComId' => $editCom ? $editedCom->getId() : 'undefined',
             'commentaires' => $recipe->getCommentaires(),
             'recipeAuthor' => $recipe->getAuthor(),
             'page_name' => 'showRecipe'
@@ -80,7 +78,7 @@ class RecipeController extends AbstractController
         $users->add($userOwner,true);
         $recipes->add($recipe,true);
         
-        return $this->redirectToRoute('show_recipe', ['id' => $recipe->getId(),'editCom' => 'undefined'], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('show_recipe', ['id' => $recipe->getId()], Response::HTTP_SEE_OTHER);
     }
 
 
