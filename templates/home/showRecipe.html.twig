@@ -14,7 +14,12 @@
       <img src="{{ asset('uploads/' ~ recipe.image) }}" class="card-img-top" alt="recipeimage" style="width : 300px">
 
       <p>
-         <li>{{recipe.steps}}</li>
+         <li>Steps : {{recipe.steps}}</li>
+         <li>People : {{recipe.people}}</li>
+         <li>Budget : {{recipe.budget}}</li>
+         <li>Difficulty : {{recipe.difficulty}}</li>
+         <li>Preptime : {{recipe.preptime}}</li>
+         <li>TotalTime : {{recipe.toltaltime}}</li>
       </p>
 
      {% if app.user and ('ROLE_ADMIN' in app.user.roles or recipe.author.id == app.user.id)  %}
