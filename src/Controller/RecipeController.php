@@ -58,6 +58,7 @@ class RecipeController extends AbstractController
             'recipe' => $recipe,
             'editedComId' => $editCom ? $editCom->getId() : 'undefined',
             'commentaires' => $recipe->getCommentaires(),
+            'recipeAuthor' => $recipe->getAuthor(),
             'page_name' => 'showRecipe'
         ]); 
     }

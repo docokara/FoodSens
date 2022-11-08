@@ -35,6 +35,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     public function remove(User $entity, bool $flush = false): void
     {
+        $entity->removeAllRelation();
+        $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->remove($entity);
 
         if ($flush) {

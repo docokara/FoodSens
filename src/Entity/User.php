@@ -259,7 +259,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
+    public function removeAllRecipe(): void
+    {
+        foreach($this->recipes as $recipe){
+            $this->removeRecipe($recipe);
+        }
+    }
     public function getFridge(): ?Fridge
     {
         return $this->fridge;
@@ -308,6 +313,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    public function removeAllFavory() : void{
+        foreach($this->favories as $favorie){
+            $this->removeFavory($favorie);
+        }
+    }
 
     /**
      * @return Collection<int, Commentaires>
@@ -330,13 +340,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeCommentaire(Commentaires $commentaire): self
     {
         if ($this->commentaires->removeElement($commentaire)) {
-            // set the owning side to null (unless already changed)
             if ($commentaire->getOwner() === $this) {
                 $commentaire->setOwner(null);
             }
         }
 
         return $this;
+    }
+    public function removeAllCommentaire() : void
+    {
+        foreach($this->commentaires as $commentaire){
+            $this->removeCommentaire($commentaire);
+        }
+
     }
 
     public function isConnected(): ?bool
@@ -349,5 +365,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->connected = $connected;
 
         return $this;
+    }
+    public function removeAllRelation() : void{
+        $this->removeAllCommentaire();
+        $this->removeAllFavory();
+        $this->removeAllRecipe();
     }
 }
