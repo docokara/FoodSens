@@ -1,8 +1,13 @@
+# config/packages/mercure.yaml
 mercure:
     hubs:
         default:
-            url: '%env(MERCURE_URL)%'
-            public_url: '%env(MERCURE_PUBLIC_URL)%'
+            url: https://mercure-hub.example.com/.well-known/mercure
             jwt:
-                secret: '%env(MERCURE_JWT_SECRET)%'
-                publish: '*'
+                secret: 'Asxft123'
+                publish: ['foo', 'https://example.com/foo']
+                subscribe: ['bar', 'https://example.com/bar']
+                algorithm: 'hmac.sha256'
+                provider: 'My\Provider'
+                factory: 'My\Factory'
+                value: 'my.jwt'

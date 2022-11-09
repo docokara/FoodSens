@@ -94,6 +94,14 @@
 
 
 <script >//script pour l'anim de texte (je n'ai pas réussi à l'include, ou à rediriger vers /public/js/animText.js .. ça doit être le twig ou jsp)
+
+const eventSource = new EventSource("{{ mercure('https://example.com/books/1')|escape('js') }}");
+eventSource.onmessage = event => {
+    // Will be called every time an update is published by the server
+    console.log(JSON.parse(event.data));
+}
+
+
 const ratio=0
 const options = {
     root: null,

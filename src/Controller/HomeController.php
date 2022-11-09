@@ -15,7 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Symfony\Component\Mercure\HubInterface;
+use Symfony\Component\Mercure\Update;
 
 
 class HomeController extends AbstractController
@@ -76,5 +77,18 @@ class HomeController extends AbstractController
             'userFavories' => $user->getFavories(),
             'page_name' => 'get_user_profil'
         ]);
+    }
+
+
+    public function publish(HubInterface $hub): Response
+    {
+        $update = new Update(
+            'https://example.com/books/1',
+            json_encode(['status' => 'OutOfStock'])
+        );
+
+        $hub->publish($update);
+
+        return new Response('published!');
     }
 }
