@@ -20,27 +20,35 @@
          <li>Difficulty : {{recipe.difficulty}}</li>
          <li>Preptime : {{recipe.preptime}}</li>
          <li>TotalTime : {{recipe.toltaltime}}</li>
-         <li>Create by : {{recipe.Author != null ? recipeAuthor.pseudo : 'deleted user' }}</li>
+         {%  if recipe.Author != null %}
+            <a href="{{path('get_user_profil',{"id" : recipeAuthor.id})}}"> {{recipeAuthor.pseudo}}</a>
+         {% else %}
+         <li>Create by : deleted user</li>
+         {% endif %}
       </p>
 
      {% if app.user and ('ROLE_ADMIN' in app.user.roles or (recipe.author != null and recipe.author.id == app.user.id))  %}
       <a class='admin' href="{{ path('user_recipe_delete', {"id" : recipe.id }) }}">Supprimer</a>
       <a class='admin' href="{{ path('user_recipe_edit', {"id" : recipe.id}) }}">Editer</a>
      {% endif %}
-     {% if editedComId == 'undefined' %}
+     {% if editedComId == 'undefined' and form != 'undefined' %}
      <div class="base_form">
        {{ include('base/_form.html.twig', {'button_label': "envoyer"}) }}
       </div>
        {% endif %}
      {% for commentaire in commentaires %}
     <div class"com" style="border : 1px solid black; width:70%;  display: block; margin-left: auto; margin-right: auto; padding-left: 1vw">
-   {% if editedComId and editedComId == commentaire.id %}
+   {% if app.user and editedComId and editedComId == commentaire.id %}
          {{ include('base/_form.html.twig', {'button_label': "editer"}) }}        
     {% else %}
         <p> {{commentaire.content}}</p>
-         <h5>envoyé par : {{commentaire.owner != null ? commentaire.owner.pseudo : 'deleted user'}}</h5>
+        {%  if commentaire.owner != null %}
+            <a href="{{path('get_user_profil',{"id" : commentaire.owner.id})}}"> {{commentaire.owner.pseudo}}</a>
+         {% else %}
+         <h5>envoyé par : deleted user </h5>
+         {% endif %}
              <h5>le : {{commentaire.date|date("m/d/Y")}}</h5>
-               {% if commentaire in app.user.commentaires or "ROLE_ADMIN" in app.user.roles %}
+               {% if app.user and (commentaire in app.user.commentaires or "ROLE_ADMIN" in app.user.roles) %}
                   <a href="{{ path('recipe_delete_commentaire', {"id": commentaire.id}) }}">Supprimer</a> 
                   <a href="{{path('show_recipe',{"id" : recipe.id,"editCom" : commentaire.id})}}"> Modifier</a>
                {% endif %}

@@ -38,7 +38,11 @@
                     <div class="main2">
                     
                     {% if page_name == 'home' %} 
-                               {{ include('home/index.html.twig') }}
+                     {{ include('home/index.html.twig') }}
+                     {% elseif page_name == 'NotreEquipe' %}
+                      {{ include('home/NotreEquipe.html.twig') }}
+                    {% elseif page_name == 'NousContacter' %}
+                      {{ include('home/NousContacter.html.twig') }} 
                     {% elseif page_name == 'searchRecipe' %}
                     {{ include('recipe/index.html.twig')}}
                      {% elseif page_name == 'get_user_profil' %}

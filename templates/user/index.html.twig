@@ -2,15 +2,20 @@
                         <h1>Informations : </h1>
                         </div>   
                         <div class="modification  reveal-1" style="font-size : 2vh;  padding :2vw">
-
+     <div class="avatar">
+                                {% if info.image != null %}
+                                        <img src="{{ asset('uploads/' ~ info.image) }}" class="card-img-top" alt="infoImage" style="width : 300px">  
+                                {% else %}
+                                     <img src="{{ asset('img/photo_profil.png') }}" class="card-img-top" alt="basicimg" style="width : 300px" >  
+                                 {% endif %}
+                                            <a style="margin-left:1vw;color:blue" href="{{ path('user_profil_edit', {"id" : app.user.id, 'onModify' : "profilePicture"  }) }}">edit</a>  
+                              </div>
                     
                             <h3> Pseudo :</h3> {{info.pseudo}} <a style="margin-left:1vw; color:blue" href="{{ path('user_profil_edit', {"id" : app.user.id , 'onModify' : "pseudo" }) }}">edit</a> 
                             <h3>  Email  :</h3>  {{info.email}} <a style="margin-left:1vw;color:blue" href="{{ path('user_profil_edit', {"id" : app.user.id, "name" : 'email', 'onModify' : "email" }) }}">edit</a> 
                             <h3>  Mot de passe :</h3> {{info.password}} <a style="margin-left:1vw;color:blue" href="{{ path('user_profil_edit', {"id" : app.user.id, 'onModify' : "password"  }) }}">edit</a>  
                             <h3> Photo de profil :</h3> 
-                             <div class="avatar">
-                                        <img src="{{ asset('uploads/' ~ info.image) }}" class="card-img-top" alt="infoImage" style="width : 300px">  
-                                            <a style="margin-left:1vw;color:blue" href="{{ path('user_profil_edit', {"id" : app.user.id, 'onModify' : "profilePicture"  }) }}">edit</a>  
-                              </div>
+                        
                       
+                                            <a style="margin-left:1vw;color:blue" href="{{ path('user_delete_self') }}">Supprimer mon compte</a>
                         </div>

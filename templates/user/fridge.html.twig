@@ -8,10 +8,17 @@
    {% if form is defined %}
 {{ include('base/_form.html.twig', {'button_label': "save"}) }}
         {% else %}
+         <div style=
+         "display : flex; 
+         margin : 10px">
 		{% for ingredient in ingredients %}
-        <img src="{{ asset('uploads/' ~ ingredient.image) }}" alt="recipeimage" style="width : 15  0px">
+      <div style="display : flex;flex-direction : column; padding : 5px">
+        <img src="{{ asset('uploads/' ~ ingredient.image) }}" alt="recipeimage" style="width : 150px">
+        	<a href="{{ path('user_fridge_deleteIngredient', {"id" : ingredient.id }) }}" >supprimé </a>
+      </div>
         {% endfor %}
-		<a href="{{ path('user_addIngredient', {"id" : app.user.id }) }}" >Ajouter un élement au frigo ! </a>
+        </div>
+		<a href="{{ path('user_fridge_addIngredient') }}" >Ajouter un élement au frigo ! </a>
 		{% endif %}
 	</body>
    </html>

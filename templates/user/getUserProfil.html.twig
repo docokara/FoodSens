@@ -6,7 +6,12 @@
    <html>
    <body>
  <div class="modification" style="font-size : 2vh;  padding :2vw">            
-    <img src="{{ asset('uploads/' ~ user.image) }}" class="card-img-top" alt="infoImage" style="width : 300px">  
+   
+   {% if user.image != null %}
+            <img src="{{ asset('uploads/' ~ user.image) }}" class="card-img-top" alt="infoImage" style="width : 300px">  
+   {% else %}
+         <img src="{{ asset('img/photo_profil.png') }}" class="card-img-top" alt="basicimg" style="width : 300px" >  
+   {% endif %}
     <h3> Pseudo :</h3> {{user.pseudo}} 
     <h3>  Email  :</h3>  {{user.email}}
     <h3> Photo de profil :</h3> 
@@ -20,7 +25,7 @@
                     <div class="card-body">
                      <h5 class="card-title">{{recipe.name}}</h5>
                     <p class="card-text">{{recipe.steps}}</p>
-                        <a href="{{ path('show_recipe',{"id" : recipe.id, "editCom" : "undefined"})}}" class="btn btn-primary">Go</a>
+                        <a href="{{ path('show_recipe',{"id" : recipe.id})}}" class="btn btn-primary">Go</a>
                           <a href="{{ path('user_like', {"id" : recipe.id }) }}">like</a>
                           {# <img src='https://img.icons8.com/ios/64/-synthetidiamond-also-referred-to-as-laboratory-grown-diamond./hearts--v1.png' alt='test'>
                          <img src='https://img.icons8.com/office/64/-synthetidiamond-also-referred-to-as-laboratory-grown-diamond./hearts.png' alt='test1'> #}

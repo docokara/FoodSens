@@ -25,7 +25,7 @@ use App\Entity\Ingredient;
 use App\Form\CommentairesType;
 use App\Form\IngredientType;
 use App\Repository\CommentairesRepository;
-use Doctrine\ORM\EntityManagerInterface ;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Service\FileUploader;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -35,14 +35,14 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  */
 class AdminController extends AbstractController
 {
-    
+
     /**
      * @Route("/", name="admin")
      */
     public function index(): Response
     {
         return $this->render('index.html.twig', [
-            "entity" => ["users","recipes","ingredients","ingredientCategories","commentaires"],
+            "entity" => ["users", "recipes", "ingredients", "ingredientCategories", "commentaires"],
             "page_name" => "admin_page"
         ]);
     }
@@ -50,61 +50,61 @@ class AdminController extends AbstractController
     /**
      * @Route("/getAll/{name}", name="admin_getAll")
      */
-    public function getAll($name,UserRepository $users,RecipeRepository $recipes,IngredientRepository $ingredients,IngredientCategorieRepository $ingredientCategories,CommentairesRepository $commentaires): Response
+    public function getAll($name, UserRepository $users, RecipeRepository $recipes, IngredientRepository $ingredients, IngredientCategorieRepository $ingredientCategories, CommentairesRepository $commentaires): Response
     {
         return $this->render('index.html.twig', [
             'data' => ${$name}->findAll(),
             'name' => $name,
             "page_name" => "admin_page_getAll"
-        ]); 
+        ]);
     }
-     /**
+    /**
      * @Route("/edit/{name}/{id}", name="admin_update")
      */
-    public function update($name,$id = 'undefined',Request $request,UserRepository $users,User $user = null,Recipe $recipe = null,RecipeRepository $recipes,IngredientRepository $ingredients,Ingredient $ingredient = null,IngredientCategorieRepository $ingredientCategories,IngredientCategorie $ingredientCategorie = null,FileUploader $fileUploader,UserPasswordHasherInterface $userPasswordHasher,CommentairesRepository $commentaires,Commentaires $commentaire = null): Response
+    public function update($name, $id = 'undefined', Request $request, UserRepository $users, User $user = null, Recipe $recipe = null, RecipeRepository $recipes, IngredientRepository $ingredients, Ingredient $ingredient = null, IngredientCategorieRepository $ingredientCategories, IngredientCategorie $ingredientCategorie = null, FileUploader $fileUploader, UserPasswordHasherInterface $userPasswordHasher, CommentairesRepository $commentaires, Commentaires $commentaire = null): Response
     {
         $form = null;
         $element = null;
-        if($name == "users") {
+        if ($name == "users") {
             $element = $id != 'undefined' ? $user : new User();
             $form = $this->createForm(UserType::class, $element);
             $form->remove('oldpassword');
         }
-        if($name == "commentaires") {
+        if ($name == "commentaires") {
             $element = $id != 'undefined' ? $commentaire : new Commentaires();
             $form = $this->createForm(CommentairesType::class, $element);
         }
-        if($name == "recipes") {
+        if ($name == "recipes") {
             $element = $id != 'undefined' ? $recipe : new Recipe();
             $form = $this->createForm(RecipeType::class, $element);
         }
-        if($name == "ingredients") {
+        if ($name == "ingredients") {
             $element = $id != 'undefined' ? $ingredient : new Ingredient();
             $form = $this->createForm(IngredientType::class, $element);
         }
-        if($name == "ingredientCategories") {
+        if ($name == "ingredientCategories") {
             $element = $id  != 'undefined' ? $ingredientCategorie : new IngredientCategorie();
             $form = $this->createForm(IngredientCategorieType::class, $element);
         }
-        $form->handleRequest($request); 
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if($name == "users") {
+            if ($name == "users") {
                 $element->setPassword(
                     $userPasswordHasher->hashPassword(
-                            $user,
-                            $form->get('password')->getData()
-                        )
-                    );
-            } 
-          if($name == "recipes" | $name == "ingredients"){ 
-            $file = $form->get('photo')->getData();
-            if ($file) {
-                $FileName = $fileUploader->upload($file);
-                dump($FileName);
-                $element->setImage($FileName);
+                        $user,
+                        $form->get('password')->getData()
+                    )
+                );
             }
-        }
+            if ($name == "recipes" | $name == "ingredients") {
+                $file = $form->get('photo')->getData();
+                if ($file) {
+                    $FileName = $fileUploader->upload($file);
+                    dump($FileName);
+                    $element->setImage($FileName);
+                }
+            }
             ${$name}->add($element, true);
 
             return $this->redirectToRoute('admin_getAll', ['name' => $name], Response::HTTP_SEE_OTHER);
@@ -117,33 +117,43 @@ class AdminController extends AbstractController
             'page_name' => 'admin_page_upate'
         ]);
     }
-     
-     /**
+
+    /**
      * @Route("/delete/{id}/{name}", name="admin_delete")
      */
-    public function delete(CommentairesRepository $commentaires,Commentaires $commentaire = null,$name,Request $request,UserRepository $users,User $user = null,Recipe $recipe = null,RecipeRepository $recipes,IngredientRepository $ingredients,Ingredient $ingredient = null,IngredientCategorieRepository $ingredientCategories,IngredientCategorie $ingredientCategorie = null): Response
+    public function delete(CommentairesRepository $commentaires, Commentaires $commentaire = null, $name, Request $request, UserRepository $users, User $user = null, Recipe $recipe = null, RecipeRepository $recipes, IngredientRepository $ingredients, Ingredient $ingredient = null, IngredientCategorieRepository $ingredientCategories, IngredientCategorie $ingredientCategorie = null): Response
     {
-        $element=null;
-        if($name == "users") {
-            foreach($user->getRecipes() as $recipe){
-                $recipes->remove($recipe,true);
-            }
-            foreach($user->getCommentaires() as $commentaire){
-                $commentaires->remove($commentaire,true);
-            }
+
+        $element = null;
+        if ($name == "users") {
             $element = $user;
+            foreach ($element->getCommentaires() as $el) {
+                $commentaires->remove($el, true);
+            }
+            foreach ($element->getRecipes() as $recipe) {
+                $recipes->remove($recipe, true);
+            }
         }
-        if($name == "recipes") {
+        if ($name == "recipes") {
             $element = $recipe;
+            foreach ($element->getCommentaires() as $el) {
+                $commentaires->remove($el, true);
+            }
         }
-        if($name == "ingredients") {
+        if ($name == "ingredients") {
             $element = $ingredient;
+            foreach ($element->getRecipes() as $el) {
+                $el->removeIngredient($ingredient);
+            }
+            $element->setType(null);
         }
-        if($name == "ingredientCategories") {
+        if ($name == "ingredientCategories") {
             $element = $ingredientCategorie;
         }
-
-        ${$name}->remove($element,true);
+        if ($name == "commentaires") {
+            $element = $commentaire;
+        }
+        ${$name}->remove($element, true);
 
         return $this->render('index.html.twig', [
             'data' => ${$name}->findAll(),
