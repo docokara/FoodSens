@@ -10,9 +10,6 @@ use App\Form\UserType;
 use App\Entity\Recipe;
 use App\Repository\RecipeRepository;
 use App\Form\RecipeType;
-
-use App\Repository\FridgeRepository;
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,7 +22,6 @@ use App\Entity\Ingredient;
 use App\Form\CommentairesType;
 use App\Form\IngredientType;
 use App\Repository\CommentairesRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Service\FileUploader;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -101,7 +97,6 @@ class AdminController extends AbstractController
                 $file = $form->get('photo')->getData();
                 if ($file) {
                     $FileName = $fileUploader->upload($file);
-                    dump($FileName);
                     $element->setImage($FileName);
                 }
             }
