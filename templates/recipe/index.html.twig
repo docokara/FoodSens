@@ -27,13 +27,13 @@
                     </div>
                   </form>
                     {% endif %}
-                    <div style="display :flex;width : fit-content;text-overflow: ellipsis">
+                    <div style="display :flex;width : fit-content;">
                      {% for recipe in recipes %}
-                     <div class="card" style="width : 15vw">
+                     <div class="card" style="width : 15vw ;">
                      <img src="{{ asset('uploads/' ~ recipe.image) }}" class="card-img-top" alt="recipeimage" style="width : 100%">
                     <div class="card-body">
                      <h5 class="card-title">{{recipe.name}}</h5>
-                       <p class="card-text">{{recipe.steps}}</p>
+                       <p class="card-text" style="  text-overflow:ellipsis;overflow:hidden;display: -webkit-box !important;-webkit-line-clamp: 5;-webkit-box-orient: vertical;white-space: normal;">{{recipe.steps}}</p>
                         <a href="{{ path('show_recipe',{"id" : recipe.id})}}" class="btn btn-primary">Go</a>
                           {% if app.user %}
                           <a href="{{ path('user_like', {"id" : recipe.id }) }}">like</a>
