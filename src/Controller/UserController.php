@@ -240,7 +240,7 @@ class UserController extends AbstractController
         }
         return $this->render('index.html.twig', [
             'recipes' => $recipes->findAll(),
-            'page_name' => 'modifyRecipe',
+            'page_name' => 'updateRecipe',
             'form' => $form->createView()
         ]);
     }
@@ -268,7 +268,7 @@ class UserController extends AbstractController
         }
         return $this->render('index.html.twig', [
             'recipes' => $recipes->findAll(),
-            'page_name' => 'modifyRecipe',
+            'page_name' => 'updateRecipe',
             'form' => $form->createView()
         ]);
     }

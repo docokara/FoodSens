@@ -40,21 +40,20 @@ class IngredientRepository extends ServiceEntityRepository
     }
 
     public function findAll()
-   {
+    {
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery("SELECT i.name,i.id FROM App\Entity\Ingredient i");
 
         return $query->getResult();
-   }
+    }
 
 
-//    public function findOneBySomeField($value): ?Ingredient
-//    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findOneById($id)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery("SELECT i FROM App\Entity\Ingredient i WHERE i.id = :id");
+        $query->setParameter('id', $id);
+
+        return $query->getResult();
+    }
 }

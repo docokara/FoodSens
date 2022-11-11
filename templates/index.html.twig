@@ -53,7 +53,7 @@
                        {{ include('user/myFav.html.twig') }}
                      {% elseif page_name == 'myFridge' %}
                        {{ include('user/fridge.html.twig') }}
-                     {% elseif page_name == 'modifyRecipe' %}
+                     {% elseif page_name == 'updateRecipe' %}
                        {{ include('base/_form.html.twig', {'button_label': "create"}) }}
                       {% elseif page_name == 'admin_page'%}
                       {{ include('admin/index.html.twig') }}

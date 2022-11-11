@@ -39,33 +39,17 @@ class IngredientCategorieRepository extends ServiceEntityRepository
         }
     }
     public function findAll()
-   {
+    {
         $entityManager = $this->getEntityManager();
-        $query = $entityManager->createQuery('SELECT i.id,i.name FROM App\Entity\IngredientCategorie i');
+        $query = $entityManager->createQuery('SELECT i FROM App\Entity\IngredientCategorie i');
         return $query->getResult();
-   }
-//    /**
-//     * @return IngredientCategorie[] Returns an array of IngredientCategorie objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('i.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    }
+    public function findOneById($id)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery("SELECT i FROM App\Entity\IngredientCategorie i WHERE i.id = :id");
+        $query->setParameter('id', $id);
 
-//    public function findOneBySomeField($value): ?IngredientCategorie
-//    {
-//        return $this->createQueryBuilder('i')
-//            ->andWhere('i.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        return $query->getResult();
+    }
 }

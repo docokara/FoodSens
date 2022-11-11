@@ -2,21 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Commentaires;
-use App\Entity\Recipe;
+use App\Entity\Ingredient;
 use App\Entity\User;
-use App\Form\RecipeType;
-use App\Form\CommentairesType;
-use App\Repository\CommentairesRepository;
+use App\Repository\IngredientCategorieRepository;
+use App\Repository\IngredientRepository;
 use App\Repository\RecipeRepository;
-use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
-
-
+use Doctrine\Persistence\ManagerRegistry;
 
 class HomeController extends AbstractController
 {
@@ -54,11 +49,52 @@ class HomeController extends AbstractController
     /**
      * @Route("/searchRecipe", name="searchRecipe")
      */
-    public function searchRecipe(Request $request, RecipeRepository $recipes): Response
+    public function searchRecipe(ManagerRegistry $doctrine, Request $request, RecipeRepository $recipes, IngredientRepository $ingredients, IngredientCategorieRepository $ingredientsCategorie): Response
     {
+        if (!$this->getUser()) return $this->redirectToRoute('app_home');
         $startingName = $request->request->get('search');
+        $bannedIngredient = [];
+        $bannedIngredientCategorie = [];
+        $param = "";
+        $ableToDoWithFidge = false;
+        foreach ($request->request as $key => $element) {
+            $values = explode('|', $key);
+            if ($values[0] == "checkbox") {
+                switch ($values[1]) {
+                    case 'ingredients':
+                        array_push($bannedIngredient, $values[2]);
+                        break;
+                    case 'ingredients_catégories':
+                        array_push($bannedIngredientCategorie, $values[2]);
+                        break;
+                    case 'ableToDoWithFridge':
+                        $ableToDoWithFidge = true;
+                        break;
+                    default:
+                        # code...
+                        break;
+                }
+            }
+        }
         $res = $recipes->findAllWithParam($startingName);
+        if ($ableToDoWithFidge) {
+            dump($this->getUser()->getFridge()->getIngredients()[0]->getId());
+            for ($i = 0; $i < count($res); $i++) {
+                if (!$this->getUser()->getFridge()->isInFridge($res[$i]->getIngredients())) unset($res[$i]);
+            }
+        }
+        if (count($bannedIngredient) > 0) {
+            for ($i = 0; $i < count($res); $i++) {
+                if (!$res[$i]->containIngredients($bannedIngredient)) unset($res[$i]);
+            }
+        }
+        if (count($bannedIngredientCategorie) > 0) {
+            for ($i = 0; $i < count($res); $i++) {
+                if (!$res[$i]->containIngredientsCategorie($bannedIngredientCategorie)) unset($res[$i]);
+            }
+        }
         return $this->render('index.html.twig', [
+            'triSections' => [["ingredients", $ingredients->findAll()], ["ingredients catégories", $ingredientsCategorie->findAll()]],
             'recipes' => $res,
             'page_name' => 'searchRecipe'
         ]);

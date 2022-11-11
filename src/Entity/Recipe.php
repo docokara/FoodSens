@@ -6,6 +6,7 @@ use App\Repository\RecipeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Boolean;
 
 /**
  * @ORM\Entity(repositoryClass=RecipeRepository::class)
@@ -188,7 +189,30 @@ class Recipe
     {
         return $this->ingredients;
     }
-
+    public function containIngredients($array): bool
+    {
+        $contain = false;
+        foreach ($this->getIngredients() as $ingredient) {
+            foreach ($array as $id) {
+                if ($id == $ingredient->getId()) {
+                    $contain = true;
+                }
+            }
+        }
+        return $contain;
+    }
+    public function containIngredientsCategorie($array): bool
+    {
+        $contain = false;
+        foreach ($this->getIngredients() as $ingredient) {
+            foreach ($array as $id) {
+                if ($id == $ingredient->getType()->getId()) {
+                    $contain = true;
+                }
+            }
+        }
+        return $contain;
+    }
     public function addIngredient(Ingredient $ingredient): self
     {
         if (!$this->ingredients->contains($ingredient)) {

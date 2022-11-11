@@ -39,10 +39,11 @@ class RecipeRepository extends ServiceEntityRepository
         }
     }
 
-    public function findOne($param,$value){
+    public function findOne($val)
+    {
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery(
-        'SELECT 
+            'SELECT 
         r.tags,
         r.steps,
         r.people,
@@ -50,46 +51,30 @@ class RecipeRepository extends ServiceEntityRepository
         r.difficulty,
         r.preptime,
         r.toltalTime
-        FROM App\Entity\Recipe r');
+        FROM App\Entity\Recipe r'
+        );
         return $query->getResult();
     }
 
 
 
-   public function findAll()
-   {
+    public function findAll()
+    {
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery(
-        'SELECT 
-        r.name,
-        r.id,
-        r.tags,
-        r.steps,
-        r.people,
-        r.budget,
-        r.difficulty,
-        r.preptime,
-        r.toltalTime,
-        r.image
-        FROM App\Entity\Recipe r');
+            'SELECT 
+       r
+        FROM App\Entity\Recipe r'
+        );
         return $query->getResult();
-   }
-   public function findAllWithParam($param)
-   { 
-       $entityManager = $this->getEntityManager();
-       $query = $entityManager->createQuery(
-        "SELECT      
-        r.name,
-        r.id,
-        r.tags,
-        r.steps,
-        r.people,
-        r.budget,
-        r.difficulty,
-        r.preptime,
-        r.toltalTime,
-        r.image FROM App\Entity\Recipe r WHERE r.name LIKE :sname");
-        $query->setParameter('sname', '%'.$param.'%');
+    }
+    public function findAllWithParam($name)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            "SELECT r FROM App\Entity\Recipe r WHERE r.name LIKE :rname"
+        );
+        $query->setParameter('rname', '%' . $name . '%');
         return $query->getResult();
-   }
+    }
 }

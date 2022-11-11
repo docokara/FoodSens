@@ -134,9 +134,9 @@ class Ingredient
 
         return $this;
     }
-    public function __toString() : string
+    public function __toString(): string
     {
-    return $this->name;
+        return $this->name;
     }
 
     public function getImage(): ?string

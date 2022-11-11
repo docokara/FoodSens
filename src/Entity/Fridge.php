@@ -46,7 +46,18 @@ class Fridge
     {
         return $this->ingredients;
     }
-
+    public function isInFridge($array): bool
+    {
+        $contain = false;
+        foreach ($this->getIngredients() as $fridgeIngredient) {
+            foreach ($array as $ingredient) {
+                if ($ingredient->getId() == $fridgeIngredient->getId()) {
+                    $contain = true;
+                }
+            }
+        }
+        return $contain;
+    }
     public function addIngredient(Ingredient $ingredient): self
     {
         if (!$this->ingredients->contains($ingredient)) {

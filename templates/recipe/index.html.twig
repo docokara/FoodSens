@@ -1,9 +1,26 @@
  {% if app.user %}
                     <a href="{{ path('user_recipe_create') }}">Créer une recette</a>
                          
-                            <form class="pull-right hidden" role="search" id="nav-search-form" method="post" action="{{ path('searchRecipe') }}">
-                    <div class="input-group">
-                      <input type="text" class="form-control" placeholder="Search" name ="search">
+                  <form class="pull-right hidden" role="search" id="nav-search-form" method="post" action="{{ path('searchRecipe') }}">
+                    <div class="input-group" style="display :flex;flex-direction : column;width : 100%;justify-content : center;align-items : center">
+                      <input type="text" class="form-control" placeholder="Search" name ="search" style="width : 90%">
+                      <div style="display : flex; align-items : flex-start;width : 90%">
+                        {% for triSection in triSections %}
+                          <section style="display :flex;flex-direction : column;margin : 2%">
+                            <h6>{{triSection[0]}}</h6>
+                            {% for info in triSection[1] %}
+                              <span>
+                                <label for="checkbox|{{triSection[0]}}|{{info.id}}">{{info.name}}</label>
+                                <input type="checkbox" name="checkbox|{{triSection[0]}}|{{info.id}}">
+                              </span>
+                            {% endfor %}
+                          </section>
+                        {% endfor %}
+                         <section style="display :flex;margin : 2%">
+                          <label for="checkbox|ableToDoWithFridge">Possible de faire avec mes ingrédients</label>
+                          <input type="checkbox" checked="checked" name="checkbox|ableToDoWithFridge">
+                         </section>
+                      </div>
                       <span class="input-group-btn">
                         <button type="submit" class="btn btn-default">Entrer</button>
                       </span>

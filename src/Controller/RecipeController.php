@@ -64,7 +64,7 @@ class RecipeController extends AbstractController
     /**
      * @Route("/delete/commentaire/{id}", name="recipe_delete_commentaire")
      */
-    public function index($id, Commentaires $commentaire, CommentairesRepository $commentaires, UserRepository $users, RecipeRepository $recipes): Response
+    public function deleteCommentaire($id, Commentaires $commentaire, CommentairesRepository $commentaires, UserRepository $users, RecipeRepository $recipes): Response
     {
         $user = $this->getUser();
         if (!$commentaire || !$user) return $this->redirectToRoute('app_home');
