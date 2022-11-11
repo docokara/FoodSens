@@ -31,15 +31,15 @@
       <a class='admin' href="{{ path('user_recipe_delete', {"id" : recipe.id }) }}">Supprimer</a>
       <a class='admin' href="{{ path('user_recipe_edit', {"id" : recipe.id}) }}">Editer</a>
      {% endif %}
-     {% if editedComId == 'undefined' and form != 'undefined' %}
+     {% if form is defined and editedComId is defined and editedComId == null  %}
      <div class="base_form">
        {{ include('base/_form.html.twig', {'button_label': "envoyer"}) }}
       </div>
        {% endif %}
      {% for commentaire in commentaires %}
-    <div class"com" style="border : 1px solid black; width:70%;  display: block; margin-left: auto; margin-right: auto; padding-left: 1vw">
-   {% if app.user and editedComId and editedComId == commentaire.id %}
-         {{ include('base/_form.html.twig', {'button_label': "editer"}) }}        
+    <div class="Commentaire-{{commentaire.id}}" style="border : 1px solid black; width:70%;  display: block; margin-left: auto; margin-right: auto; padding-left: 1vw">
+   {% if app.user and form != null and editedComId is defined and editedComId != null and editedComId == commentaire.id %}
+       {{ include('base/_form.html.twig', {'button_label': "editer"}) }}       
     {% else %}
         <p> {{commentaire.content}}</p>
         {%  if commentaire.owner != null %}
@@ -49,8 +49,8 @@
          {% endif %}
              <h5>le : {{commentaire.date|date("m/d/Y")}}</h5>
                {% if app.user and (commentaire in app.user.commentaires or "ROLE_ADMIN" in app.user.roles) %}
-                  <a href="{{ path('recipe_delete_commentaire', {"id": commentaire.id}) }}">Supprimer</a> 
-                  <a href="{{path('show_recipe',{"id" : recipe.id,"editCom" : commentaire.id})}}"> Modifier</a>
+                  <a href="{{ path('recipe_delete_commentaire', {"id": commentaire.id }) }}">Supprimer</a> 
+                  <a href="{{path('show_recipe',{"id" : recipe.id ,"editCom" : commentaire.id })}}"> Modifier</a>
                {% endif %}
 
    {% endif %}

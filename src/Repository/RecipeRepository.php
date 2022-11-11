@@ -66,7 +66,7 @@ class RecipeRepository extends ServiceEntityRepository
        r
         FROM App\Entity\Recipe r'
         );
-        return $query->getResult();
+        return $query->getArrayResult();
     }
     public function findAllWithParam($name)
     {

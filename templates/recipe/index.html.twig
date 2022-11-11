@@ -18,7 +18,7 @@
                         {% endfor %}
                          <section style="display :flex;margin : 2%">
                           <label for="checkbox|ableToDoWithFridge">Possible de faire avec mes ingrédients</label>
-                          <input type="checkbox" checked="checked" name="checkbox|ableToDoWithFridge">
+                          <input type="checkbox" name="checkbox|ableToDoWithFridge">
                          </section>
                       </div>
                       <span class="input-group-btn">
@@ -27,9 +27,10 @@
                     </div>
                   </form>
                     {% endif %}
+                    <div style="display :flex;width : fit-content;text-overflow: ellipsis">
                      {% for recipe in recipes %}
-                     <div class="card" style="width: 18rem;">
-                     <img src="{{ asset('uploads/' ~ recipe.image) }}" class="card-img-top" alt="recipeimage">
+                     <div class="card" style="width : 15vw">
+                     <img src="{{ asset('uploads/' ~ recipe.image) }}" class="card-img-top" alt="recipeimage" style="width : 100%">
                     <div class="card-body">
                      <h5 class="card-title">{{recipe.name}}</h5>
                        <p class="card-text">{{recipe.steps}}</p>
@@ -42,3 +43,4 @@
                       </div>
                         </div>
                      {% endfor %}
+                      </div>

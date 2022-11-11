@@ -44,7 +44,7 @@ class IngredientRepository extends ServiceEntityRepository
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery("SELECT i.name,i.id FROM App\Entity\Ingredient i");
 
-        return $query->getResult();
+        return $query->getArrayResult();
     }
 
 

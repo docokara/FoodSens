@@ -42,7 +42,7 @@ class IngredientCategorieRepository extends ServiceEntityRepository
     {
         $entityManager = $this->getEntityManager();
         $query = $entityManager->createQuery('SELECT i FROM App\Entity\IngredientCategorie i');
-        return $query->getResult();
+        return $query->getArrayResult();
     }
     public function findOneById($id)
     {

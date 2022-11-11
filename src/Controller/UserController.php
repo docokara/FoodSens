@@ -202,11 +202,15 @@ class UserController extends AbstractController
     /**
      * @Route("/recipe/delete/{id}", name="user_recipe_delete")
      */
-    public function deleteRecipe($id, Request $request, UserRepository $users, UserInterface $user = null, Recipe $recipe, RecipeRepository $recipes): Response
+    public function deleteRecipe(CommentairesRepository $commentaires, Recipe $recipe, RecipeRepository $recipes): Response
     {
         $user = $this->getUser();
         if (!$this->getUser()) return $this->redirectToRoute('app_home');
         if ($user != $recipe->getAuthor() && (!in_array("ROLE_ADMIN", $user->getRoles()))) return $this->redirectToRoute('app_home');
+        foreach ($recipe->getCommentaires() as $el) {
+            $commentaires->remove($el, true);
+        }
+        $recipes->add($recipe, true);
         $recipes->remove($recipe, true);
 
         return $this->render('index.html.twig', [
@@ -218,7 +222,7 @@ class UserController extends AbstractController
     /**
      * @Route("/recipe/edit/{id}", name="user_recipe_edit")
      */
-    public function editRecipe($id, Request $request, UserInterface $user = null, Recipe $recipe, RecipeRepository $recipes, FileUploader $fileUploader): Response
+    public function editRecipe($id, Request $request, User $user = null, Recipe $recipe, RecipeRepository $recipes, FileUploader $fileUploader): Response
     {
         $user = $this->getUser();
         if (!$this->getUser()) return $this->redirectToRoute('app_home');

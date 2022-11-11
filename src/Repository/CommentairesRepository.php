@@ -41,7 +41,14 @@ class CommentairesRepository extends ServiceEntityRepository
     public function findAll()
     {
         $entityManager = $this->getEntityManager();
-        $query = $entityManager->createQuery('SELECT c FROM App\Entity\Commentaires c');
+        $query = $entityManager->createQuery('SELECT c.id,c.content FROM App\Entity\Commentaires c');
+        return $query->getResult();
+    }
+    public function findOneById($id)
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery('SELECT c FROM App\Entity\Commentaires c WHERE c.id = :id');
+        $query->setParameter('id', $id);
         return $query->getResult();
     }
 }

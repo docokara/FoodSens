@@ -23,42 +23,38 @@ class RecipeController extends AbstractController
     /**
      * @Route("/{id}/{editCom}", name="show_recipe")
      */
-    public function showRecipe($id, $editCom, Request $request, Recipe $recipe = null, Commentaires $editedCom = null, CommentairesRepository $commentaires): Response
+    public function showRecipe($id, Request $request, Recipe $recipe = null, Commentaires $editCom = null, CommentairesRepository $commentaires): Response
     {
-        if ($recipe == null) return $this->redirectToRoute('app_home');
+
+        if ($recipe == null || !$this->getUser()) return $this->redirectToRoute('app_home');
         $form = null;
-        if ($this->getUser()) {
-            $commentaire = null;
-
-            if ($editCom != null) {
-                $form = $this->createForm(CommentairesType::class, $editedCom);
-                $form->handleRequest($request);
+        if ($editCom == null) {
+            $commentaire = new Commentaires();
+            $form = $this->createForm(CommentairesType::class, $commentaire);
+            $form->handleRequest($request);
+        } else {
+            $form = $this->createForm(CommentairesType::class, $editCom);
+            $form->handleRequest($request);
+        }
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($editCom) {
+                $commentaires->add($editCom, true);
             } else {
-                $commentaire = new Commentaires();
-                $form = $this->createForm(CommentairesType::class, $commentaire);
-                $form->handleRequest($request);
+                $commentaire->setDate(new DateTime());
+                $commentaire->setOwner($this->getUser());
+                $commentaire->setLocation($recipe);
+                $commentaires->add($commentaire, true);
             }
 
-            if ($form->isSubmitted() && $form->isValid()) {
-
-                if ($editCom != null) {
-                    $commentaires->add($editedCom, true);
-                } else {
-                    $commentaire->setDate(new DateTime());
-                    $commentaire->setOwner($this->getUser());
-                    $commentaire->setLocation($recipe);
-                    $commentaires->add($commentaire, true);
-                }
-                return $this->redirectToRoute('show_recipe', ['id' => $id], Response::HTTP_SEE_OTHER);
-            }
+            return $this->redirectToRoute('show_recipe', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
         return $this->render('index.html.twig', [
-            'form' => $form != null ? $form->createView() : "undefined",
+            'form' => $form != null ? $form->createView() : $form,
             'recipe' => $recipe,
-            'editedComId' => $editCom ? $editedCom->getId() : 'undefined',
+            'editedComId' => $editCom ? $editCom->getId() : null,
             'commentaires' => $recipe->getCommentaires(),
-            'recipeAuthor' => $recipe->getAuthor(),
-            'page_name' => 'showRecipe'
+            'page_name' => 'showRecipe',
+            'recipeAuthor' => $recipe->getAuthor()
         ]);
     }
     /**

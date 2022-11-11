@@ -51,8 +51,10 @@ class Fridge
         $contain = false;
         foreach ($this->getIngredients() as $fridgeIngredient) {
             foreach ($array as $ingredient) {
+                dump($ingredient->getName());
                 if ($ingredient->getId() == $fridgeIngredient->getId()) {
                     $contain = true;
+                    break;
                 }
             }
         }

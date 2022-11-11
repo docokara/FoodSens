@@ -11,7 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\Persistence\ManagerRegistry;
 
 class HomeController extends AbstractController
 {
@@ -49,14 +48,14 @@ class HomeController extends AbstractController
     /**
      * @Route("/searchRecipe", name="searchRecipe")
      */
-    public function searchRecipe(ManagerRegistry $doctrine, Request $request, RecipeRepository $recipes, IngredientRepository $ingredients, IngredientCategorieRepository $ingredientsCategorie): Response
+    public function searchRecipe(Request $request, RecipeRepository $recipes, IngredientRepository $ingredients, IngredientCategorieRepository $ingredientsCategorie): Response
     {
-        if (!$this->getUser()) return $this->redirectToRoute('app_home');
+
         $startingName = $request->request->get('search');
         $bannedIngredient = [];
         $bannedIngredientCategorie = [];
         $param = "";
-        $ableToDoWithFidge = false;
+        $ableToDoWithFridge = false;
         foreach ($request->request as $key => $element) {
             $values = explode('|', $key);
             if ($values[0] == "checkbox") {
@@ -68,7 +67,7 @@ class HomeController extends AbstractController
                         array_push($bannedIngredientCategorie, $values[2]);
                         break;
                     case 'ableToDoWithFridge':
-                        $ableToDoWithFidge = true;
+                        $ableToDoWithFridge = true;
                         break;
                     default:
                         # code...
@@ -77,10 +76,11 @@ class HomeController extends AbstractController
             }
         }
         $res = $recipes->findAllWithParam($startingName);
-        if ($ableToDoWithFidge) {
-            dump($this->getUser()->getFridge()->getIngredients()[0]->getId());
+        if ($ableToDoWithFridge && $this->getUser()) {
             for ($i = 0; $i < count($res); $i++) {
-                if (!$this->getUser()->getFridge()->isInFridge($res[$i]->getIngredients())) unset($res[$i]);
+                if (!$this->getUser()->getFridge()->isInFridge($res[$i]->getIngredients())) {
+                    unset($res[$i]);
+                }
             }
         }
         if (count($bannedIngredient) > 0) {
