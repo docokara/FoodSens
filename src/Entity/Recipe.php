@@ -51,11 +51,6 @@ class Recipe
     private $preptime;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $toltalTime;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Ingredient::class, inversedBy="recipes", cascade={"persist"})
      */
     private $ingredients;
@@ -165,18 +160,6 @@ class Recipe
     public function setPreptime(int $preptime): self
     {
         $this->preptime = $preptime;
-
-        return $this;
-    }
-
-    public function getToltalTime(): ?int
-    {
-        return $this->toltalTime;
-    }
-
-    public function setToltalTime(int $toltalTime): self
-    {
-        $this->toltalTime = $toltalTime;
 
         return $this;
     }

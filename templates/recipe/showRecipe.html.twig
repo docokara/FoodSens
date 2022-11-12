@@ -14,16 +14,24 @@
       <img src="{{ asset('uploads/' ~ recipe.image) }}" class="card-img-top" alt="recipeimage" style="width : 300px">
 
       <p>
+      <ul>
          <li>Steps : {{recipe.steps}}</li>
          <li>People : {{recipe.people}}</li>
          <li>Budget : {{recipe.budget}}</li>
          <li>Difficulty : {{recipe.difficulty}}</li>
          <li>Preptime : {{recipe.preptime}}</li>
-         <li>TotalTime : {{recipe.toltaltime}}</li>
+         <li>Ingrédients nécéssaire : </li>
+       
+         <ul style="display : inline">
+         {% for ingredient in ingredients %}
+             <li style="display: inline;">{{ingredient.name}} </li>
+         {% endfor %}
+         </ul>
+      </ul>
          {%  if recipe.Author != null %}
-            <a href="{{path('get_user_profil',{"id" : recipeAuthor.id})}}"> {{recipeAuthor.pseudo}}</a>
+           <a href="{{path('get_user_profil',{"id" : recipeAuthor.id})}}">Autheur : {{recipeAuthor.pseudo}}</a>
          {% else %}
-         <li>Create by : deleted user</li>
+         <li>Autheur : deleted user</li>
          {% endif %}
       </p>
 

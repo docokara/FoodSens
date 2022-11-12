@@ -55,6 +55,7 @@ class RecipeController extends AbstractController
         return $this->render('index.html.twig', [
             'form' => $form != null ? $form->createView() : null,
             'recipe' => $recipe,
+            'ingredients' => $recipe->getIngredients(),
             'editedComId' => $editCom ? $editCom->getId() : null,
             'commentaires' => $recipe->getCommentaires(),
             'page_name' => 'showRecipe',

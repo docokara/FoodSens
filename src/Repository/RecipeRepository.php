@@ -49,8 +49,7 @@ class RecipeRepository extends ServiceEntityRepository
         r.people,
         r.budget,
         r.difficulty,
-        r.preptime,
-        r.toltalTime
+        r.preptime
         FROM App\Entity\Recipe r'
         );
         return $query->getResult();
