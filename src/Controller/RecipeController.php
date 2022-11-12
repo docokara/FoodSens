@@ -13,6 +13,7 @@ use App\Repository\CommentairesRepository;
 use App\Repository\RecipeRepository;
 use App\Repository\UserRepository;
 use DateTime;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -21,7 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
 class RecipeController extends AbstractController
 {
     /**
-     * @Route("/{id}/{editCom}", name="show_recipe")
+     * @Route("/{id}/{editCom}", name="show_recipe",methods={"GET","POST"})
      */
     public function showRecipe($id, Request $request, Recipe $recipe = null, Commentaires $editCom = null, CommentairesRepository $commentaires): Response
     {
@@ -33,11 +34,14 @@ class RecipeController extends AbstractController
             $form = $this->createForm(CommentairesType::class, $commentaire);
             $form->handleRequest($request);
         } else {
+            if ($editCom->getOwner() != $this->getUser() && !(in_array("ROLE_ADMIN", $this->getUser()->getRoles()))) return $this->redirectToRoute('show_recipe', ['id' => $id], Response::HTTP_SEE_OTHER);
+            dump($form);
             $form = $this->createForm(CommentairesType::class, $editCom);
             $form->handleRequest($request);
         }
         if ($form->isSubmitted() && $form->isValid()) {
             if ($editCom) {
+                dump($editCom->getContent());
                 $commentaires->add($editCom, true);
             } else {
                 $commentaire->setDate(new DateTime());
@@ -49,8 +53,9 @@ class RecipeController extends AbstractController
             return $this->redirectToRoute('show_recipe', ['id' => $id], Response::HTTP_SEE_OTHER);
         }
         return $this->render('index.html.twig', [
-            'form' => $form != null ? $form->createView() : $form,
+            'form' => $form != null ? $form->createView() : null,
             'recipe' => $recipe,
+            'ingredients' => $recipe->getIngredients(),
             'editedComId' => $editCom ? $editCom->getId() : null,
             'commentaires' => $recipe->getCommentaires(),
             'page_name' => 'showRecipe',
@@ -58,7 +63,7 @@ class RecipeController extends AbstractController
         ]);
     }
     /**
-     * @Route("/delete/commentaire/{id}", name="recipe_delete_commentaire")
+     * @Route("/delete/commentaire/{id}", name="recipe_delete_commentaire",methods={"GET"})
      */
     public function deleteCommentaire($id, Commentaires $commentaire, CommentairesRepository $commentaires, UserRepository $users, RecipeRepository $recipes): Response
     {

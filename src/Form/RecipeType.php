@@ -24,10 +24,8 @@ class RecipeType extends AbstractType
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
-                    new File([
-                       
-                    ])
-                    ],
+                    new File([])
+                ],
             ])
             ->add('ingredients',  EntityType::class, [
                 'expanded' => true,
@@ -40,12 +38,10 @@ class RecipeType extends AbstractType
             ->add('budget')
             ->add('difficulty')
             ->add('preptime')
-            ->add('toltalTime')
-            ->add('Author',EntityType::class,[
+            ->add('Author', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'pseudo'
-            ] )
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

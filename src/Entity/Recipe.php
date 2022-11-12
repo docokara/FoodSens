@@ -51,11 +51,6 @@ class Recipe
     private $preptime;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $toltalTime;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Ingredient::class, inversedBy="recipes", cascade={"persist"})
      */
     private $ingredients;
@@ -169,18 +164,6 @@ class Recipe
         return $this;
     }
 
-    public function getToltalTime(): ?int
-    {
-        return $this->toltalTime;
-    }
-
-    public function setToltalTime(int $toltalTime): self
-    {
-        $this->toltalTime = $toltalTime;
-
-        return $this;
-    }
-
 
     /**
      * @return Collection<int, Ingredient>
@@ -191,6 +174,7 @@ class Recipe
     }
     public function containIngredients($array): bool
     {
+        if (count($array) == 0) return true;
         $contain = false;
         foreach ($this->getIngredients() as $ingredient) {
             foreach ($array as $id) {
@@ -203,10 +187,12 @@ class Recipe
     }
     public function containIngredientsCategorie($array): bool
     {
+        if (count($array) == 0) return true;
         $contain = false;
         foreach ($this->getIngredients() as $ingredient) {
             foreach ($array as $id) {
                 if ($id == $ingredient->getType()->getId()) {
+                    dump($ingredient->getType()->getName());
                     $contain = true;
                 }
             }

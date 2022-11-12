@@ -26,14 +26,14 @@ use App\Service\FileUploader;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
- * @Route("/admin"), IsGranted('USER_ADMIN')
+ * @Route("/admin")
  *
  */
 class AdminController extends AbstractController
 {
 
     /**
-     * @Route("/", name="admin")
+     * @Route("/", name="admin",methods={"GET"})
      */
     public function index(): Response
     {
@@ -44,7 +44,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/getAll/{name}", name="admin_getAll")
+     * @Route("/getAll/{name}", name="admin_getAll",methods={"GET"})
      */
     public function getAll($name, UserRepository $users, RecipeRepository $recipes, IngredientRepository $ingredients, IngredientCategorieRepository $ingredientCategories, CommentairesRepository $commentaires): Response
     {
@@ -55,7 +55,7 @@ class AdminController extends AbstractController
         ]);
     }
     /**
-     * @Route("/edit/{name}/{id}", name="admin_update")
+     * @Route("/edit/{name}/{id}", name="admin_update",methods={"GET","POST"})
      */
     public function update($name, $id = 'undefined', Request $request, UserRepository $users, User $user = null, Recipe $recipe = null, RecipeRepository $recipes, IngredientRepository $ingredients, Ingredient $ingredient = null, IngredientCategorieRepository $ingredientCategories, IngredientCategorie $ingredientCategorie = null, FileUploader $fileUploader, UserPasswordHasherInterface $userPasswordHasher, CommentairesRepository $commentaires, Commentaires $commentaire = null): Response
     {
@@ -114,7 +114,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}/{name}", name="admin_delete")
+     * @Route("/delete/{id}/{name}", name="admin_delete",methods={"GET"})
      */
     public function delete(CommentairesRepository $commentaires, Commentaires $commentaire = null, $name, Request $request, UserRepository $users, User $user = null, Recipe $recipe = null, RecipeRepository $recipes, IngredientRepository $ingredients, Ingredient $ingredient = null, IngredientCategorieRepository $ingredientCategories, IngredientCategorie $ingredientCategorie = null): Response
     {
