@@ -80,11 +80,17 @@ class Recipe
      */
     private $commentaires;
 
+    /**
+     * @ORM\OneToMany(targetEntity=IngredientQuantity::class, mappedBy="recipe")
+     */
+    private $ingredientQuantities;
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
         $this->fav = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->ingredientQuantities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -299,6 +305,36 @@ class Recipe
             // set the owning side to null (unless already changed)
             if ($commentaire->getLocation() === $this) {
                 $commentaire->setLocation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, IngredientQuantity>
+     */
+    public function getIngredientQuantities(): Collection
+    {
+        return $this->ingredientQuantities;
+    }
+
+    public function addIngredientQuantity(IngredientQuantity $ingredientQuantity): self
+    {
+        if (!$this->ingredientQuantities->contains($ingredientQuantity)) {
+            $this->ingredientQuantities[] = $ingredientQuantity;
+            $ingredientQuantity->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIngredientQuantity(IngredientQuantity $ingredientQuantity): self
+    {
+        if ($this->ingredientQuantities->removeElement($ingredientQuantity)) {
+            // set the owning side to null (unless already changed)
+            if ($ingredientQuantity->getRecipe() === $this) {
+                $ingredientQuantity->setRecipe(null);
             }
         }
 

@@ -1,4 +1,9 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
+    {% if formExtra %}
+        {% for element in formExtra %}
+            <a href="{{path('user_getIngredientForm',{'id' : element.id})}}">+ {{element.name}} +</a>
+        {% endfor %}
+    {% endif %}
     <button class="btn">{{button_label}}</button>
 {{ form_end(form) }}

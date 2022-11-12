@@ -50,9 +50,15 @@ class Ingredient
      */
     private $image;
 
+    /**
+     * @ORM\OneToMany(targetEntity=IngredientQuantity::class, mappedBy="ingredient")
+     */
+    private $ingredientQuantities;
+
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
+        $this->ingredientQuantities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -147,6 +153,36 @@ class Ingredient
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, IngredientQuantity>
+     */
+    public function getIngredientQuantities(): Collection
+    {
+        return $this->ingredientQuantities;
+    }
+
+    public function addIngredientQuantity(IngredientQuantity $ingredientQuantity): self
+    {
+        if (!$this->ingredientQuantities->contains($ingredientQuantity)) {
+            $this->ingredientQuantities[] = $ingredientQuantity;
+            $ingredientQuantity->setIngredient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIngredientQuantity(IngredientQuantity $ingredientQuantity): self
+    {
+        if ($this->ingredientQuantities->removeElement($ingredientQuantity)) {
+            // set the owning side to null (unless already changed)
+            if ($ingredientQuantity->getIngredient() === $this) {
+                $ingredientQuantity->setIngredient(null);
+            }
+        }
 
         return $this;
     }

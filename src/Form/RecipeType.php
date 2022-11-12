@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type as FormType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Validator\Constraints\File;
 
 class RecipeType extends AbstractType
@@ -28,9 +30,11 @@ class RecipeType extends AbstractType
                 ],
             ])
             ->add('ingredients',  EntityType::class, [
-                'expanded' => true,
                 'class' => Ingredient::class,
-                'multiple' => true
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true,
+
             ])
             ->add('tags', FormType\CollectionType::class)
             ->add('steps')
@@ -42,6 +46,11 @@ class RecipeType extends AbstractType
                 'class' => User::class,
                 'choice_label' => 'pseudo'
             ]);
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $product = $event;
+            $form = $event->getForm();
+            dump($product);
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver): void

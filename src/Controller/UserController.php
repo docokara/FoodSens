@@ -18,6 +18,7 @@ use App\Repository\CommentairesRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Repository\FridgeRepository;
+use App\Repository\IngredientRepository;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -251,7 +252,7 @@ class UserController extends AbstractController
     /**
      * @Route("/recipe/create", name="user_recipe_create",methods={"GET","POST"})
      */
-    public function createRecipe(Request $request, UserInterface $user = null, Recipe $recipe = null, RecipeRepository $recipes, FileUploader $fileUploader): Response
+    public function createRecipe(Request $request, IngredientRepository $ingredients, UserInterface $user = null, Recipe $recipe = null, RecipeRepository $recipes, FileUploader $fileUploader): Response
     {
         if (!$this->getUser()) return $this->redirectToRoute('app_home');
         $recipe = new Recipe();
@@ -273,7 +274,8 @@ class UserController extends AbstractController
         return $this->render('index.html.twig', [
             'recipes' => $recipes->findAll(),
             'page_name' => 'updateRecipe',
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'formExtra' => $ingredients->findAll()
         ]);
     }
     /**
@@ -301,7 +303,7 @@ class UserController extends AbstractController
 
 
     /**
-     * @Route("/user/delete/self", name="user_delete_self",methods={"GET"})
+     * @Route("/delete/self", name="user_delete_self",methods={"GET"})
      */
     public function userDeleteSelf(Request $request, UserRepository $users, CommentairesRepository $commentaires, RecipeRepository $recipes): Response
     {
@@ -315,5 +317,15 @@ class UserController extends AbstractController
         $users->remove($this->getUser(), true);
 
         return $this->redirectToRoute('app_logout');
+    }
+
+    /**
+     * @Route("/getIngredientForm/{id}", name="user_getIngredientForm",methods={"GET"})
+     */
+    public function getIngredientForm($id, Ingredient $ingredient, Request $request,): void
+    {
+        //dump($request->request);
+        dump($id);
+        return new Json(200);
     }
 }
