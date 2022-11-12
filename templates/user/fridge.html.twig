@@ -10,7 +10,7 @@
 		{% for ingredient in ingredients %}
       <div style="display : flex;flex-direction : column; padding : 5px">
         <img src="{{ asset('uploads/' ~ ingredient.image) }}" alt="recipeimage" style="width : 150px">
-        	<a href="{{ path('user_fridge_deleteIngredient', {"id" : ingredient.id }) }}" >supprimé </a>
+        	<a href="{{ path('user_fridge_deleteIngredient', {"id" : ingredient.id }) }}" >supprimer </a>
       </div>
         {% endfor %}
         </div>

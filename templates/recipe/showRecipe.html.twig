@@ -29,9 +29,9 @@
          </ul>
       </ul>
          {%  if recipe.Author != null %}
-           <a href="{{path('get_user_profil',{"id" : recipeAuthor.id})}}">Autheur : {{recipeAuthor.pseudo}}</a>
+           <a href="{{path('get_user_profil',{"id" : recipeAuthor.id})}}">Auteur : {{recipeAuthor.pseudo}}</a>
          {% else %}
-         <li>Autheur : deleted user</li>
+         <li>Auteur : deleted user</li>
          {% endif %}
       </p>
 
