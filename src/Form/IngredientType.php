@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
+
 class IngredientType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -19,16 +20,14 @@ class IngredientType extends AbstractType
             ->add('photo', FileType::class, [
                 'label' => 'image de votre recette',
                 'mapped' => false,
-                'required' => false,
+                'required' => true,
                 'constraints' => [
-                    new File([
-                       
-                    ])
-                    ],
+                    new File([])
+                ],
             ])
             ->add('kcalFor100g')
             ->add('PriceFor100g')
-            ->add('type', EntityType::class,[
+            ->add('type', EntityType::class, [
                 'class' => IngredientCategorie::class,
                 'choice_label' => 'name'
             ]);

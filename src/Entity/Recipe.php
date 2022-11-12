@@ -191,6 +191,7 @@ class Recipe
     }
     public function containIngredients($array): bool
     {
+        if (count($array) == 0) return true;
         $contain = false;
         foreach ($this->getIngredients() as $ingredient) {
             foreach ($array as $id) {
@@ -203,10 +204,12 @@ class Recipe
     }
     public function containIngredientsCategorie($array): bool
     {
+        if (count($array) == 0) return true;
         $contain = false;
         foreach ($this->getIngredients() as $ingredient) {
             foreach ($array as $id) {
                 if ($id == $ingredient->getType()->getId()) {
+                    dump($ingredient->getType()->getName());
                     $contain = true;
                 }
             }

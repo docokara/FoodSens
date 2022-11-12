@@ -46,14 +46,14 @@ class HomeController extends AbstractController
 
 
     /**
-     * @Route("/searchRecipe", name="searchRecipe")
+     * @Route("/searchRecipe", name="searchRecipe",methods={"GET","POST"})
      */
     public function searchRecipe(Request $request, RecipeRepository $recipes, IngredientRepository $ingredients, IngredientCategorieRepository $ingredientsCategorie): Response
     {
 
         $startingName = $request->request->get('search');
-        $bannedIngredient = [];
-        $bannedIngredientCategorie = [];
+        $necesseryIngredient = [];
+        $necesseryIngredientCategorie = [];
         $param = "";
         $ableToDoWithFridge = false;
         foreach ($request->request as $key => $element) {
@@ -61,10 +61,10 @@ class HomeController extends AbstractController
             if ($values[0] == "checkbox") {
                 switch ($values[1]) {
                     case 'ingredients':
-                        array_push($bannedIngredient, $values[2]);
+                        array_push($necesseryIngredient, $values[2]);
                         break;
                     case 'ingredients_catégories':
-                        array_push($bannedIngredientCategorie, $values[2]);
+                        array_push($necesseryIngredientCategorie, $values[2]);
                         break;
                     case 'ableToDoWithFridge':
                         $ableToDoWithFridge = true;
@@ -76,23 +76,21 @@ class HomeController extends AbstractController
             }
         }
         $res = $recipes->findAllWithParam($startingName);
+
         if ($ableToDoWithFridge && $this->getUser()) {
-            for ($i = 0; $i < count($res); $i++) {
-                if (!$this->getUser()->getFridge()->isInFridge($res[$i]->getIngredients())) {
-                    unset($res[$i]);
-                }
+            foreach ($res as $key => $value) {
+                if (!$this->getUser()->getFridge()->isInFridge($value->getIngredients())) unset($res[$key]);
             }
         }
-        if (count($bannedIngredient) > 0) {
-            for ($i = 0; $i < count($res); $i++) {
-                if (!$res[$i]->containIngredients($bannedIngredient)) unset($res[$i]);
-            }
+
+        foreach ($res as $key => $value) {
+            if (!$value->containIngredients($necesseryIngredient)) unset($res[$key]);
         }
-        if (count($bannedIngredientCategorie) > 0) {
-            for ($i = 0; $i < count($res); $i++) {
-                if (!$res[$i]->containIngredientsCategorie($bannedIngredientCategorie)) unset($res[$i]);
-            }
+
+        foreach ($res as $key => $value) {
+            if (!$value->containIngredientsCategorie($necesseryIngredientCategorie)) unset($res[$key]);
         }
+
         return $this->render('index.html.twig', [
             'triSections' => [["ingredients", $ingredients->findAll()], ["ingredients catégories", $ingredientsCategorie->findAll()]],
             'recipes' => $res,
@@ -101,7 +99,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/user/profil/{id}", name="get_user_profil")
+     * @Route("/user/profil/{id}", name="get_user_profil",methods={"GET"})
      */
     public function getUserProfil(User $user): Response
     {

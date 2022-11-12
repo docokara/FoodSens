@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\Request;
 class RecipeController extends AbstractController
 {
     /**
-     * @Route("/{id}/{editCom}", name="show_recipe")
+     * @Route("/{id}/{editCom}", name="show_recipe",methods={"GET","POST"})
      */
     public function showRecipe($id, Request $request, Recipe $recipe = null, Commentaires $editCom = null, CommentairesRepository $commentaires): Response
     {
@@ -39,7 +39,6 @@ class RecipeController extends AbstractController
             $form = $this->createForm(CommentairesType::class, $editCom);
             $form->handleRequest($request);
         }
-        dump("y");
         if ($form->isSubmitted() && $form->isValid()) {
             if ($editCom) {
                 dump($editCom->getContent());
@@ -63,7 +62,7 @@ class RecipeController extends AbstractController
         ]);
     }
     /**
-     * @Route("/delete/commentaire/{id}", name="recipe_delete_commentaire")
+     * @Route("/delete/commentaire/{id}", name="recipe_delete_commentaire",methods={"GET"})
      */
     public function deleteCommentaire($id, Commentaires $commentaire, CommentairesRepository $commentaires, UserRepository $users, RecipeRepository $recipes): Response
     {

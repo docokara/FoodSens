@@ -32,7 +32,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/", name="user")
+     * @Route("/", name="user",methods={"GET"})
      */
     public function index(AuthenticationUtils $authenticationUtils): Response
     {
@@ -45,7 +45,7 @@ class UserController extends AbstractController
         ]);
     }
     /**
-     * @Route("/edit/{id}/{onModify}", name="user_profil_edit")
+     * @Route("/edit/{id}/{onModify}", name="user_profil_edit",methods={"GET","POST"})
      */
     public function editProfil(Request $request, UserRepository $users, User $user, $onModify, UserPasswordHasherInterface $userPasswordHasher, FileUploader $fileUploader): Response
     {
@@ -129,7 +129,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/myFav", name="user_favories")
+     * @Route("/myFav", name="user_favories",methods={"GET"})
      */
 
     public function myFav(Request $request): Response
@@ -142,7 +142,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/myFridge", name="user_fridge")
+     * @Route("/myFridge", name="user_fridge",methods={"GET"})
      */
     public function myFridge(Request $request): Response
     {
@@ -156,7 +156,7 @@ class UserController extends AbstractController
 
 
     /**
-     * @Route("/myFridge/deleteIngredient/{id}", name="user_fridge_deleteIngredient")
+     * @Route("/myFridge/deleteIngredient/{id}", name="user_fridge_deleteIngredient",methods={"GET"})
      */
     public function deleteFridgeIngredient(Request $request, Ingredient $ingredient, UserRepository $users): Response
     {
@@ -178,7 +178,7 @@ class UserController extends AbstractController
 
 
     /**
-     * @Route("/myFridge/addIngredient", name="user_fridge_addIngredient")
+     * @Route("/myFridge/addIngredient", name="user_fridge_addIngredient",methods={"GET","POST"})
      */
     public function addFridgeIngredients(Request $request, FridgeRepository $fridges, UserRepository $users, Fridge $fridge = null): Response
     {
@@ -200,7 +200,7 @@ class UserController extends AbstractController
         ]);
     }
     /**
-     * @Route("/recipe/delete/{id}", name="user_recipe_delete")
+     * @Route("/recipe/delete/{id}", name="user_recipe_delete",methods={"GET"})
      */
     public function deleteRecipe(CommentairesRepository $commentaires, Recipe $recipe, RecipeRepository $recipes): Response
     {
@@ -220,7 +220,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/recipe/edit/{id}", name="user_recipe_edit")
+     * @Route("/recipe/edit/{id}", name="user_recipe_edit",methods={"GET","POST"})
      */
     public function editRecipe($id, Request $request, User $user = null, Recipe $recipe, RecipeRepository $recipes, FileUploader $fileUploader): Response
     {
@@ -249,7 +249,7 @@ class UserController extends AbstractController
         ]);
     }
     /**
-     * @Route("/recipe/create", name="user_recipe_create")
+     * @Route("/recipe/create", name="user_recipe_create",methods={"GET","POST"})
      */
     public function createRecipe(Request $request, UserInterface $user = null, Recipe $recipe = null, RecipeRepository $recipes, FileUploader $fileUploader): Response
     {
@@ -277,7 +277,7 @@ class UserController extends AbstractController
         ]);
     }
     /**
-     * @Route("/like/{id}", name="user_like")
+     * @Route("/like/{id}", name="user_like",methods={"GET"})
      */
     public function fav(Request $request, UserRepository $users, RecipeRepository $recipes, Recipe $recipe, UserInterface $user = null): Response
     {
@@ -301,7 +301,7 @@ class UserController extends AbstractController
 
 
     /**
-     * @Route("/user/delete/self", name="user_delete_self")
+     * @Route("/user/delete/self", name="user_delete_self",methods={"GET"})
      */
     public function userDeleteSelf(Request $request, UserRepository $users, CommentairesRepository $commentaires, RecipeRepository $recipes): Response
     {

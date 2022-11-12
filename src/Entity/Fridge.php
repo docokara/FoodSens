@@ -54,7 +54,7 @@ class Fridge
                 dump($ingredient->getName());
                 if ($ingredient->getId() == $fridgeIngredient->getId()) {
                     $contain = true;
-                    break;
+                    continue;
                 }
             }
         }
