@@ -11,7 +11,7 @@ Vide !
    </thead>
    <tbody>
   {% for element in data %}
-    <tr>
+    <tr >
       {% for info in element %}
       
         {% if info is iterable %}
@@ -21,7 +21,7 @@ Vide !
             {% endfor %}
         </td>
         {% else %}
-          <td>{{info}}</td>
+          <td  style="    overflow: hidden;max-width: 10ch; text-overflow: ellipsis; white-space: nowrap;">{{info}}</td>
         {% endif %}
     {% endfor %}
      <td> <a href="{{ path('admin_update', {"name" :   name ,"id": element.id }) }}">edit</a></td>
@@ -31,5 +31,5 @@ Vide !
     {% endif %}
   </tbody>
   </table>
-  <a href="{{ path('admin_update',{"name" : name , "id" : "undefined"}) }}">Create</a> 
+  <a style="padding-right : 2vw" href="{{ path('admin_update',{"name" : name , "id" : "undefined"}) }}">Create</a> 
       <a href="{{ path('admin') }}">back to list</a>

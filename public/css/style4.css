@@ -3,6 +3,8 @@
 @font-face {
    font-family: "Poppins";
    src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap%27');
+   src: url("/font/Poppins-Medium.ttf") format("truetype");
+        
  }
 
 
@@ -192,7 +194,7 @@ height: 84vh;
 left: 18vw;
 background:rgba(255, 255, 255, 0.5);
 
-overflow-x: hidden;
+
 }
 
 .main2 .Accueil{

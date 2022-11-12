@@ -18,7 +18,7 @@ class UserType extends AbstractType
         $builder
             ->add('email')
             ->add('photo', FileType::class, [
-                'label' => 'image de votre recette',
+                'label' => 'Photo de profil',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
