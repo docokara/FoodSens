@@ -1,8 +1,8 @@
 
 
 
- <div>            
-   
+ <div style="text-align: center">            
+   <h2>Profil utilisateur</h2>
    {% if user.image != null %}
             <img src="{{ asset('uploads/' ~ user.image) }}" class="card-img-top" alt="infoImage" style="width : 300px">  
    {% else %}
@@ -10,9 +10,9 @@
    {% endif %}
     <h3> Pseudo :</h3> {{user.pseudo}} 
     <h3>  Email  :</h3>  {{user.email}}
-    <h3> Photo de profil :</h3> 
  <div>
-    Recettes Favories
+    <h2 style='padding-top: 4vh'>Recettes Favories</h2>
+     <div style="display: flex">
   {% for recipe in userFavories %}
                      <div class="card" style="width: 18rem;">
                      <img src="{{ asset('uploads/' ~ recipe.image) }}" class="card-img-top" alt="recipeimage">
@@ -26,10 +26,11 @@
                       </div>
                         </div>
                      {% endfor %}
-    Ses commentaires
+   </div>
+   <h2 style='padding-top: 4vh'>Commentaires de l'utilisateur</h2>
     {% for commentaire in userMessage %}
-    <div style="border : 1px solid black">
-         <h1> {{commentaire.content}}</h1>
+    <div style="border : 1px solid black; width = 80%;">
+         <p> {{commentaire.content}}</p>
                <h5>envoyé par : <a href="{{path('get_user_profil', {"id": commentaire.owner.id }) }}">{{commentaire.owner.pseudo}}</a></h5>
                   <h5>le : {{commentaire.date|date("m/d/Y")}}</h5>
                   </div>
