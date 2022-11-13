@@ -39,7 +39,7 @@
       <a class='admin' href="{{ path('user_recipe_delete', {"id" : recipe.id }) }}">Supprimer</a>
       <a class='admin' href="{{ path('user_recipe_edit', {"id" : recipe.id}) }}">Editer</a>
      {% endif %}
-     {% if form is defined and editedComId == null  %}
+     {% if form is defined and form != null and editedComId == null  %}
      <div class="base_form">
        {{ include('base/_form.html.twig', {'button_label': "envoyer"}) }}
       </div>
@@ -47,7 +47,7 @@
        <h1>Commentaires : </h1>
      {% for commentaire in commentaires %}
     <div class="Commentaire-{{commentaire.id}}" style="border-bottom : 2px solid grey; width:100%;  display: block; margin-left: auto; margin-right: auto; padding-left: 1vw">
-   {% if app.user and editedComId != null and editedComId == commentaire.id %}
+   {% if app.user and form != null and editedComId != null and editedComId == commentaire.id %}
        {{ include('base/_form.html.twig', {'button_label': "editer"}) }}       
     {% else %}
         <p> {{commentaire.content}}</p>

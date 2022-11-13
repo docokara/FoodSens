@@ -1,4 +1,3 @@
- {% if app.user %}
                     <a href="{{ path('user_recipe_create') }}">Créer une recette</a>
                          
                   <form class="pull-right hidden" role="search" id="nav-search-form" method="post" action="{{ path('searchRecipe') }}">
@@ -16,17 +15,18 @@
                             {% endfor %}
                           </section>
                         {% endfor %}
+                        {% if app.user %}
                          <section style="display :flex;margin : 2%">
                           <label for="checkbox|ableToDoWithFridge">Possible de faire avec mes ingrédients</label>
                           <input type="checkbox" name="checkbox|ableToDoWithFridge">
                          </section>
+                         {% endif %}
                       </div>
                       <span class="input-group-btn">
                         <button type="submit" class="btn btn-default">Entrer</button>
                       </span>
                     </div>
                   </form>
-                    {% endif %}
                     <div style="display :flex;width : fit-content;">
                      {% for recipe in recipes %}
                      <div class="card" style="width : 15vw ;">
