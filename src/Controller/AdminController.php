@@ -35,10 +35,15 @@ class AdminController extends AbstractController
     /**
      * @Route("/", name="admin",methods={"GET"})
      */
-    public function index(): Response
+    public function index(IngredientCategorieRepository $ingredientCategorie, IngredientRepository $ingredient, RecipeRepository $recipe, CommentairesRepository $commentaire): Response
     {
+        $entity = null;
+        if (count($ingredientCategorie->findAll()) == 0) $entity = ["ingredientCategories", "users"];
+        elseif (count($ingredient->findAll()) == 0) $entity = ["ingredientCategories", "users", "ingredients"];
+        elseif (count($recipe->findAll()) == 0) $entity = ["ingredientCategories", "users", "ingredients", "recipes"];
+        else $entity = ["users", "recipes", "ingredients", "ingredientCategories", "commentaires"];
         return $this->render('index.html.twig', [
-            "entity" => ["users", "recipes", "ingredients", "ingredientCategories", "commentaires"],
+            "entity" => $entity,
             "page_name" => "admin_page"
         ]);
     }
