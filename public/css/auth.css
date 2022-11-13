@@ -30,6 +30,7 @@
     padding: 0.5vh 0.5vw;
     background-color: transparent;
     font-family: 'Poppins';  
+    font-size: 1.5vh;
 }
 .login a{
     text-decoration: none;
@@ -80,7 +81,7 @@
 
 .profile_picture{
     position: relative;
-    top: -5vh;left:0;
+    top: -5vh;left:-5vw;
     height:7vh;
     width: 7vh;
     border-radius: 50%;

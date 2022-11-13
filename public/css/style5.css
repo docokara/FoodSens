@@ -135,6 +135,7 @@ backdrop-filter: blur(100px);
 border-radius: 12px;
 }
 
+
 /*MAIN 1*/
 .main1{
 position: absolute;
@@ -193,6 +194,9 @@ width: 50vw;
 height: 84vh;
 left: 18vw;
 background:rgba(255, 255, 255, 0.5);
+
+max-width: 100%;
+overflow-x: hidden;
 
 
 }
