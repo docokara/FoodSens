@@ -51,11 +51,13 @@ class Fridge
         $contain = false;
         foreach ($this->getIngredients() as $fridgeIngredient) {
             foreach ($array as $ingredient) {
-                dump($ingredient->getName());
+                $match = false;
                 if ($ingredient->getId() == $fridgeIngredient->getId()) {
                     $contain = true;
+                    $match = true;
                     continue;
                 }
+                if ($match) continue;
             }
         }
         return $contain;
