@@ -27,7 +27,7 @@
                       </span>
                     </div>
                   </form>
-                    <div style="display :flex;width : fit-content;">
+                    <div style="display :flex;width : fit-content;flex-wrap: wrap">
                      {% for recipe in recipes %}
                      <div class="card" style="width : 15vw ;">
                      <img src="{{ asset('uploads/' ~ recipe.image) }}" class="card-img-top" alt="recipeimage" style="width : 100%">
