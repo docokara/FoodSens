@@ -127,7 +127,6 @@ class UserController extends AbstractController
             'onModify' => $onModify
         ]);
     }
-
     /**
      * @Route("/myFav", name="user_favories",methods={"GET"})
      */
@@ -140,7 +139,6 @@ class UserController extends AbstractController
             'page_name' => 'myFav'
         ]);
     }
-
     /**
      * @Route("/myFridge", name="user_fridge",methods={"GET"})
      */
@@ -153,8 +151,6 @@ class UserController extends AbstractController
             'page_name' => 'myFridge'
         ]);
     }
-
-
     /**
      * @Route("/myFridge/deleteIngredient/{id}", name="user_fridge_deleteIngredient",methods={"GET"})
      */
@@ -175,8 +171,6 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('user_fridge', [], Response::HTTP_SEE_OTHER);
     }
-
-
     /**
      * @Route("/myFridge/addIngredient", name="user_fridge_addIngredient",methods={"GET","POST"})
      */
@@ -218,7 +212,6 @@ class UserController extends AbstractController
             'page_name' => 'allRecipe'
         ]);
     }
-
     /**
      * @Route("/recipe/edit/{id}", name="user_recipe_edit",methods={"GET","POST"})
      */
@@ -298,8 +291,6 @@ class UserController extends AbstractController
         $recipes->add($recipe, true);
         return $this->redirectToRoute('user_favories', [], Response::HTTP_SEE_OTHER);
     }
-
-
     /**
      * @Route("/user/delete/self", name="user_delete_self",methods={"GET"})
      */

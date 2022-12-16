@@ -178,10 +178,14 @@ class Recipe
         $contain = false;
         foreach ($this->getIngredients() as $ingredient) {
             foreach ($array as $id) {
+                $match = false;
                 if ($id == $ingredient->getId()) {
+                    $match = true;
                     $contain = true;
+                    continue;
                 }
             }
+            if ($match) continue;
         }
         return $contain;
     }
@@ -191,10 +195,13 @@ class Recipe
         $contain = false;
         foreach ($this->getIngredients() as $ingredient) {
             foreach ($array as $id) {
+                $match = false;
                 if ($id == $ingredient->getType()->getId()) {
-                    dump($ingredient->getType()->getName());
+                    $match = true;
                     $contain = true;
+                    continue;
                 }
+                if ($match) continue;
             }
         }
         return $contain;
